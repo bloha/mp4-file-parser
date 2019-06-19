@@ -2,11 +2,12 @@
 
 export class BoxHeader {
 
-    constructor({ boxSize, boxType, userType, offset }) {
+    constructor({ boxSize, boxType, userType, offset, size }) {
         this.boxSize = boxSize;
         this.boxType = boxType;
         this.userType = userType;
         this.offset = offset;
+        this.size = size;
     }
 
     getBoxType() {
@@ -23,6 +24,10 @@ export class BoxHeader {
 
     getOffset() {
         return this.offset;
+    }
+
+    getSize() {
+        return this.size;
     }
 
 }

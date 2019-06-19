@@ -12,8 +12,9 @@ export class BoxHeaderParser {
     async parse() {
         const boxSize = await this._findBoxSize();
         const boxType = await this._parseBoxType();
-        const userType = boxType === 'uuid' ? await this._parseUserType() : undefined;
-        return new BoxHeader({ boxType, boxSize, userType, offset: this.offset });
+        const userType = this._boxUsesUserType(boxType) ? await this._parseUserType() : undefined;
+        const headerSize = await this._calculateHeaderSize(boxType);
+        return new BoxHeader({ boxType, boxSize, userType, offset: this.offset, size: headerSize });
     }
 
     async _findBoxSize() {
@@ -72,6 +73,10 @@ export class BoxHeaderParser {
         return buffer;
     }
 
+    async _calculateHeaderSize(boxType) {
+        return 8 + (await this._boxUsesLargeSize() ? 8 : 0) + (await this._boxUsesUserType(boxType) ? 16 : 0);
+    }
+
     async _boxUsesLargeSize() {
         const size = await this._parseBoxSize();
         return size === 1;
@@ -80,6 +85,10 @@ export class BoxHeaderParser {
     async _boxExtendsToEndOfFile() {
         const size = await this._parseBoxSize();
         return size === 0;
+    }
+
+    _boxUsesUserType(boxType) {
+        return boxType === 'uuid';
     }
 
 }
