@@ -1,12 +1,13 @@
 'use strict';
 
 import { BoxHeader } from './BoxHeader.js';
+import { Parser } from '../parsers/Parser.js';
 
-export class BoxHeaderParser {
+export class BoxHeaderParser extends Parser {
 
     constructor({ offset, blob }) {
+        super(blob);
         this.offset = offset;
-        this.blob = blob;
     }
 
     async parse() {
@@ -28,19 +29,12 @@ export class BoxHeaderParser {
     }
 
     async _parseBoxSize() {
-        const start = this.offset;
-        const end = start + 4;
-        const buffer = await this._fetchBuffer(start, end);
-        const size = new DataView(buffer).getUint32(0);
-        return size;
+        return await this._parseUint32(this.offset);
     }
 
     async _parseBoxLargeSize() {
-        const start = this.offset + 8;
-        const end = start + 8;
-        const buffer = await this._fetchBuffer(start, end);
-        const largeSize = new DataView(buffer).getBigUint64(0);
-        return largeSize;
+        const offset = this.offset + 8;
+        return await this._parseUint64(offset);
     }
 
     _calculateSizeByEndOfFile() {
@@ -59,18 +53,6 @@ export class BoxHeaderParser {
         const end = start + 16;
         const type = await this._parseText(start, end);
         return type;
-    }
-
-    async _parseText(start, end) {
-        const buffer = await this._fetchBuffer(start, end);
-        const text = new TextDecoder().decode(buffer);
-        return text;
-    }
-
-    async _fetchBuffer(start, end) {
-        const slice = this.blob.slice(start, end);
-        const buffer = await (new Response(slice)).arrayBuffer();
-        return buffer;
     }
 
     async _calculateHeaderSize(boxType) {
