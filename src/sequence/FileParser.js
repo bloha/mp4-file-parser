@@ -19,6 +19,12 @@ export class FileParser {
         return value;
     }
 
+    async takeUint16() {
+        const buffer = await this._fetchBuffer(2);
+        const value = new DataView(buffer).getUint16(0);
+        return value;
+    }
+
     async takeUint32() {
         const buffer = await this._fetchBuffer(4);
         const value = new DataView(buffer).getUint32(0);
