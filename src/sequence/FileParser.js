@@ -1,5 +1,7 @@
 'use strict';
 
+import { BitTaker } from './BitTaker.js';
+
 export class FileParser {
 
     constructor(sequenceExecutor) {
@@ -11,6 +13,17 @@ export class FileParser {
 
     getField(fieldName) {
         return this.fields.get(fieldName);
+    }
+
+    async initBitTaker(takeMethod) {
+        const offset = this.offset;
+        const number = await takeMethod.bind(this)();
+        const size = this.offset - offset;
+        this.bitTaker = new BitTaker({ number, size });
+    }
+
+    takeBits(amount) {
+        return this.bitTaker.takeBits(amount);
     }
 
     async takeUint8() {
