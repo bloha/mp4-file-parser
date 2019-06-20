@@ -10,7 +10,7 @@ export class FileParser {
     }
 
     getField(fieldName) {
-        this.fields.get(fieldName);
+        return this.fields.get(fieldName);
     }
 
     async takeUint8() {
