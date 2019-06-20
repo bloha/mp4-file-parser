@@ -67,6 +67,10 @@ export class FileParser {
         return this.boxOffset;
     }
 
+    getBoxEnd() {
+        return this.boxOffset + this.getField('size');
+    }
+
     getOffset() {
         return this.offset;
     }

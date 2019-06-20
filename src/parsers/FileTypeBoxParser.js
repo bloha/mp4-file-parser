@@ -10,8 +10,7 @@ export class FileTypeBoxParser extends BoxParser {
         this.sequence.add('minor_version', async (parser) => { return await parser.takeUint32(); });
         this.sequence.add('compatible_brands', async (parser) => {
             const entries = [];
-            const boxEnd = parser.getBoxOffset() + parser.getField('size');
-            while (parser.getOffset() < boxEnd) {
+            while (parser.getOffset() < parser.getBoxEnd()) {
                 const entry = await parser.takeText(4);
                 entries.push(entry);
             }
