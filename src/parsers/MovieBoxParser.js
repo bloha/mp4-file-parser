@@ -1,6 +1,6 @@
 'use strict';
 
-import { BoxParser } from '../parsers/BoxParser.js';
+import { BoxParser } from './BoxParser.js';
 
 export class MovieBoxParser extends BoxParser {
 
