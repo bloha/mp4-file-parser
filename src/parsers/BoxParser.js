@@ -14,7 +14,7 @@ export class BoxParser {
                 return await parser.takeUint64();
             }
             if (size === 0) {
-                return parser.getBlob().size - parser.getBoxOffset();
+                return parser.getBlob().size - parser.getBoxStart();
             }
             return parser.getField('size');
         });

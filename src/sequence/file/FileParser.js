@@ -1,14 +1,15 @@
 'use strict';
 
+import { FileParserHead } from './FileParserHead.js';
 import { BitTaker } from './BitTaker.js';
 
 export class FileParser {
 
-    constructor(sequenceExecutor) {
-        this.fields = sequenceExecutor.getFields();
-        this.blob = sequenceExecutor.getSequence().getBlob();
-        this.boxOffset = sequenceExecutor.getSequence().getOffset();
-        this.offset = this.boxOffset;
+    constructor({ blob, boxStart, parsedFields }) {
+        this.blob = blob;
+        this.boxStart = boxStart;
+        this.fields = parsedFields;
+        this.head = new FileParserHead(this.boxStart);
     }
 
     getField(fieldName) {
@@ -16,9 +17,9 @@ export class FileParser {
     }
 
     async initBitTaker(takeMethod) {
-        const offset = this.offset;
+        const offset = this.head.getOffset();
         const number = await takeMethod.bind(this)();
-        const size = this.offset - offset;
+        const size = this.this.head.getOffset() - offset;
         this.bitTaker = new BitTaker({ number, size });
     }
 
@@ -57,22 +58,24 @@ export class FileParser {
     }
 
     async _fetchBuffer(size) {
-        const slice = this.blob.slice(this.offset, this.offset + size);
+        const start = this.head.getOffset();
+        const end = this.head.getOffset() + size;
+        const slice = this.blob.slice(start, end);
         const buffer = await (new Response(slice)).arrayBuffer();
-        this.offset += size;
+        this.head.move(size);
         return buffer;
     }
 
-    getBoxOffset() {
-        return this.boxOffset;
+    getBoxStart() {
+        return this.boxStart;
     }
 
     getBoxEnd() {
-        return this.boxOffset + this.getField('size');
+        return this.boxStart + this.getField('size');
     }
 
-    getOffset() {
-        return this.offset;
+    getHead() {
+        return this.head;
     }
 
     getBlob() {

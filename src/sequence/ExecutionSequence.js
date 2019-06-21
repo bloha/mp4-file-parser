@@ -1,13 +1,14 @@
 'use strict';
 
+import { FileParser } from './file/FileParser.js';
 import { FieldParsingStrategy } from './FieldParsingStrategy.js';
-import { SequenceExecutor } from './SequenceExecutor.js';
+import { FieldParsingStrategyExecutor } from './FieldParsingStrategyExecutor.js';
 
 export class ExecutionSequence {
 
     constructor({ blob, offset }) {
-        this.blob = blob;
-        this.offset = offset;
+        this.fields = new Map();
+        this.fileParser = new FileParser({ blob, boxStart: offset, parsedFields: this.fields });
         this.strategies = [];
     }
 
@@ -16,19 +17,9 @@ export class ExecutionSequence {
     }
 
     async execute() {
-        return await new SequenceExecutor(this).execute();
-    }
-
-    getStrategies() {
-        return this.strategies;
-    }
-
-    getBlob() {
-        return this.blob;
-    }
-
-    getOffset() {
-        return this.offset;
+        await new FieldParsingStrategyExecutor({ fields: this.fields, strategies: this.strategies, fileParser: this.fileParser })
+            .execute();
+        return this.fields
     }
 
 }
