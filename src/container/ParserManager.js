@@ -8,6 +8,7 @@ import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxP
 import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
+import { TrackBoxParser } from '../parsers/TrackBoxParser.js';
 import { TrackFragmentBoxParser } from '../parsers/TrackFragmentBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 
@@ -22,6 +23,7 @@ export class ParserManager {
         this.parsers.set('mvhd', MovieHeaderBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
+        this.parsers.set('trak', TrackBoxParser);
         this.parsers.set('traf', TrackFragmentBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
     }
