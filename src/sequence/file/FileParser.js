@@ -12,10 +12,6 @@ export class FileParser {
         this.head = new FileParserHead(this.boxStart);
     }
 
-    getField(fieldName) {
-        return this.fields.get(fieldName);
-    }
-
     async initBitTaker(takeMethod) {
         const offset = this.head.getOffset();
         const number = await takeMethod.bind(this)();
@@ -69,6 +65,14 @@ export class FileParser {
         const buffer = await (new Response(slice)).arrayBuffer();
         this.head.move(size);
         return buffer;
+    }
+
+    getField(fieldName) {
+        return this.fields.get(fieldName);
+    }
+
+    boxHasFlags(flags) {
+        return (this.getField('flags') & flags) === flags;
     }
 
     getBoxStart() {
