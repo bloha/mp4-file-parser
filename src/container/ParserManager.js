@@ -6,6 +6,7 @@ import { MovieBoxParser } from '../parsers/MovieBoxParser.js';
 import { MovieFragmentBoxParser } from '../parsers/MovieFragmentBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
+import { TrackFragmentBoxParser } from '../parsers/TrackFragmentBoxParser.js';
 
 export class ParserManager {
 
@@ -16,6 +17,7 @@ export class ParserManager {
         this.parsers.set('moof', MovieFragmentBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
+        this.parsers.set('traf', TrackFragmentBoxParser);
     }
 
     async createParser({ blob, offset }) {
