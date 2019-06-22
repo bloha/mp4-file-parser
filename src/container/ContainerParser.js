@@ -2,7 +2,7 @@
 
 import { BoxParser } from '../parsers/BoxParser.js';
 
-export class ChildBoxParser {
+export class ContainerParser {
 
     constructor({ blob, offset, maxOffset }) {
         this.blob = blob;

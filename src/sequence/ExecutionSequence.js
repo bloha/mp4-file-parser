@@ -3,7 +3,7 @@
 import { FileParser } from './file/FileParser.js';
 import { FieldParsingStrategy } from './FieldParsingStrategy.js';
 import { FieldParsingStrategyExecutor } from './FieldParsingStrategyExecutor.js';
-import { ChildBoxParser } from './ChildBoxParser.js';
+import { ContainerParser } from '../container/ContainerParser.js';
 
 export class ExecutionSequence {
 
@@ -29,7 +29,7 @@ export class ExecutionSequence {
             const blob = this.fileParser.getBlob();
             const offset = this.fileParser.getHead().getOffset();
             const maxOffset = this.fileParser.getBoxStart() + this.fields.get('size');
-            const children = await new ChildBoxParser({ blob, offset, maxOffset })
+            const children = await new ContainerParser({ blob, offset, maxOffset })
                 .parse();
             this.fields.set('children', children);
         }
