@@ -57,6 +57,11 @@ export class FileParser {
         return text;
     }
 
+    async takeBuffer(size) {
+        const buffer = await this._fetchBuffer(size);
+        return buffer;
+    }
+
     async _fetchBuffer(size) {
         const start = this.head.getOffset();
         const end = this.head.getOffset() + size;
