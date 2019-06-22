@@ -23,9 +23,21 @@ export class FileParser {
         return this.bitTaker.takeBits(amount);
     }
 
+    async takeInt8() {
+        const buffer = await this._fetchBuffer(1);
+        const value = new DataView(buffer).getInt8(0);
+        return value;
+    }
+
     async takeUint8() {
         const buffer = await this._fetchBuffer(1);
         const value = new DataView(buffer).getUint8(0);
+        return value;
+    }
+
+    async takeInt16() {
+        const buffer = await this._fetchBuffer(2);
+        const value = new DataView(buffer).getInt16(0);
         return value;
     }
 
@@ -35,9 +47,21 @@ export class FileParser {
         return value;
     }
 
+    async takeInt32() {
+        const buffer = await this._fetchBuffer(4);
+        const value = new DataView(buffer).getInt32(0);
+        return value;
+    }
+
     async takeUint32() {
         const buffer = await this._fetchBuffer(4);
         const value = new DataView(buffer).getUint32(0);
+        return value;
+    }
+
+    async takeInt64() {
+        const buffer = await this._fetchBuffer(8);
+        const value = new DataView(buffer).getBigInt64(0);
         return value;
     }
 
