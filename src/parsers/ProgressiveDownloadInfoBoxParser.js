@@ -6,7 +6,7 @@ export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence('entries', async (parser) => {
+        this.sequence.add('entries', async (parser) => {
             const entries = [];
             while (parser.getHead().getOffset() < parser.getBoxEnd()) {
                 const entry = new Map();
