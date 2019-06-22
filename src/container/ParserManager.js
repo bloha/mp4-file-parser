@@ -12,6 +12,7 @@ import { TrackBoxParser } from '../parsers/TrackBoxParser.js';
 import { TrackFragmentBoxParser } from '../parsers/TrackFragmentBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
+import { TrackReferenceBoxParser } from '../parsers/TrackReferenceBoxParser.js';
 
 export class ParserManager {
 
@@ -28,6 +29,7 @@ export class ParserManager {
         this.parsers.set('traf', TrackFragmentBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tkhd', TrackHeaderBoxParser);
+        this.parsers.set('tref', TrackReferenceBoxParser);
     }
 
     async createParser({ blob, offset }) {
