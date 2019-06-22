@@ -19,7 +19,7 @@ export class FileParser {
     async initBitTaker(takeMethod) {
         const offset = this.head.getOffset();
         const number = await takeMethod.bind(this)();
-        const size = this.this.head.getOffset() - offset;
+        const size = this.head.getOffset() - offset;
         this.bitTaker = new BitTaker({ number, size });
     }
 
