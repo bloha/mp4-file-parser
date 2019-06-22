@@ -1,6 +1,6 @@
 'use strict';
 
-import { BoxParser } from '../parsers/BoxParser.js';
+import { ParserManager } from './ParserManager.js';
 
 export class ContainerParser {
 
@@ -8,21 +8,25 @@ export class ContainerParser {
         this.blob = blob;
         this.offset = offset;
         this.maxOffset = maxOffset;
+        this.parserManager = new ParserManager();
     }
 
     async parse() {
-        const children = [];
+        const containers = [];
         let offset = this.offset;
-        let child = await new BoxParser({ blob: this.blob, offset })
-            .parse();
-        children.push(child);
-        while (offset + child.get('size') < this.maxOffset) {
-            offset += child.get('size');
-            child = await new BoxParser({ blob: this.blob, offset })
-                .parse();
-            children.push(child);
+        let container = await this._parseContainer({ blob: this.blob, offset });
+        containers.push(container);
+        while (offset + container.get('size') < this.maxOffset) {
+            offset += container.get('size');
+            container = await this._parseContainer({ blob: this.blob, offset });
+            containers.push(container);
         }
-        return children;
+        return containers;
+    }
+
+    async _parseContainer({ blob, offset }) {
+        const parser = await this.parserManager.createParser({ blob, offset })
+        return await parser.parse();
     }
 
 }
