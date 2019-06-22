@@ -2,6 +2,7 @@
 
 import { BoxParser } from '../parsers/BoxParser.js';
 import { EditBoxParser } from '../parsers/EditBoxParser.js';
+import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { MovieBoxParser } from '../parsers/MovieBoxParser.js';
 import { MovieFragmentBoxParser } from '../parsers/MovieFragmentBoxParser.js';
@@ -20,6 +21,7 @@ export class ParserManager {
     constructor() {
         this.parsers = new Map();
         this.parsers.set('edts', EditBoxParser);
+        this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('moov', MovieBoxParser);
         this.parsers.set('moof', MovieFragmentBoxParser);
