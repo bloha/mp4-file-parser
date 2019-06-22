@@ -5,6 +5,7 @@ import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { MovieBoxParser } from '../parsers/MovieBoxParser.js';
 import { MovieFragmentBoxParser } from '../parsers/MovieFragmentBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
+import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { TrackFragmentBoxParser } from '../parsers/TrackFragmentBoxParser.js';
@@ -18,6 +19,7 @@ export class ParserManager {
         this.parsers.set('moov', MovieBoxParser);
         this.parsers.set('moof', MovieFragmentBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
+        this.parsers.set('mvhd', MovieHeaderBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
         this.parsers.set('traf', TrackFragmentBoxParser);
