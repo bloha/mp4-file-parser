@@ -11,6 +11,7 @@ import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { TrackBoxParser } from '../parsers/TrackBoxParser.js';
 import { TrackFragmentBoxParser } from '../parsers/TrackFragmentBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
+import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
 
 export class ParserManager {
 
@@ -26,6 +27,7 @@ export class ParserManager {
         this.parsers.set('trak', TrackBoxParser);
         this.parsers.set('traf', TrackFragmentBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
+        this.parsers.set('tkhd', TrackHeaderBoxParser);
     }
 
     async createParser({ blob, offset }) {
