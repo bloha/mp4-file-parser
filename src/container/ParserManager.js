@@ -5,6 +5,7 @@ import { EditBoxParser } from '../parsers/EditBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { MediaBoxParser } from '../parsers/MediaBoxParser.js';
+import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
 import { MovieBoxParser } from '../parsers/MovieBoxParser.js';
 import { MovieFragmentBoxParser } from '../parsers/MovieFragmentBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
@@ -25,6 +26,7 @@ export class ParserManager {
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('mdia', MediaBoxParser);
+        this.parsers.set('mdhd', MediaHeaderBoxParser);
         this.parsers.set('moov', MovieBoxParser);
         this.parsers.set('moof', MovieFragmentBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
