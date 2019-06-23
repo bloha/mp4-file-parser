@@ -7,6 +7,7 @@ import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { MediaBoxParser } from '../parsers/MediaBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
+import { MediaInformationBoxParser } from '../parsers/MediaInformationBoxParser.js';
 import { MovieBoxParser } from '../parsers/MovieBoxParser.js';
 import { MovieFragmentBoxParser } from '../parsers/MovieFragmentBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
@@ -29,6 +30,7 @@ export class ParserManager {
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('mdia', MediaBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
+        this.parsers.set('minf', MediaInformationBoxParser);
         this.parsers.set('moov', MovieBoxParser);
         this.parsers.set('moof', MovieFragmentBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
