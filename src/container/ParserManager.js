@@ -3,6 +3,7 @@
 import { BoxParser } from '../parsers/BoxParser.js';
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
+import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
@@ -19,6 +20,7 @@ export class ParserManager {
     constructor() {
         this.parsers = new Map();
         this.parsers.set('elst', EditListBoxParser);
+        this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
