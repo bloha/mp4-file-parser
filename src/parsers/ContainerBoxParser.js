@@ -2,7 +2,7 @@
 
 import { BoxParser } from './BoxParser.js';
 
-export class TrackReferenceBoxParser extends BoxParser {
+export class ContainerBoxParser extends BoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
