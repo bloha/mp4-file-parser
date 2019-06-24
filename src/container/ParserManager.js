@@ -37,6 +37,7 @@ export class ParserManager {
             'moov',
             'trak',
             'tref',
+            'trgr',
             'edts',
             'mdia',
             'minf',
