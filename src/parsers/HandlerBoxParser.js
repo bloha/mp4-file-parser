@@ -13,7 +13,7 @@ export class HandlerBoxParser extends FullBoxParser {
             name: 'reserved',
             method: Parser.skip,
             parameters: {
-                amount: 38 / 8 * 3
+                amount: 32 / 8 * 3
             }
         });
         this.sequence.add({ name: 'name', method: Parser.parseString });
