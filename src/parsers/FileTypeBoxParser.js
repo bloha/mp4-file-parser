@@ -1,20 +1,30 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
+import { Parser } from '../sequence/file/Parser.js';
 
 export class FileTypeBoxParser extends BoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add('major_brand', async (parser) => { return await parser.takeText(4); });
-        this.sequence.add('minor_version', async (parser) => { return await parser.takeUint32(); });
-        this.sequence.add('compatible_brands', async (parser) => {
-            const entries = [];
-            while (parser.getHead().getOffset() < parser.getBoxEnd()) {
-                const entry = await parser.takeText(4);
-                entries.push(entry);
+        this.sequence.add({
+            name: 'major_brand',
+            method: Parser.parseText,
+            parameters: {
+                amount: 4
             }
-            return entries;
+        });
+        this.sequence.add({ name: 'minor_version', method: Parser.parseUint32 });
+        this.sequence.add({
+            name: 'compatible_brands',
+            method: async (parser) => {
+                const entries = [];
+                while (parser.getHead().getOffset() < parser.getBoxEnd()) {
+                    const entry = await parser.takeText(4);
+                    entries.push(entry);
+                }
+                return entries;
+            }
         });
     }
 

@@ -12,6 +12,10 @@ export class FileParser {
         this.head = new FileParserHead(this.boxStart);
     }
 
+    skip(amount) {
+        this.head.move(amount);
+    }
+
     async initBitTaker(takeMethod) {
         const offset = this.head.getOffset();
         const number = await takeMethod.bind(this)();

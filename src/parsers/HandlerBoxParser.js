@@ -1,27 +1,22 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
+import { Parser } from '../sequence/file/Parser.js';
 
 export class HandlerBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add('pre_defined', async (parser) => { return await parser.takeUint32(); });
-        this.sequence.add('handler_type', async (parser) => { return await parser.takeUint32(); });
-        this.sequence.add('reserved', async (parser) => {
-            return await parser.takeBuffer(32 / 8 * 3);
-        });
-        this.sequence.add('name', async (parser) => {
-            const bytes = [];
-            let byte = await parser.takeUint8();
-            while (byte != 0) {
-                bytes.push(byte);
-                byte = await parser.takeUint8();
+        this.sequence.add({ name: 'pre_defined', method: Parser.parseUint32 });
+        this.sequence.add({ name: 'handler_type', method: Parser.parseUint32 });
+        this.sequence.add({
+            name: 'reserved',
+            method: Parser.skip,
+            parameters: {
+                amount: 38 / 8 * 3
             }
-            const decoder = new TextDecoder('utf-8');
-            const array = new Uint8Array(bytes);
-            return decoder.decode(array);
         });
+        this.sequence.add({ name: 'name', method: Parser.parseString });
     }
 
 }
