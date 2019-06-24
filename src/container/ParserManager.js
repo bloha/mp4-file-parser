@@ -8,6 +8,7 @@ import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
+import { MovieExtendsHeaderBoxParser } from '../parsers/MovieExtendsHeaderBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
 import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
@@ -30,6 +31,7 @@ export class ParserManager {
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
+        this.parsers.set('mehd', MovieExtendsHeaderBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
         this.parsers.set('mvhd', MovieHeaderBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
