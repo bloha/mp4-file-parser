@@ -71,4 +71,10 @@ export class Parser {
         return entries;
     }
 
+    static async parseIfBoxHasFlags(parser, parameters) {
+        if (parser.boxHasFlags(parameters.flags)) {
+            return await parameters.method(parser);
+        }
+    }
+
 }
