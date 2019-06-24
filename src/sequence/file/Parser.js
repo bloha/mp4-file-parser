@@ -62,6 +62,12 @@ export class Parser {
         }
     }
 
+    static async parseIfVersionEquals(parser, parameters) {
+        if (parser.getField('version') === parameters.version) {
+            return await parameters.method(parser);
+        }
+    }
+
     static async parseEntries(parser, parameters) {
         const entries = [];
         for (let i = 0; i < parameters.amount; i++) {

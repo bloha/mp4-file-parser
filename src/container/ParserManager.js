@@ -11,6 +11,7 @@ import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
 import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
+import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SegmentTypeBox } from '../parsers/SegmentTypeBox.js';
 import { SoundMediaHeaderBoxParser } from '../parsers/SoundMediaHeaderBoxParser.js';
@@ -32,6 +33,7 @@ export class ParserManager {
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
         this.parsers.set('mvhd', MovieHeaderBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
+        this.parsers.set('sbgp', SampleToGroupBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
         this.parsers.set('styp', SegmentTypeBox)
         this.parsers.set('smhd', SoundMediaHeaderBoxParser);
