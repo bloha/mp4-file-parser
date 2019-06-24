@@ -8,7 +8,7 @@ export class MovieExtendsHeaderBoxParser extends FullBoxParser {
     constructor({ blob, offset }) {
         super({ blob, offset });
         this.sequence.add({
-            name: 'fragment_duration;',
+            name: 'fragment_duration',
             method: Parser.parseIntegerByVersion
         });
     }
