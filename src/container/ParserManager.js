@@ -14,6 +14,7 @@ import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SegmentTypeBox } from '../parsers/SegmentTypeBox.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
+import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.js';
 
 export class ParserManager {
 
@@ -31,6 +32,7 @@ export class ParserManager {
         this.parsers.set('styp', SegmentTypeBox)
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tkhd', TrackHeaderBoxParser);
+        this.parsers.set('vmhd', VideoMediaHeaderBoxParser);
         this._initContainers();
     }
 
