@@ -6,6 +6,7 @@ import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
+import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
 import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
@@ -25,6 +26,7 @@ export class ParserManager {
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
+        this.parsers.set('hmhd', HintMediaHeaderBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
         this.parsers.set('mvhd', MovieHeaderBoxParser);
