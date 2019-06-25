@@ -16,6 +16,7 @@ import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SegmentTypeBox } from '../parsers/SegmentTypeBox.js';
 import { SoundMediaHeaderBoxParser } from '../parsers/SoundMediaHeaderBoxParser.js';
+import { TrackFragmentBaseMediaDecodeTimeBoxParser } from '../parsers/TrackFragmentBaseMediaDecodeTimeBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
 import { TrackRunBoxParser } from '../parsers/TrackRunBoxParser.js';
@@ -39,6 +40,7 @@ export class ParserManager {
         this.parsers.set('sidx', SegmentIndexBoxParser);
         this.parsers.set('styp', SegmentTypeBox)
         this.parsers.set('smhd', SoundMediaHeaderBoxParser);
+        this.parsers.set('tfdt', TrackFragmentBaseMediaDecodeTimeBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tkhd', TrackHeaderBoxParser);
         this.parsers.set('trun', TrackRunBoxParser);
