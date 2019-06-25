@@ -92,12 +92,13 @@ export class Parser {
     }
 
     static async parseArray(parser, parameters) {
-        const entries = [];
-        for (let i = 0; i < parameters.amount; i++) {
-            const entry = await parameters.method(parser);
-            entries.push(entry);
+        const values = [];
+        const amount = (typeof parameters.amount === 'string') ? parser.getField(parameters.amount) : parameters.amount;
+        for (let i = 0; i < amount; i++) {
+            const value = await parameters.method(parser, parameters.parameters);
+            values.push(value);
         }
-        return entries;
+        return values;
     }
 
     static async parseIfBoxHasFlags(parser, parameters) {
