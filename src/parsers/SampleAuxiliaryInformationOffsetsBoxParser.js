@@ -27,20 +27,16 @@ export class SampleAuxiliaryInformationOffsetsBoxParser extends FullBoxParser {
             name: 'entry_count',
             method: Parser.parseUint32
         });
+
         this.sequence.add({
-            name: 'entries',
-            method: async (parser) => {
-                const entries = []
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    if (parser.getField('version') === 0) {
-                        const entry = await parser.takeUint32();
-                        entries.push(entry);
-                    } else {
-                        const entry = await parser.takeUint64();
-                        entries.push(entry);
-                    }
+            name: 'offset',
+            method: Parser.parseArray,
+            parameters: {
+                amount: 'entry_count',
+                method: Parser.parseByVersion,
+                parameters: {
+                    methods: [Parser.parseUint32, Parser.parseUint64]
                 }
-                return entries;
             }
         });
     }
