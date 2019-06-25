@@ -62,6 +62,16 @@ export class Parser {
         }
     }
 
+    static async parseByVersion(parser, parameters) {
+        const version = parser.getField('version');
+        if (version > parameters.methods.length) {
+            const method = parameters.methods[parameters.methods.length - 1];
+            return await method(parser);
+        } else {
+            return await parameters.methods[version](parser);
+        }
+    }
+
     static async parseIfVersionEquals(parser, parameters) {
         if (parser.getField('version') === parameters.version) {
             return await parameters.method(parser);
