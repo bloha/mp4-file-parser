@@ -78,7 +78,7 @@ export class Parser {
         }
     }
 
-    static async parseEntries(parser, parameters) {
+    static async parseArray(parser, parameters) {
         const entries = [];
         for (let i = 0; i < parameters.amount; i++) {
             const entry = await parameters.method(parser);

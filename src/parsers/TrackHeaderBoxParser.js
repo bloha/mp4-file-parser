@@ -37,7 +37,7 @@ export class TrackHeaderBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'matrix',
-            method: Parser.parseEntries,
+            method: Parser.parseArray,
             parameters: {
                 amount: 9,
                 method: Parser.parseInt32

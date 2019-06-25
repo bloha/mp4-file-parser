@@ -22,7 +22,7 @@ export class MovieHeaderBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'matrix',
-            method: Parser.parseEntries,
+            method: Parser.parseArray,
             parameters: {
                 method: Parser.parseInt32,
                 amount: 9
@@ -30,7 +30,7 @@ export class MovieHeaderBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'pre_defined',
-            method: Parser.parseEntries,
+            method: Parser.parseArray,
             parameters: {
                 method: Parser.parseUint32,
                 amount: 6

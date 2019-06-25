@@ -10,7 +10,7 @@ export class VideoMediaHeaderBoxParser extends FullBoxParser {
         this.sequence.add({ name: 'graphicsmode', method: Parser.parseUint16 });
         this.sequence.add({
             name: 'opcolor',
-            method: Parser.parseEntries,
+            method: Parser.parseArray,
             parameters: {
                 method: Parser.parseUint16,
                 amount: 3
