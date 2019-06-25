@@ -1,6 +1,7 @@
 'use strict';
 
 import { BoxParser } from '../parsers/BoxParser.js';
+import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
@@ -32,6 +33,7 @@ export class ParserManager {
 
     constructor() {
         this.parsers = new Map();
+        this.parsers.set('stco', ChunkOffsetBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
