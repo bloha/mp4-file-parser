@@ -3,6 +3,7 @@
 import { BoxParser } from '../parsers/BoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
 import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
+import { CompactSampleSizeBoxParser } from '../parsers/CompactSampleSizeBoxParser.js';
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
@@ -37,6 +38,7 @@ export class ParserManager {
         this.parsers = new Map();
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
+        this.parsers.set('stz2', CompactSampleSizeBoxParser)
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
