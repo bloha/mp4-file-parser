@@ -13,14 +13,15 @@ export class SyncSampleBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    entry.set('sample_number', await parser.takeUint32());
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'sample_number',
+                        method: Parser.parseUint32
+                    }
+                ]
             }
         });
     }
