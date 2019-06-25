@@ -1,6 +1,7 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
+import { Parser } from '../sequence/file/Parser.js';
 
 export class ChunkLargeOffsetBoxParser extends FullBoxParser {
 
@@ -12,14 +13,15 @@ export class ChunkLargeOffsetBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    entry.set('chunk_offset', await parser.takeUint64());
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'chunk_offset',
+                        method: Parser.parseUint64
+                    }
+                ]
             }
         });
     }
