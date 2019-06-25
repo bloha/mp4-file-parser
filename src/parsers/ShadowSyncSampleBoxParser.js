@@ -13,15 +13,19 @@ export class ShadowSyncSampleBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    entry.set('shadowed_sample_number', await parser.takeUint32());
-                    entry.set('sync_sample_number', await parser.takeUint32());
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'shadowed_sample_number',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'sync_sample_number',
+                        method: Parser.parseUint32
+                    }
+                ]
             }
         });
     }
