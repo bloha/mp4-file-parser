@@ -19,6 +19,7 @@ import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownload
 import { SampleAuxiliaryInformationOffsetsBoxParser } from '../parsers/SampleAuxiliaryInformationOffsetsBoxParser.js';
 import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxiliaryInformationSizesBoxParser.js';
 import { SampleSizeBoxParser } from '../parsers/SampleSizeBoxParser.js';
+import { SampleToChunkBoxParser } from '../parsers/SampleToChunkBoxParser.js';
 import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SegmentTypeBox } from '../parsers/SegmentTypeBox.js';
@@ -38,7 +39,7 @@ export class ParserManager {
         this.parsers = new Map();
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
-        this.parsers.set('stz2', CompactSampleSizeBoxParser)
+        this.parsers.set('stz2', CompactSampleSizeBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
@@ -53,6 +54,7 @@ export class ParserManager {
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
         this.parsers.set('stsz', SampleSizeBoxParser);
+        this.parsers.set('stsc', SampleToChunkBoxParser);
         this.parsers.set('sbgp', SampleToGroupBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
         this.parsers.set('styp', SegmentTypeBox)
