@@ -13,16 +13,23 @@ export class SampleToChunkBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    entry.set('first_chunk', await parser.takeUint32());
-                    entry.set('samples_per_chunk', await parser.takeUint32());
-                    entry.set('sample_description_index', await parser.takeUint32());
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'first_chunk',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'samples_per_chunk',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'sample_description_index',
+                        method: Parser.parseUint32
+                    }
+                ]
             }
         });
     }
