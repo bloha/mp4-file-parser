@@ -7,25 +7,39 @@ export class EditListBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add({ name: 'entry_count', method: Parser.parseUint32 });
+        this.sequence.add({
+            name: 'entry_count',
+            method: Parser.parseUint32
+        });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    if (parser.getField('version') === 0) {
-                        entry.set('segment_duration', await parser.takeUint32());
-                        entry.set('media_time', await parser.takeInt32());
-                    } else {
-                        entry.set('segment_duration', await parser.takeUint64());
-                        entry.set('media_time', await parser.takeInt64());
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'segment_duration',
+                        method: Parser.parseByVersion,
+                        parameters: {
+                            methods: [Parser.parseUint32, Parser.parseUint64]
+                        }
+                    },
+                    {
+                        name: 'media_time',
+                        method: Parser.parseByVersion,
+                        parameters: {
+                            methods: [Parser.parseInt32, Parser.parseInt64]
+                        }
+                    },
+                    {
+                        name: 'media_rate_integer',
+                        method: Parser.parseInt16
+                    },
+                    {
+                        name: 'media_rate_fraction',
+                        method: Parser.parseInt16
                     }
-                    entry.set('media_rate_integer', await parser.takeInt16());
-                    entry.set('media_rate_fraction', await parser.takeInt16());
-                    entries.push(entry);
-                }
-                return entries;
+                ]
             }
         });
     }
