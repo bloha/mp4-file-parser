@@ -78,6 +78,19 @@ export class Parser {
         }
     }
 
+    static async parseEntries(parser, parameters) {
+        const entries = [];
+        const amount = (typeof parameters.amount === 'string') ? parser.getField(parameters.amount) : parameters.amount;
+        for (let i = 0; i < amount; i++) {
+            const entry = new Map();
+            for (const field of parameters.fields) {
+                entry.set(field.name, await field.method(parser, field.parameters));
+            }
+            entries.push(entry);
+        }
+        return entries;
+    }
+
     static async parseArray(parser, parameters) {
         const entries = [];
         for (let i = 0; i < parameters.amount; i++) {
