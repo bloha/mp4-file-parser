@@ -1,5 +1,7 @@
 'use strict';
 
+import { BitParser } from './BitParser.js';
+
 export class Parser {
 
     static skip(parser, parameters) {
@@ -36,6 +38,18 @@ export class Parser {
 
     static async parseUint64(parser) {
         return await parser.takeUint64();
+    }
+
+    static async parseBits(parser, parameters) {
+        let bitParser = parser.getBitParser();
+        if (!(bitParser && bitParser.hasBits())) {
+            const offset = parser.getHead().getOffset();
+            const number = await parameters.basis(parser, parameters.parameters);
+            const size = parser.getHead().getOffset() - offset;
+            bitParser = new BitParser({ number, size });
+            parser.setBitParser(bitParser);
+        }
+        return bitParser.parse(parameters.amount);
     }
 
     static async parseText(parser, parameters) {

@@ -103,6 +103,15 @@ export class FileParser {
         return (this.getField('flags') & flags) === flags;
     }
 
+    getBitParser() {
+        return this.bitParser;
+    }
+
+    setBitParser(bitParser) {
+        this.bitParser = bitParser;
+        return this;
+    }
+
     getBoxStart() {
         return this.boxStart;
     }
