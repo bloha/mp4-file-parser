@@ -13,30 +13,47 @@ export class SubSampleInformationBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('entry_count'); i++) {
-                    const entry = new Map();
-                    entry.set('sample_delta', await parser.takeUint32());
-                    entry.set('subsample_count', await parser.takeUint16());
-                    if (entry.get('subsample_count') > 0) {
-                        entry.set('entries', []);
-                        for (let j = 0; j < entry.get('subsample_count'); j++) {
-                            const subEntry = new Map();
-                            if (parser.getField('version') === 0) {
-                                subEntry.set('subsample_size', await parser.takeUint16());
-                            } else {
-                                subEntry.set('subsample_size', await parser.takeUint32());
-                            }
-                            subEntry.set('subsample_priority', await parser.takeUint8());
-                            subEntry.set('discardable', await parser.takeUint8());
-                            subEntry.set('codec_specific_parameters', await parser.takeUint32());
-                            entry.get('entries').push(subEntry);
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'entry_count',
+                fields: [
+                    {
+                        name: 'sample_delta',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'subsample_count',
+                        method: Parser.parseUint16
+                    },
+                    {
+                        name: 'entries',
+                        method: Parser.parseEntries,
+                        parameters: {
+                            amount: 'subsample_count',
+                            fields: [
+                                {
+                                    name: 'subsample_size',
+                                    method: Parser.parseByVersion,
+                                    parameters: {
+                                        methods: [Parser.parseUint16, Parser.parseUint32]
+                                    }
+                                },
+                                {
+                                    name: 'subsample_priority',
+                                    method: Parser.parseUint8
+                                },
+                                {
+                                    name: 'discardable',
+                                    method: Parser.parseUint8
+                                },
+                                {
+                                    name: 'codec_specific_parameters',
+                                    method: Parser.parseUint32
+                                }
+                            ]
                         }
                     }
-                    entries.push(entry);
-                }
-                return entries;
+                ]
             }
         });
     }
