@@ -1,7 +1,6 @@
 'use strict';
 
 import { FileParserHead } from './FileParserHead.js';
-import { BitTaker } from './BitTaker.js';
 import { BitParser } from './BitParser.js';
 
 export class FileParser {
@@ -16,17 +15,6 @@ export class FileParser {
 
     skip(amount) {
         this.head.move(amount);
-    }
-
-    async initBitTaker(takeMethod) {
-        const offset = this.head.getOffset();
-        const number = await takeMethod.bind(this)();
-        const size = this.head.getOffset() - offset;
-        this.bitTaker = new BitTaker({ number, size });
-    }
-
-    takeBits(amount) {
-        return this.bitTaker.takeBits(amount);
     }
 
     async takeInt8() {
