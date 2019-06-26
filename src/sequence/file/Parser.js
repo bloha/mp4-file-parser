@@ -67,6 +67,16 @@ export class Parser {
         return decoder.decode(array);
     }
 
+    static async parseAccumulatively(parser, parameters) {
+        const amount = Parser._extractValue(parameters.amount);
+        let accumulatedValue = '';
+        for (let i = 0; i < amount; i++) {
+            const value = await parameters.method(parser, parameters.parameters);
+            accumulatedValue = parameters.accumulator(accumulatedValue, value);
+        }
+        return accumulatedValue;
+    }
+
     static async parseByVersion(parser, parameters) {
         const version = parser.getField('version');
         if (version > parameters.methods.length) {

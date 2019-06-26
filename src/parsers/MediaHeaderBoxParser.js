@@ -34,20 +34,21 @@ export class MediaHeaderBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'pad',
-            method: async (parser) => {
-                await parser.initBitTaker(parser.takeUint16);
-                return parser.takeBits(1);
+            method: Parser.parseBits,
+            parameters: {
+                amount: 1
             }
         });
         this.sequence.add({
             name: 'language',
-            method: async (parser) => {
-                let language = '';
-                for (let i = 0; i < 3; i++) {
-                    const code = parser.takeBits(5);
-                    language += String.fromCharCode(0x60 + code);
+            method: Parser.parseAccumulatively,
+            parameters: {
+                amount: 3,
+                accumulator: (acc, value) => acc + String.fromCharCode(0x60 + value),
+                method: Parser.parseBits,
+                parameters: {
+                    amount: 5
                 }
-                return language;
             }
         });
         this.sequence.add({
