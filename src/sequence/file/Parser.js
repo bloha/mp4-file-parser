@@ -40,7 +40,7 @@ export class Parser {
 
     static async parseBits(parser, parameters) {
         const bitParser = parser.getBitParser();
-        const amount = Parser._extractAmount(parser, parameters.amount);
+        const amount = Parser._extractValue(parser, parameters.amount);
         if (!bitParser.hasBits(amount)) {
             const lack = amount - bitParser.getAmount();
             for (let i = 0; i < Math.ceil(lack / 8); i++) {
@@ -83,9 +83,21 @@ export class Parser {
         }
     }
 
+    static async parseByCondition(parser, parameters) {
+        const values = parameters.values.map(value => Parser._extractValue(parser, value));
+        for (let i = 0; i < values.length - 1; i++) {
+            const v1 = values[i];
+            const v2 = values[i + 1];
+            if (!parameters.condition(v1, v2)) {
+                return;
+            }
+        }
+        return await parameters.method(parser, parameters.parameters);
+    }
+
     static async parseEntries(parser, parameters) {
         const entries = [];
-        const amount = Parser._extractAmount(parser, parameters.amount);
+        const amount = Parser._extractValue(parser, parameters.amount);
         for (let i = 0; i < amount; i++) {
             const entry = new Map();
             for (const field of parameters.fields) {
@@ -98,7 +110,7 @@ export class Parser {
 
     static async parseArray(parser, parameters) {
         const values = [];
-        const amount = Parser._extractAmount(parser, parameters.amount);
+        const amount = Parser._extractValue(parser, parameters.amount);
         for (let i = 0; i < amount; i++) {
             const value = await parameters.method(parser, parameters.parameters);
             values.push(value);
@@ -112,7 +124,7 @@ export class Parser {
         }
     }
 
-    static _extractAmount(parser, amount) {
+    static _extractValue(parser, amount) {
         return (typeof amount === 'string') ? parser.getField(amount) : amount;
     }
 
