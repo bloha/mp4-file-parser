@@ -42,21 +42,55 @@ export class SegmentIndexBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('reference_count'); i++) {
-                    const entry = new Map();
-                    await parser.initBitTaker(parser.takeUint32);
-                    entry.set('reference_type', parser.takeBits(1));
-                    entry.set('referenced_size', parser.takeBits(31));
-                    entry.set('subsegment_duration', await parser.takeUint32());
-                    await parser.initBitTaker(parser.takeUint32);
-                    entry.set('starts_with_SAP', parser.takeBits(1));
-                    entry.set('SAP_type', parser.takeBits(3));
-                    entry.set('SAP_delta_time', parser.takeBits(28));
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'reference_count',
+                fields: [
+                    {
+                        name: 'reference_type',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 1,
+                            basis: Parser.parseUint32
+                        }
+                    },
+                    {
+                        name: 'referenced_size',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 31,
+                            basis: Parser.parseUint32
+                        }
+                    },
+                    {
+                        name: 'subsegment_duration',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'starts_with_SAP',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 1,
+                            basis: Parser.parseUint32
+                        }
+                    },
+                    {
+                        name: 'SAP_type',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 3,
+                            basis: Parser.parseUint32
+                        }
+                    },
+                    {
+                        name: 'SAP_delta_time',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 28,
+                            basis: Parser.parseUint32
+                        }
+                    }
+                ]
             }
         });
     }
