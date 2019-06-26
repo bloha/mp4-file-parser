@@ -27,7 +27,7 @@ export class Parser {
     }
 
     static async parseUint32(parser) {
-        return await parser.takeInt32();
+        return await parser.takeUint32();
     }
 
     static async parseInt64(parser) {
