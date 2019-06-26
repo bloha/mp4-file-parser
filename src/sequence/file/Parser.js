@@ -85,14 +85,28 @@ export class Parser {
 
     static async parseByCondition(parser, parameters) {
         const values = parameters.values.map(value => Parser._extractValue(parser, value));
+        const condition = parameters.condition;
+        const needsExecution = (condition.length === 1)
+            ? Parser._checkConditionWithOneArgument(condition, values)
+            : Parser._checkConditionWithTwoArguments(condition, values);
+        if (needsExecution) {
+            return await parameters.method(parser, parameters.parameters);
+        }
+    }
+
+    static _checkConditionWithOneArgument(condition, values) {
+        return values.every(condition);
+    }
+
+    static _checkConditionWithTwoArguments(condition, values) {
         for (let i = 0; i < values.length - 1; i++) {
             const v1 = values[i];
             const v2 = values[i + 1];
-            if (!parameters.condition(v1, v2)) {
-                return;
+            if (!condition(v1, v2)) {
+                return false;
             }
         }
-        return await parameters.method(parser, parameters.parameters);
+        return true;
     }
 
     static async parseEntries(parser, parameters) {
