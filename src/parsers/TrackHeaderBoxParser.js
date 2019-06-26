@@ -7,9 +7,24 @@ export class TrackHeaderBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add({ name: 'creation_time', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'modification_time', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'track_ID', method: Parser.parseUint32 });
+        this.sequence.add({
+            name: 'creation_time',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'modification_time',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'track_ID',
+            method: Parser.parseUint32
+        });
         this.sequence.add({
             name: 'reserved',
             method: Parser.skip,
@@ -17,7 +32,13 @@ export class TrackHeaderBoxParser extends FullBoxParser {
                 amount: 4
             }
         });
-        this.sequence.add({ name: 'duration', method: Parser.parseIntegerByVersion });
+        this.sequence.add({
+            name: 'duration',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
         this.sequence.add({
             name: 'reserved',
             method: Parser.skip,
@@ -25,9 +46,18 @@ export class TrackHeaderBoxParser extends FullBoxParser {
                 amount: 8
             }
         });
-        this.sequence.add({ name: 'layer', method: Parser.parseInt16 });
-        this.sequence.add({ name: 'alternate_group', method: Parser.parseInt16 });
-        this.sequence.add({ name: 'volume', method: Parser.parseInt16 });
+        this.sequence.add({
+            name: 'layer',
+            method: Parser.parseInt16
+        });
+        this.sequence.add({
+            name: 'alternate_group',
+            method: Parser.parseInt16
+        });
+        this.sequence.add({
+            name: 'volume',
+            method: Parser.parseInt16
+        });
         this.sequence.add({
             name: 'reserved',
             method: Parser.skip,
@@ -43,8 +73,14 @@ export class TrackHeaderBoxParser extends FullBoxParser {
                 method: Parser.parseInt32
             }
         });
-        this.sequence.add({ name: 'width', method: Parser.parseUint32 });
-        this.sequence.add({ name: 'height', method: Parser.parseUint32 });
+        this.sequence.add({
+            name: 'width',
+            method: Parser.parseUint32
+        });
+        this.sequence.add({
+            name: 'height',
+            method: Parser.parseUint32
+        });
     }
 
 }

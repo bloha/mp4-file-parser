@@ -9,7 +9,10 @@ export class MovieExtendsHeaderBoxParser extends FullBoxParser {
         super({ blob, offset });
         this.sequence.add({
             name: 'fragment_duration',
-            method: Parser.parseIntegerByVersion
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
         });
     }
 

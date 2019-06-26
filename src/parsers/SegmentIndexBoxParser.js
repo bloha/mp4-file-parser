@@ -7,12 +7,39 @@ export class SegmentIndexBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add({ name: 'reference_ID', method: Parser.parseUint32 });
-        this.sequence.add({ name: 'timescale', method: Parser.parseUint32 });
-        this.sequence.add({ name: 'earliest_presentation_time', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'first_offset', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'reserved', method: Parser.parseUint16 });
-        this.sequence.add({ name: 'reference_count', method: Parser.parseUint16 });
+        this.sequence.add({
+            name: 'reference_ID',
+            method: Parser.parseUint32
+        });
+        this.sequence.add({
+            name: 'timescale',
+            method: Parser.parseUint32
+        });
+        this.sequence.add({
+            name: 'earliest_presentation_time',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'first_offset',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'reserved',
+            method: Parser.skip,
+            parameters: {
+                amount: 2
+            }
+        });
+        this.sequence.add({
+            name: 'reference_count',
+            method: Parser.parseUint16
+        });
         this.sequence.add({
             name: 'entries',
             method: async (parser) => {

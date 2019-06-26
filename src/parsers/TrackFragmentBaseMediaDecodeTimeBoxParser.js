@@ -9,7 +9,10 @@ export class TrackFragmentBaseMediaDecodeTimeBoxParser extends FullBoxParser {
         super({ blob, offset });
         this.sequence.add({
             name: 'baseMediaDecodeTime',
-            method: Parser.parseIntegerByVersion
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
         });
     }
 

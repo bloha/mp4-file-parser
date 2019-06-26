@@ -54,14 +54,6 @@ export class Parser {
         return decoder.decode(array);
     }
 
-    static async parseIntegerByVersion(parser) {
-        if (parser.getField('version') === 0) {
-            return await parser.takeUint32();
-        } else {
-            return await parser.takeUint64();
-        }
-    }
-
     static async parseByVersion(parser, parameters) {
         const version = parser.getField('version');
         if (version > parameters.methods.length) {

@@ -7,10 +7,31 @@ export class MediaHeaderBoxParser extends FullBoxParser {
 
     constructor({ blob, offset }) {
         super({ blob, offset });
-        this.sequence.add({ name: 'creation_time', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'modification_time', method: Parser.parseIntegerByVersion });
-        this.sequence.add({ name: 'timescale', method: Parser.parseUint32 });
-        this.sequence.add({ name: 'duration', method: Parser.parseIntegerByVersion });
+        this.sequence.add({
+            name: 'creation_time',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'modification_time',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
+        this.sequence.add({
+            name: 'timescale',
+            method: Parser.parseUint32
+        });
+        this.sequence.add({
+            name: 'duration',
+            method: Parser.parseByVersion,
+            parameters: {
+                methods: [Parser.parseUint32, Parser.parseUint64]
+            }
+        });
         this.sequence.add({
             name: 'pad',
             method: async (parser) => {
@@ -29,7 +50,10 @@ export class MediaHeaderBoxParser extends FullBoxParser {
                 return language;
             }
         });
-        this.sequence.add({ name: 'pre_defined', method: Parser.parseUint16 });
+        this.sequence.add({
+            name: 'pre_defined',
+            method: Parser.parseUint16
+        });
     }
 
 }
