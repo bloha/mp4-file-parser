@@ -24,26 +24,18 @@ export class CompactSampleSizeBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                for (let i = 0; i < parser.getField('sample_count'); i++) {
-                    const entry = new Map();
-                    switch (parser.getField('field_size')) {
-                        case 4:
-                            if ((i % 2) === 0) {
-                                await parser.initBitTaker(parser.takeUint8);
-                            }
-                            entry.set('entry_size', parser.takeBits(4));
-                            break;
-                        case 8:
-                            entry.set('entry_size', await parser.takeUint8());
-                            break;
-                        case 16:
-                            entry.set('entry_size', await parser.takeUint16());
+            method: Parser.parseEntries,
+            parameters: {
+                amount: 'sample_count',
+                fields: [
+                    {
+                        name: 'entry_size',
+                        method: Parser.parseBits,
+                        parameters: {
+                            amount: 'field_size'
+                        }
                     }
-                    entries.push(entry);
-                }
-                return entries;
+                ]
             }
         });
     }
