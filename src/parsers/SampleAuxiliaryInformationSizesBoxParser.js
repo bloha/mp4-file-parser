@@ -11,16 +11,16 @@ export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
             name: 'aux_info_type',
             method: Parser.parseIfBoxHasFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 1
+                flags: 1,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
             name: 'aux_info_type_parameter',
             method: Parser.parseIfBoxHasFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 1
+                flags: 1,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
@@ -33,15 +33,19 @@ export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                if (parser.getField('default_sample_info_size') === 0) {
-                    const entries = [];
-                    for (let i = 0; i < parser.getField('sample_count'); i++) {
-                        const entry = new Map();
-                        entry.set('sample_info_size', await parser.takeUint8());
-                        entries.push(entry);
-                    }
-                    return entries;
+            method: Parser.parseByCondition,
+            parameters: {
+                condition: (v1, v2) => v1 === v2,
+                values: ['default_sample_info_size', 0],
+                method: Parser.parseEntries,
+                parameters: {
+                    amount: 'sample_count',
+                    fields: [
+                        {
+                            name: 'sample_info_size',
+                            method: Parser.parseUint8
+                        }
+                    ]
                 }
             }
         });
