@@ -121,7 +121,7 @@ export class Parser {
 
     static async parseEntries(parser, parameters) {
         const entries = [];
-        const amount = Parser._extractValue(parser, parameters.amount);
+        const amount = Parser._extractAmount(parser, parameters);
         for (let i = 0; i < amount; i++) {
             const entry = new Map();
             for (const field of parameters.fields) {
@@ -130,6 +130,14 @@ export class Parser {
             entries.push(entry);
         }
         return entries;
+    }
+
+    static _extractAmount(parser, parameters) {
+        const amount = Parser._extractValue(parser, parameters.amount);
+        if (parameters.amountConverter) {
+            return parameters.amountConverter(amount);
+        }
+        return amount;
     }
 
     static async parseArray(parser, parameters) {
