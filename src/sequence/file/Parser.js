@@ -138,8 +138,8 @@ export class Parser {
         }
     }
 
-    static _extractValue(parser, amount) {
-        return (typeof amount === 'string') ? parser.getField(amount) : amount;
+    static _extractValue(parser, value) {
+        return (typeof value === 'string') ? parser.getField(value) : value;
     }
 
 }
