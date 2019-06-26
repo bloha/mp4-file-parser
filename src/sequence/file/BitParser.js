@@ -2,10 +2,14 @@
 
 export class BitParser {
 
-    constructor({ number, size }) {
-        this.bits = Number(number)
+    constructor() {
+        this.bits = '';
+    }
+
+    addByte(number) {
+        this.bits += Number(number)
             .toString(2)
-            .padStart(size * 8, '0');
+            .padStart(8, '0');
     }
 
     parse(amount) {
@@ -14,8 +18,12 @@ export class BitParser {
         return Number(`0b${bits}`);
     }
 
-    hasBits() {
-        return this.bits.length > 0;
+    getAmount() {
+        return this.bits.length;
+    }
+
+    hasBits(amount) {
+        return this.bits.length >= amount;
     }
 
 }

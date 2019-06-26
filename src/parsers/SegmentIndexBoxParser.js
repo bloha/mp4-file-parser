@@ -51,7 +51,6 @@ export class SegmentIndexBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 1,
-                            basis: Parser.parseUint32
                         }
                     },
                     {
@@ -59,7 +58,6 @@ export class SegmentIndexBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 31,
-                            basis: Parser.parseUint32
                         }
                     },
                     {
@@ -71,7 +69,6 @@ export class SegmentIndexBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 1,
-                            basis: Parser.parseUint32
                         }
                     },
                     {
@@ -79,7 +76,6 @@ export class SegmentIndexBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 3,
-                            basis: Parser.parseUint32
                         }
                     },
                     {
@@ -87,7 +83,6 @@ export class SegmentIndexBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 28,
-                            basis: Parser.parseUint32
                         }
                     }
                 ]

@@ -2,6 +2,7 @@
 
 import { FileParserHead } from './FileParserHead.js';
 import { BitTaker } from './BitTaker.js';
+import { BitParser } from './BitParser.js';
 
 export class FileParser {
 
@@ -10,6 +11,7 @@ export class FileParser {
         this.boxStart = boxStart;
         this.fields = parsedFields;
         this.head = new FileParserHead(this.boxStart);
+        this.bitParser = new BitParser();
     }
 
     skip(amount) {
@@ -105,11 +107,6 @@ export class FileParser {
 
     getBitParser() {
         return this.bitParser;
-    }
-
-    setBitParser(bitParser) {
-        this.bitParser = bitParser;
-        return this;
     }
 
     getBoxStart() {

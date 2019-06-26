@@ -1,7 +1,5 @@
 'use strict';
 
-import { BitParser } from './BitParser.js';
-
 export class Parser {
 
     static skip(parser, parameters) {
@@ -41,15 +39,16 @@ export class Parser {
     }
 
     static async parseBits(parser, parameters) {
-        let bitParser = parser.getBitParser();
-        if (!(bitParser && bitParser.hasBits())) {
-            const offset = parser.getHead().getOffset();
-            const number = await parameters.basis(parser, parameters.parameters);
-            const size = parser.getHead().getOffset() - offset;
-            bitParser = new BitParser({ number, size });
-            parser.setBitParser(bitParser);
+        const bitParser = parser.getBitParser();
+        const amount = Parser._extractAmount(parser, parameters.amount);
+        if (!bitParser.hasBits(amount)) {
+            const lack = amount - bitParser.getAmount();
+            for (let i = 0; i < Math.ceil(lack / 8); i++) {
+                const number = await Parser.parseUint8(parser);
+                bitParser.addByte(number);
+            }
         }
-        return bitParser.parse(parameters.amount);
+        return bitParser.parse(amount);
     }
 
     static async parseText(parser, parameters) {
@@ -86,7 +85,7 @@ export class Parser {
 
     static async parseEntries(parser, parameters) {
         const entries = [];
-        const amount = (typeof parameters.amount === 'string') ? parser.getField(parameters.amount) : parameters.amount;
+        const amount = Parser._extractAmount(parser, parameters.amount);
         for (let i = 0; i < amount; i++) {
             const entry = new Map();
             for (const field of parameters.fields) {
@@ -99,7 +98,7 @@ export class Parser {
 
     static async parseArray(parser, parameters) {
         const values = [];
-        const amount = (typeof parameters.amount === 'string') ? parser.getField(parameters.amount) : parameters.amount;
+        const amount = Parser._extractAmount(parser, parameters.amount);
         for (let i = 0; i < amount; i++) {
             const value = await parameters.method(parser, parameters.parameters);
             values.push(value);
@@ -111,6 +110,10 @@ export class Parser {
         if (parser.boxHasFlags(parameters.flags)) {
             return await parameters.method(parser, parameters.parameters);
         }
+    }
+
+    static _extractAmount(parser, amount) {
+        return (typeof amount === 'string') ? parser.getField(amount) : amount;
     }
 
 }
