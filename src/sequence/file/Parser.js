@@ -120,16 +120,37 @@ export class Parser {
     }
 
     static async parseEntries(parser, parameters) {
+        if (parameters.while) {
+            return await Parser._parseEntriesUsingWhile(parser, parameters);
+        }
+        return await Parser._parseEntriesUsingAmount(parser, parameters);
+    }
+
+    static async _parseEntriesUsingWhile(parser, parameters) {
         const entries = [];
-        const amount = Parser._extractAmount(parser, parameters);
-        for (let i = 0; i < amount; i++) {
-            const entry = new Map();
-            for (const field of parameters.fields) {
-                entry.set(field.name, await field.method(parser, field.parameters));
-            }
+        while (parameters.while(parser)) {
+            const entry = await Parser._parseEntry(parser, parameters);
             entries.push(entry);
         }
         return entries;
+    }
+
+    static async _parseEntriesUsingAmount(parser, parameters) {
+        const entries = [];
+        const amount = Parser._extractAmount(parser, parameters);
+        for (let i = 0; i < amount; i++) {
+            const entry = await Parser._parseEntry(parser, parameters);
+            entries.push(entry);
+        }
+        return entries;
+    }
+
+    static async _parseEntry(parser, parameters) {
+        const entry = new Map();
+        for (const field of parameters.fields) {
+            entry.set(field.name, await field.method(parser, field.parameters));
+        }
+        return entry;
     }
 
     static async parseArray(parser, parameters) {

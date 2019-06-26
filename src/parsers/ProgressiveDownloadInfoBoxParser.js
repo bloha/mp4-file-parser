@@ -1,6 +1,7 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
+import { Parser } from '../sequence/file/Parser.js';
 
 export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
 
@@ -8,15 +9,19 @@ export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
         super({ blob, offset });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                const entries = [];
-                while (parser.getHead().getOffset() < parser.getBoxEnd()) {
-                    const entry = new Map();
-                    entry.set('rate', await parser.takeUint32());
-                    entry.set('initial_delay', await parser.takeUint32());
-                    entries.push(entry);
-                }
-                return entries;
+            method: Parser.parseEntries,
+            parameters: {
+                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                fields: [
+                    {
+                        name: 'rate',
+                        method: Parser.parseUint32
+                    },
+                    {
+                        name: 'initial_delay',
+                        method: Parser.parseUint32
+                    }
+                ]
             }
         });
     }
