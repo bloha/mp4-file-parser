@@ -17,15 +17,19 @@ export class SampleSizeBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'entries',
-            method: async (parser) => {
-                if (parser.getField('sample_size') === 0) {
-                    const entries = [];
-                    for (let i = 0; i < parser.getField('sample_count'); i++) {
-                        const entry = new Map();
-                        entry.set('entry_size', await parser.takeUin32());
-                        entries.push(entry);
-                    }
-                    return entries;
+            method: Parser.parseByCondition,
+            parameters: {
+                condition: (v1, v2) => v1 === v2,
+                values: ['sample_size', 0],
+                method: Parser.parseEntries,
+                parameters: {
+                    amount: 'sample_count',
+                    fields: [
+                        {
+                            name: 'entry_size',
+                            method: Parser.parseUint32
+                        }
+                    ]
                 }
             }
         });
