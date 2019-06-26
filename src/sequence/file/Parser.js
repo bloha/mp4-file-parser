@@ -132,22 +132,38 @@ export class Parser {
         return entries;
     }
 
+    static async parseArray(parser, parameters) {
+        if (parameters.while) {
+            return await Parser._parseArrayUsingWhile(parser, parameters);
+        }
+        return await Parser._parseArrayUsingAmount(parser, parameters);
+    }
+
+    static async _parseArrayUsingWhile(parser, parameters) {
+        const values = [];
+        while (parameters.while(parser)) {
+            const value = await parameters.method(parser, parameters.parameters);
+            values.push(value);
+        }
+        return values;
+    }
+
+    static async _parseArrayUsingAmount(parser, parameters) {
+        const values = [];
+        const amount = Parser._extractAmount(parser, parameters);
+        for (let i = 0; i < amount; i++) {
+            const value = await parameters.method(parser, parameters.parameters);
+            values.push(value);
+        }
+        return values;
+    }
+
     static _extractAmount(parser, parameters) {
         const amount = Parser._extractValue(parser, parameters.amount);
         if (parameters.amountConverter) {
             return parameters.amountConverter(amount);
         }
         return amount;
-    }
-
-    static async parseArray(parser, parameters) {
-        const values = [];
-        const amount = Parser._extractValue(parser, parameters.amount);
-        for (let i = 0; i < amount; i++) {
-            const value = await parameters.method(parser, parameters.parameters);
-            values.push(value);
-        }
-        return values;
     }
 
     static async parseIfBoxHasFlags(parser, parameters) {
