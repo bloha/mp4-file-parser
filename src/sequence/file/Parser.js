@@ -153,6 +153,8 @@ export class Parser {
             : Parser._checkConditionWithTwoArguments(condition, values);
         if (needsExecution) {
             return await parameters.method(parser, parameters.parameters);
+        } else if (parameters.or) {
+            return await Parser.parseByCondition(parser, parameters.or);
         }
     }
 
