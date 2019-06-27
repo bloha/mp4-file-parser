@@ -12,6 +12,7 @@ import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
+import { ItemLocationBoxParser } from '../parsers/ItemLocationBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
 import { MovieExtendsHeaderBoxParser } from '../parsers/MovieExtendsHeaderBoxParser.js';
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
@@ -53,6 +54,7 @@ export class ParserManager {
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
+        this.parsers.set('iloc', ItemLocationBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
         this.parsers.set('mehd', MovieExtendsHeaderBoxParser);
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
