@@ -3,7 +3,9 @@
 export class Parser {
 
     static skip(parser, parameters) {
-        parser.skip(parameters.amount);
+        if (parameters.amount) {
+            parser.skip(parameters.amount);
+        }
     }
 
     static async parseInt8(parser) {
