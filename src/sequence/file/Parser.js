@@ -8,9 +8,10 @@ export class Parser {
         }
     }
 
-    static skipBits(parser, parameters) {
-        const amount = Parser._extractAmount(parser, parameters);
+    static async skipBits(parser, parameters) {
         const bitParser = parser.getBitParser();
+        const amount = Parser._extractAmount(parser, parameters);
+        await Parser._loadMissingBits(parser, bitParser, amount);
         bitParser.skip(amount);
     }
 
@@ -48,7 +49,12 @@ export class Parser {
 
     static async parseBits(parser, parameters) {
         const bitParser = parser.getBitParser();
-        const amount = Parser._extractValue(parser, parameters.amount);
+        const amount = Parser._extractAmount(parser, parameters);
+        await Parser._loadMissingBits(parser, bitParser, amount);
+        return bitParser.parse(amount);
+    }
+
+    static async _loadMissingBits(parser, bitParser, amount) {
         if (!bitParser.hasBits(amount)) {
             const lack = amount - bitParser.getAmount();
             for (let i = 0; i < Math.ceil(lack / 8); i++) {
@@ -56,7 +62,6 @@ export class Parser {
                 bitParser.addByte(number);
             }
         }
-        return bitParser.parse(amount);
     }
 
     static async parseText(parser, parameters) {
