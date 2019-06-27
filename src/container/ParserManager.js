@@ -99,6 +99,7 @@ export class ParserManager {
             'strd',
             'dinf',
             'meco',
+            'meta'
         ];
 
         for (const container of containers) {
