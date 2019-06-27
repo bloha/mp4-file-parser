@@ -56,14 +56,36 @@ export class Parser {
     }
 
     static async parseString(parser) {
+        const array = await Parser._parseNullTerminatedStringAsUint8Array(parser);
+        return Parser._convertArrayToString(array, 'utf-8');
+    }
+
+    static async parseStringWithByteOrderMark(parser) {
+        const array = await Parser._parseNullTerminatedStringAsUint8Array(parser);
+        if (Parser._arrayHasByteOrderMark(array)) {
+            const withoutMark = array.slice(2);
+            return Parser._convertArrayToString(withoutMark, 'utf-16');
+
+        }
+        return Parser._convertArrayToString(array, 'utf-8');
+    }
+
+    static async _parseNullTerminatedStringAsUint8Array(parser) {
         const bytes = [];
         let byte = await parser.takeUint8();
         while (byte != 0) {
             bytes.push(byte);
             byte = await parser.takeUint8();
         }
-        const decoder = new TextDecoder('utf-8');
-        const array = new Uint8Array(bytes);
+        return new Uint8Array(bytes);
+    }
+
+    static _arrayHasByteOrderMark(uint8Array) {
+        return uint8Array.length >= 2 && uint8Array[0] === 0xFE && uint8Array[1] === 0xFF;
+    }
+
+    static _convertArrayToString(array, encoding) {
+        const decoder = new TextDecoder(encoding);
         return decoder.decode(array);
     }
 
