@@ -16,6 +16,12 @@ export class ExecutionSequence {
         this.strategies.push({ name, method, parameters });
     }
 
+    addAll(strategies) {
+        strategies.forEach(strategy => {
+            this.add(strategy);
+        });
+    }
+
     addChildren() {
         this.children = true;
     }

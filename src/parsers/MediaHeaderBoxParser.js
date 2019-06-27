@@ -2,6 +2,7 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/file/Parser.js';
+import { Strategy } from '../sequence/Strategy.js';
 
 export class MediaHeaderBoxParser extends FullBoxParser {
 
@@ -32,25 +33,7 @@ export class MediaHeaderBoxParser extends FullBoxParser {
                 methods: [Parser.parseUint32, Parser.parseUint64]
             }
         });
-        this.sequence.add({
-            name: 'pad',
-            method: Parser.parseBits,
-            parameters: {
-                amount: 1
-            }
-        });
-        this.sequence.add({
-            name: 'language',
-            method: Parser.parseAccumulatively,
-            parameters: {
-                amount: 3,
-                accumulator: (acc, value) => acc + String.fromCharCode(0x60 + value),
-                method: Parser.parseBits,
-                parameters: {
-                    amount: 5
-                }
-            }
-        });
+        this.sequence.addAll(Strategy.getLanguageParsingStrategy());
         this.sequence.add({
             name: 'pre_defined',
             method: Parser.parseUint16
