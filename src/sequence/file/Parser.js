@@ -8,6 +8,12 @@ export class Parser {
         }
     }
 
+    static skipBits(parser, parameters) {
+        const amount = Parser._extractAmount(parser, parameters);
+        const bitParser = parser.getBitParser();
+        bitParser.skip(amount);
+    }
+
     static async parseInt8(parser) {
         return await parser.takeInt8();
     }

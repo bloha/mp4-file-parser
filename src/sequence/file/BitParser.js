@@ -18,6 +18,10 @@ export class BitParser {
         return Number(`0b${bits}`);
     }
 
+    skip(amount) {
+        this.bits = this.bits.substring(amount);
+    }
+
     getAmount() {
         return this.bits.length;
     }
