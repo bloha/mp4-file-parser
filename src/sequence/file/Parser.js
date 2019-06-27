@@ -109,12 +109,24 @@ export class Parser {
 
     static async parseByVersion(parser, parameters) {
         const version = parser.getField('version');
-        if (version > parameters.methods.length) {
-            const method = parameters.methods[parameters.methods.length - 1];
-            return await method(parser);
-        } else {
-            return await parameters.methods[version](parser);
+        const methods = parameters.methods;
+        const method = Parser._findValidMethod(version, methods);
+        return await method(parser, parameters.parameters);
+    }
+
+    static _findValidMethod(version, methods) {
+        if (Parser._methodsIsArrayOfObjects(methods)) {
+            return methods.find(method => method.versions.includes(version));
         }
+        if (version > methods.length) {
+            return methods[methods.length - 1];
+        } else {
+            return methods[version];
+        }
+    }
+
+    static _methodsIsArrayOfObjects(methods) {
+        return methods.every(method => typeof method === 'object');
     }
 
     static async parseIfVersionEquals(parser, parameters) {
