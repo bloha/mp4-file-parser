@@ -116,15 +116,27 @@ export class Parser {
 
     static _findValidMethod(version, methods) {
         if (Parser._methodsIsArrayOfFunctions(methods)) {
-            methods = methods.map((method, version) => {
-                return { method, versions: [version] }
-            });
+            methods = Parser._convertFunctionsToObjects(methods);
         }
-        return methods.find(method => method.versions.includes(version));
+        const validMethod = methods.find(method => method.versions.includes(version));
+        return validMethod ? validMethod : Parser._findMaxVersionedMethod(methods);
     }
 
     static _methodsIsArrayOfFunctions(methods) {
         return methods.every(method => typeof method === 'function');
+    }
+
+    static _convertFunctionsToObjects(methods) {
+        return methods.map((method, version) => {
+            return { method, versions: [version] }
+        });
+    }
+
+    static _findMaxVersionedMethod(methods) {
+        const versionReducer = (max, version) => version > max ? version : max;
+        const methodReducer = (max, method) =>
+            method.versions.reduce(versionReducer) > max.versions.reduce(versionReducer) ? method : max;
+        return methods.reduce(methodReducer);
     }
 
     static async parseIfVersionEquals(parser, parameters) {
