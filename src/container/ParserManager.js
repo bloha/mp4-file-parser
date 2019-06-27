@@ -7,6 +7,7 @@ import { CompactSampleSizeBoxParser } from '../parsers/CompactSampleSizeBoxParse
 import { CompositionToDecodeBoxParser } from '../parsers/CompositionToDecodeBoxParser.js';
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
+import { CopyrightBoxParser } from '../parsers/CopyrightBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
@@ -43,6 +44,7 @@ export class ParserManager {
         this.parsers.set('stco', ChunkOffsetBoxParser);
         this.parsers.set('stz2', CompactSampleSizeBoxParser);
         this.parsers.set('cslg', CompositionToDecodeBoxParser);
+        this.parsers.set('cprt', CopyrightBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
