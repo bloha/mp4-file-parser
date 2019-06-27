@@ -111,22 +111,20 @@ export class Parser {
         const version = parser.getField('version');
         const methods = parameters.methods;
         const method = Parser._findValidMethod(version, methods);
-        return await method(parser, parameters.parameters);
+        return await method.method(parser, method.parameters);
     }
 
     static _findValidMethod(version, methods) {
-        if (Parser._methodsIsArrayOfObjects(methods)) {
-            return methods.find(method => method.versions.includes(version));
+        if (Parser._methodsIsArrayOfFunctions(methods)) {
+            methods = methods.map((method, version) => {
+                return { method, versions: [version] }
+            });
         }
-        if (version > methods.length) {
-            return methods[methods.length - 1];
-        } else {
-            return methods[version];
-        }
+        return methods.find(method => method.versions.includes(version));
     }
 
-    static _methodsIsArrayOfObjects(methods) {
-        return methods.every(method => typeof method === 'object');
+    static _methodsIsArrayOfFunctions(methods) {
+        return methods.every(method => typeof method === 'function');
     }
 
     static async parseIfVersionEquals(parser, parameters) {
