@@ -1,5 +1,6 @@
 'use strict';
 
+import { BinaryXmlBoxParser } from '../parsers/BinaryXmlBoxParser.js';
 import { BoxParser } from '../parsers/BoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
 import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
@@ -49,6 +50,7 @@ export class ParserManager {
 
     constructor() {
         this.parsers = new Map();
+        this.parsers.set('bxml', BinaryXmlBoxParser);
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
         this.parsers.set('stz2', CompactSampleSizeBoxParser);
