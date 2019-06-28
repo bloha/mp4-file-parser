@@ -112,6 +112,7 @@ export class ParserManager {
             'mfra',
             'udta',
             'strk',
+            'sinf',
             'strd',
             'dinf',
             'meco',
