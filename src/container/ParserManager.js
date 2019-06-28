@@ -43,6 +43,7 @@ import { ShadowSyncSampleBoxParser } from '../parsers/ShadowSyncSampleBoxParser.
 import { SoundMediaHeaderBoxParser } from '../parsers/SoundMediaHeaderBoxParser.js';
 import { SubSampleInformationBoxParser } from '../parsers/SubSampleInformationBoxParser.js';
 import { SubTrackInformationParser } from '../parsers/SubTrackInformationParser.js';
+import { SubTrackSampleGroupBoxParser } from '../parsers/SubTrackSampleGroupBoxParser.js';
 import { SyncSampleBoxParser } from '../parsers/SyncSampleBoxParser.js';
 import { TimeToSampleBoxParser } from '../parsers/TimeToSampleBoxParser.js';
 import { TrackExtendsBoxParser } from '../parsers/TrackExtendsBoxParser.js';
@@ -99,6 +100,7 @@ export class ParserManager {
         this.parsers.set('smhd', SoundMediaHeaderBoxParser);
         this.parsers.set('subs', SubSampleInformationBoxParser);
         this.parsers.set('stri', SubTrackInformationParser);
+        this.parsers.set('stsg', SubTrackSampleGroupBoxParser);
         this.parsers.set('stss', SyncSampleBoxParser);
         this.parsers.set('stts', TimeToSampleBoxParser);
         this.parsers.set('trex', TrackExtendsBoxParser);
