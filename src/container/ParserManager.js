@@ -123,7 +123,8 @@ export class ParserManager {
             'strd',
             'dinf',
             'meco',
-            'meta'
+            'meta',
+            'paen'
         ];
 
         for (const container of containers) {
