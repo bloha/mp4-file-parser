@@ -16,6 +16,7 @@ import { FdSessionGroupBoxParser } from '../parsers/FdSessionGroupBoxParser.js';
 import { FecReservoirBoxParser } from '../parsers/FecReservoirBoxParser.js';
 import { FilePartitionBoxParser } from '../parsers/FilePartitionBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
+import { GroupIdToNameBoxParser } from '../parsers/GroupIdToNameBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
 import { ItemLocationBoxParser } from '../parsers/ItemLocationBoxParser.js';
@@ -70,6 +71,7 @@ export class ParserManager {
         this.parsers.set('fecr', FecReservoirBoxParser);
         this.parsers.set('fpar', FilePartitionBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
+        this.parsers.set('gitn', GroupIdToNameBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
         this.parsers.set('iloc', ItemLocationBoxParser);
