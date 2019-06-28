@@ -50,6 +50,7 @@ import { SubTrackSampleGroupBoxParser } from '../parsers/SubTrackSampleGroupBoxP
 import { SyncSampleBoxParser } from '../parsers/SyncSampleBoxParser.js';
 import { TimeToSampleBoxParser } from '../parsers/TimeToSampleBoxParser.js';
 import { TrackExtendsBoxParser } from '../parsers/TrackExtendsBoxParser.js';
+import { TrackExtensionPropertiesBoxParser } from '../parsers/TrackExtensionPropertiesBoxParser.js';
 import { TrackFragmentBaseMediaDecodeTimeBoxParser } from '../parsers/TrackFragmentBaseMediaDecodeTimeBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackFragmentRandomAccessBoxParser } from '../parsers/TrackFragmentRandomAccessBoxParser.js';
@@ -111,6 +112,7 @@ export class ParserManager {
         this.parsers.set('stss', SyncSampleBoxParser);
         this.parsers.set('stts', TimeToSampleBoxParser);
         this.parsers.set('trex', TrackExtendsBoxParser);
+        this.parsers.set('trep', TrackExtensionPropertiesBoxParser);
         this.parsers.set('tfdt', TrackFragmentBaseMediaDecodeTimeBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tfra', TrackFragmentRandomAccessBoxParser);
