@@ -12,6 +12,7 @@ import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { CopyrightBoxParser } from '../parsers/CopyrightBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FdItemInformationBoxParser } from '../parsers/FdItemInformationBoxParser.js';
+import { FilePartitionBoxParser } from '../parsers/FilePartitionBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
@@ -63,6 +64,7 @@ export class ParserManager {
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('fiin', FdItemInformationBoxParser);
+        this.parsers.set('fpar', FilePartitionBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
