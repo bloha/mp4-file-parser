@@ -43,6 +43,7 @@ import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
 import { TrackRunBoxParser } from '../parsers/TrackRunBoxParser.js';
 import { TrackSelectionBoxParser } from '../parsers/TrackSelectionBoxParser.js';
 import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.js';
+import { XmlBoxParser } from '../parsers/XmlBoxParser.js';
 
 export class ParserManager {
 
@@ -89,6 +90,7 @@ export class ParserManager {
         this.parsers.set('trun', TrackRunBoxParser);
         this.parsers.set('tsel', TrackSelectionBoxParser);
         this.parsers.set('vmhd', VideoMediaHeaderBoxParser);
+        this.parsers.set('xml', XmlBoxParser);
         this._initContainers();
     }
 
