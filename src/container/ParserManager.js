@@ -21,6 +21,7 @@ import { MovieExtendsHeaderBoxParser } from '../parsers/MovieExtendsHeaderBoxPar
 import { MovieFragmentHeaderBoxParser } from '../parsers/MovieFragmentHeaderBoxParser.js';
 import { MovieFragmentRandomAccessOffsetBoxParser } from '../parsers/MovieFragmentRandomAccessOffsetBoxParser.js';
 import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
+import { OriginalFormatBoxParser } from '../parsers/OriginalFormatBoxParser.js';
 import { PaddingBitsBoxParser } from '../parsers/PaddingBitsBoxParser.js';
 import { PrimaryItemBoxParser } from '../parsers/PrimaryItemBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
@@ -69,6 +70,7 @@ export class ParserManager {
         this.parsers.set('mfhd', MovieFragmentHeaderBoxParser);
         this.parsers.set('mfro', MovieFragmentRandomAccessOffsetBoxParser);
         this.parsers.set('mvhd', MovieHeaderBoxParser);
+        this.parsers.set('frma', OriginalFormatBoxParser);
         this.parsers.set('padb', PaddingBitsBoxParser);
         this.parsers.set('pitm', PrimaryItemBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
