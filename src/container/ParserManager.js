@@ -1,5 +1,6 @@
 'use strict';
 
+import { AlternativeStartupSequencePropertiesBoxParser } from '../parsers/AlternativeStartupSequencePropertiesBoxParser.js';
 import { BinaryXmlBoxParser } from '../parsers/BinaryXmlBoxParser.js';
 import { BoxParser } from '../parsers/BoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
@@ -64,6 +65,7 @@ export class ParserManager {
 
     constructor() {
         this.parsers = new Map();
+        this.parsers.set('assp', AlternativeStartupSequencePropertiesBoxParser);
         this.parsers.set('bxml', BinaryXmlBoxParser);
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
