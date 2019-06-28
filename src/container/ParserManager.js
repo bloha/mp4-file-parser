@@ -30,6 +30,7 @@ import { MovieHeaderBoxParser } from '../parsers/MovieHeaderBoxParser.js';
 import { OriginalFormatBoxParser } from '../parsers/OriginalFormatBoxParser.js';
 import { PaddingBitsBoxParser } from '../parsers/PaddingBitsBoxParser.js';
 import { PrimaryItemBoxParser } from '../parsers/PrimaryItemBoxParser.js';
+import { ProducerReferenceTimeBoxParser } from '../parsers/ProducerReferenceTimeBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
 import { SampleAuxiliaryInformationOffsetsBoxParser } from '../parsers/SampleAuxiliaryInformationOffsetsBoxParser.js';
 import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxiliaryInformationSizesBoxParser.js';
@@ -89,6 +90,7 @@ export class ParserManager {
         this.parsers.set('frma', OriginalFormatBoxParser);
         this.parsers.set('padb', PaddingBitsBoxParser);
         this.parsers.set('pitm', PrimaryItemBoxParser);
+        this.parsers.set('prft', ProducerReferenceTimeBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
