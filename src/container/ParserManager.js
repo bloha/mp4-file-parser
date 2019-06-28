@@ -33,6 +33,7 @@ import { SubSampleInformationBoxParser } from '../parsers/SubSampleInformationBo
 import { SubTrackInformationParser } from '../parsers/SubTrackInformationParser.js';
 import { SyncSampleBoxParser } from '../parsers/SyncSampleBoxParser.js';
 import { TimeToSampleBoxParser } from '../parsers/TimeToSampleBoxParser.js';
+import { TrackExtendsBoxParser } from '../parsers/TrackExtendsBoxParser.js';
 import { TrackFragmentBaseMediaDecodeTimeBoxParser } from '../parsers/TrackFragmentBaseMediaDecodeTimeBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
@@ -75,6 +76,7 @@ export class ParserManager {
         this.parsers.set('stri', SubTrackInformationParser);
         this.parsers.set('stss', SyncSampleBoxParser);
         this.parsers.set('stts', TimeToSampleBoxParser);
+        this.parsers.set('trex', TrackExtendsBoxParser);
         this.parsers.set('tfdt', TrackFragmentBaseMediaDecodeTimeBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tkhd', TrackHeaderBoxParser);
