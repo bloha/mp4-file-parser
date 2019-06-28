@@ -30,6 +30,7 @@ import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxil
 import { SampleSizeBoxParser } from '../parsers/SampleSizeBoxParser.js';
 import { SampleToChunkBoxParser } from '../parsers/SampleToChunkBoxParser.js';
 import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
+import { SchemeTypeBoxParser } from '../parsers/SchemeTypeBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SegmentTypeBox } from '../parsers/SegmentTypeBox.js';
 import { ShadowSyncSampleBoxParser } from '../parsers/ShadowSyncSampleBoxParser.js';
@@ -79,6 +80,7 @@ export class ParserManager {
         this.parsers.set('stsz', SampleSizeBoxParser);
         this.parsers.set('stsc', SampleToChunkBoxParser);
         this.parsers.set('sbgp', SampleToGroupBoxParser);
+        this.parsers.set('schm', SchemeTypeBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
         this.parsers.set('styp', SegmentTypeBox);
         this.parsers.set('stsh', ShadowSyncSampleBoxParser);
