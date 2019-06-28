@@ -117,6 +117,7 @@ export class ParserManager {
             'udta',
             'strk',
             'sinf',
+            'schi',
             'strd',
             'dinf',
             'meco',
