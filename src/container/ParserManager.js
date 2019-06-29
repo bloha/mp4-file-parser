@@ -57,6 +57,7 @@ import { TrackExtensionPropertiesBoxParser } from '../parsers/TrackExtensionProp
 import { TrackFragmentBaseMediaDecodeTimeBoxParser } from '../parsers/TrackFragmentBaseMediaDecodeTimeBoxParser.js';
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackFragmentRandomAccessBoxParser } from '../parsers/TrackFragmentRandomAccessBoxParser.js';
+import { TrackGroupTypeBoxParser } from '../parsers/TrackGroupTypeBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
 import { TrackReferenceTypeBoxParser } from '../parsers/TrackReferenceTypeBoxParser.js';
 import { TrackRunBoxParser } from '../parsers/TrackRunBoxParser.js';
@@ -123,6 +124,7 @@ export class ParserManager {
         this.parsers.set('tfdt', TrackFragmentBaseMediaDecodeTimeBoxParser);
         this.parsers.set('tfhd', TrackFragmentHeaderBoxParser);
         this.parsers.set('tfra', TrackFragmentRandomAccessBoxParser);
+        this.parsers.set('msrc', TrackGroupTypeBoxParser);
         this.parsers.set('tkhd', TrackHeaderBoxParser);
         this.parsers.set('trun', TrackRunBoxParser);
         this.parsers.set('tsel', TrackSelectionBoxParser);
