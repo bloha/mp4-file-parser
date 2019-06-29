@@ -11,6 +11,7 @@ import { CompositionToDecodeBoxParser } from '../parsers/CompositionToDecodeBoxP
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { CopyrightBoxParser } from '../parsers/CopyrightBoxParser.js';
+import { DataReferenceBoxParser } from '../parsers/DataReferenceBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FdItemInformationBoxParser } from '../parsers/FdItemInformationBoxParser.js';
 import { FdSessionGroupBoxParser } from '../parsers/FdSessionGroupBoxParser.js';
@@ -78,6 +79,7 @@ export class ParserManager {
         this.parsers.set('ctts', CompositionOffsetBoxParser);
         this.parsers.set('cslg', CompositionToDecodeBoxParser);
         this.parsers.set('cprt', CopyrightBoxParser);
+        this.parsers.set('dref', DataReferenceBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
         this.parsers.set('fiin', FdItemInformationBoxParser);
