@@ -12,6 +12,7 @@ import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
 import { EditListBoxParser } from '../parsers/EditListBoxParser.js';
 import { CopyrightBoxParser } from '../parsers/CopyrightBoxParser.js';
 import { DataEntryUrlBoxParser } from '../parsers/DataEntryUrlBoxParser.js';
+import { DataEntryUrnBoxParser } from '../parsers/DataEntryUrnBoxParser.js';
 import { DataReferenceBoxParser } from '../parsers/DataReferenceBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
 import { FdItemInformationBoxParser } from '../parsers/FdItemInformationBoxParser.js';
@@ -81,6 +82,7 @@ export class ParserManager {
         this.parsers.set('cslg', CompositionToDecodeBoxParser);
         this.parsers.set('cprt', CopyrightBoxParser);
         this.parsers.set('url ', DataEntryUrlBoxParser);
+        this.parsers.set('urn ', DataEntryUrnBoxParser);
         this.parsers.set('dref', DataReferenceBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
