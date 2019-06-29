@@ -58,6 +58,7 @@ import { TrackFragmentBaseMediaDecodeTimeBoxParser } from '../parsers/TrackFragm
 import { TrackFragmentHeaderBoxParser } from '../parsers/TrackFragmentHeaderBoxParser.js';
 import { TrackFragmentRandomAccessBoxParser } from '../parsers/TrackFragmentRandomAccessBoxParser.js';
 import { TrackHeaderBoxParser } from '../parsers/TrackHeaderBoxParser.js';
+import { TrackReferenceTypeBoxParser } from '../parsers/TrackReferenceTypeBoxParser.js';
 import { TrackRunBoxParser } from '../parsers/TrackRunBoxParser.js';
 import { TrackSelectionBoxParser } from '../parsers/TrackSelectionBoxParser.js';
 import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.js';
@@ -128,6 +129,7 @@ export class ParserManager {
         this.parsers.set('vmhd', VideoMediaHeaderBoxParser);
         this.parsers.set('xml', XmlBoxParser);
         this._initContainers();
+        this._initTrackReferenceBoxes();
     }
 
     _initContainers() {
@@ -154,10 +156,24 @@ export class ParserManager {
             'meta',
             'paen'
         ];
+        this._connectBoxesAndParserClass(containers, ContainerBoxParser);
+    }
 
-        for (const container of containers) {
-            this.parsers.set(container, ContainerBoxParser);
-        }
+    _initTrackReferenceBoxes() {
+        const boxes = [
+            'hint',
+            'cdsc',
+            'font',
+            'hind',
+            'vdep',
+            'vplx',
+            'subt'
+        ];
+        this._connectBoxesAndParserClass(boxes, TrackReferenceTypeBoxParser);
+    }
+
+    _connectBoxesAndParserClass(boxNames, parserClass) {
+        boxNames.forEach(box => this.parsers.set(box, parserClass));
     }
 
     async createParser({ blob, offset }) {
