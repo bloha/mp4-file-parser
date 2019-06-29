@@ -18,6 +18,7 @@ import { FecReservoirBoxParser } from '../parsers/FecReservoirBoxParser.js';
 import { FilePartitionBoxParser } from '../parsers/FilePartitionBoxParser.js';
 import { FileReservoirBoxParser } from '../parsers/FileReservoirBoxParser.js';
 import { FileTypeBoxParser } from '../parsers/FileTypeBoxParser.js';
+import { FullBoxParser } from '../parsers/FullBoxParser.js';
 import { GroupIdToNameBoxParser } from '../parsers/GroupIdToNameBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
@@ -85,6 +86,7 @@ export class ParserManager {
         this.parsers.set('fpar', FilePartitionBoxParser);
         this.parsers.set('fire', FileReservoirBoxParser);
         this.parsers.set('ftyp', FileTypeBoxParser);
+        this.parsers.set('nmhd', FullBoxParser);
         this.parsers.set('gitn', GroupIdToNameBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
