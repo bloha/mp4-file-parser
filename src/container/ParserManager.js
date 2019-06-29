@@ -137,7 +137,7 @@ export class ParserManager {
         this.parsers.set('trun', TrackRunBoxParser);
         this.parsers.set('tsel', TrackSelectionBoxParser);
         this.parsers.set('vmhd', VideoMediaHeaderBoxParser);
-        this.parsers.set('xml', XmlBoxParser);
+        this.parsers.set('xml ', XmlBoxParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
     }
