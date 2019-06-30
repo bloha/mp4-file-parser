@@ -1,12 +1,12 @@
 'use strict';
 
-import { ExecutionSequence } from '../sequence/ExecutionSequence.js';
+import { EntityParser } from './EntityParser.js';
 import { Parser } from '../sequence/file/Parser.js';
 
-export class BoxParser {
+export class BoxParser extends EntityParser {
 
     constructor({ blob, offset }) {
-        this.sequence = new ExecutionSequence({ blob, offset });
+        super({ blob, offset });
         this.sequence.add({
             name: 'size',
             method: Parser.parseUint32
@@ -43,10 +43,6 @@ export class BoxParser {
                 }
             }
         });
-    }
-
-    async parse() {
-        return await this.sequence.execute();
     }
 
 }
