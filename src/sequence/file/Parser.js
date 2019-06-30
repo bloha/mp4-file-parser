@@ -178,6 +178,16 @@ export class Parser {
         return true;
     }
 
+    static async parseClassifiedEntity(parser, parameters) {
+        const blob = parser.getBlob();
+        const offset = parser.getHead().getOffset();
+        const entityParser = new parameters.class({ blob, offset });
+        const entity = await entityParser.parse();
+        const newPosition = entityParser.getExecutionSequence().getFileParser().getHead().getOffset();
+        parser.getHead().setPosition(newPosition);
+        return entity;
+    }
+
     static async parseEntries(parser, parameters) {
         if (parameters.while) {
             return await Parser._parseEntriesUsingWhile(parser, parameters);

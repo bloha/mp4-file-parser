@@ -15,6 +15,10 @@ export class FileParserHead {
         return this.offset;
     }
 
+    setPostition(postition) {
+        this.offset = postition;
+    }
+
     getInitialOffset() {
         return this.initialOffset;
     }

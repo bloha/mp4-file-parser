@@ -50,4 +50,8 @@ export class ExecutionSequence {
         this.fields.set('children', children);
     }
 
+    getFileParser() {
+        return this.fileParser;
+    }
+
 }
