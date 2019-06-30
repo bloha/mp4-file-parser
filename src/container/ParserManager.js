@@ -26,6 +26,7 @@ import { GroupIdToNameBoxParser } from '../parsers/GroupIdToNameBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
 import { ItemLocationBoxParser } from '../parsers/ItemLocationBoxParser.js';
+import { ItemReferenceBoxParser } from '../parsers/ItemReferenceBoxParser.js';
 import { KindBoxParser } from '../parsers/KindBoxParser.js';
 import { LevelAssignmentBoxParser } from '../parsers/LevelAssignmentBoxParser.js';
 import { MediaHeaderBoxParser } from '../parsers/MediaHeaderBoxParser.js';
@@ -97,6 +98,7 @@ export class ParserManager {
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
         this.parsers.set('iloc', ItemLocationBoxParser);
+        this.parsers.set('iref', ItemReferenceBoxParser);
         this.parsers.set('kind', KindBoxParser);
         this.parsers.set('leva', LevelAssignmentBoxParser);
         this.parsers.set('mdhd', MediaHeaderBoxParser);
