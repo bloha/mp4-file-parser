@@ -2,6 +2,10 @@
 
 export class Parser {
 
+    static isNotEndOfBoxReached(parser) {
+        return parser.getHead().getOffset() < parser.getBoxEnd();
+    }
+
     static skip(parser, parameters) {
         if (parameters.amount) {
             parser.skip(parameters.amount);
