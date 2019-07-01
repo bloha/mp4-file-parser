@@ -11,7 +11,7 @@ export class TrackReferenceTypeBoxParser extends BoxParser {
             name: 'track_IDs',
             method: Parser.parseArray,
             parameters: {
-                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                while: Parser.isNotEndOfBoxReached,
                 method: Parser.parseUint32
             }
         });

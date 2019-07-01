@@ -22,7 +22,7 @@ export class FileTypeBoxParser extends BoxParser {
             name: 'compatible_brands',
             method: Parser.parseArray,
             parameters: {
-                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                while: Parser.isNotEndOfBoxReached,
                 method: Parser.parseText,
                 parameters: {
                     amount: 4

@@ -23,7 +23,7 @@ export class SubTrackInformationParser extends FullBoxParser {
             name: 'attribute_list',
             method: Parser.parseArray,
             parameters: {
-                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                while: Parser.isNotEndOfBoxReached,
                 method: Parser.parseUint32
             }
         });

@@ -11,7 +11,7 @@ export class BinaryXmlBoxParser extends FullBoxParser {
             name: 'data',
             method: Parser.parseArray,
             parameters: {
-                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                while: Parser.isNotEndOfBoxReached,
                 method: Parser.parseUint8
             }
         });

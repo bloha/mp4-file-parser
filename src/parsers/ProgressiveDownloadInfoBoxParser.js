@@ -11,7 +11,7 @@ export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
             name: 'entries',
             method: Parser.parseEntries,
             parameters: {
-                while: (parser) => parser.getHead().getOffset() < parser.getBoxEnd(),
+                while: Parser.isNotEndOfBoxReached,
                 fields: [
                     {
                         name: 'rate',
