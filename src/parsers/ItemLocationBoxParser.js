@@ -178,11 +178,11 @@ export class ItemLocationBoxParser extends FullBoxParser {
             condition: (value) => value === 0,
             values: [fieldName],
             method: Parser.skip,
-            or: {
+            else: {
                 condition: (value) => value === 4,
                 values: [fieldName],
                 method: Parser.parseUint32,
-                or: {
+                else: {
                     condition: (value) => value === 8,
                     values: [fieldName],
                     method: Parser.parseUint64
