@@ -17,11 +17,15 @@ export class ItemInfoBoxParser extends EntityParser {
         });
         this.sequence.add({
             name: 'item_infos',
-            method: Parser.parseClassifiedEntity,
+            method: Parser.parseArray,
             parameters: {
-                class: ItemInfoEntryParser
+                amount: 'entry_count',
+                method: Parser.parseClassifiedEntity,
+                parameters: {
+                    class: ItemInfoEntryParser
+                }
             }
-        })
+        });
     }
 
 }
