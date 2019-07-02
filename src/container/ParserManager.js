@@ -201,4 +201,8 @@ export class ParserManager {
         return new BoxParser({ blob, offset });
     }
 
+    getParsers() {
+        return this.parsers;
+    }
+
 }

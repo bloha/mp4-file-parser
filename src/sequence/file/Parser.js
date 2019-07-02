@@ -1,5 +1,7 @@
 'use strict';
 
+import { ParserManager } from '../../container/ParserManager.js';
+
 export class Parser {
 
     static isNotEndOfBoxReached(parser) {
@@ -185,11 +187,21 @@ export class Parser {
     static async parseClassifiedEntity(parser, parameters) {
         const blob = parser.getBlob();
         const offset = parser.getHead().getOffset();
-        const entityParser = new parameters.class({ blob, offset });
+        const entityClass = Parser._findEntityClass(parser, parameters);
+        const entityParser = new entityClass({ blob, offset });
         const entity = await entityParser.parse();
         const newPosition = entityParser.getExecutionSequence().getFileParser().getHead().getOffset();
         parser.getHead().setPosition(newPosition);
         return entity;
+    }
+
+    static _findEntityClass(parser, parameters) {
+        if (typeof parameters.class === 'string') {
+            const type = parser.getField(parameters.class);
+            const manager = new ParserManager();
+            return manager.getParsers().get(type);
+        }
+        return parameters.class;
     }
 
     static async parseEntries(parser, parameters) {
