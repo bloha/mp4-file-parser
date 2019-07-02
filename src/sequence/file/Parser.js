@@ -267,10 +267,19 @@ export class Parser {
     }
 
     static _extractValue(parser, value) {
-        if (typeof value === 'object') {
-            return Parser._extractValueFromArray(parser, value);
+        switch (typeof value) {
+            case 'function':
+                return value(parser);
+
+            case 'object':
+                return Parser._extractValueFromArray(parser, value);
+
+            case 'string':
+                return parser.getField(value);
+
+            default:
+                return value;
         }
-        return (typeof value === 'string') ? parser.getField(value) : value;
     }
 
     static _extractValueFromArray(parser, array) {
