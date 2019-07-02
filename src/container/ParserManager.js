@@ -15,6 +15,7 @@ import { DataEntryUrlBoxParser } from '../parsers/DataEntryUrlBoxParser.js';
 import { DataEntryUrnBoxParser } from '../parsers/DataEntryUrnBoxParser.js';
 import { DataReferenceBoxParser } from '../parsers/DataReferenceBoxParser.js';
 import { ExtendedLanguageBoxParser } from '../parsers/ExtendedLanguageBoxParser.js';
+import { FdItemInfoExtensionParser } from '../parsers/FdItemInfoExtensionParser.js';
 import { FdItemInformationBoxParser } from '../parsers/FdItemInformationBoxParser.js';
 import { FdSessionGroupBoxParser } from '../parsers/FdSessionGroupBoxParser.js';
 import { FecReservoirBoxParser } from '../parsers/FecReservoirBoxParser.js';
@@ -87,6 +88,7 @@ export class ParserManager {
         this.parsers.set('dref', DataReferenceBoxParser);
         this.parsers.set('elst', EditListBoxParser);
         this.parsers.set('elng', ExtendedLanguageBoxParser);
+        this.parsers.set('fdel', FdItemInfoExtensionParser);
         this.parsers.set('fiin', FdItemInformationBoxParser);
         this.parsers.set('segr', FdSessionGroupBoxParser);
         this.parsers.set('fecr', FecReservoirBoxParser);
