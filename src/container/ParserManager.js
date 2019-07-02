@@ -26,6 +26,7 @@ import { FullBoxParser } from '../parsers/FullBoxParser.js';
 import { GroupIdToNameBoxParser } from '../parsers/GroupIdToNameBoxParser.js';
 import { HandlerBoxParser } from '../parsers/HandlerBoxParser.js';
 import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js';
+import { ItemInfoEntryParser } from '../parsers/ItemInfoEntryParser.js';
 import { ItemLocationBoxParser } from '../parsers/ItemLocationBoxParser.js';
 import { ItemReferenceBoxParser } from '../parsers/ItemReferenceBoxParser.js';
 import { KindBoxParser } from '../parsers/KindBoxParser.js';
@@ -99,6 +100,7 @@ export class ParserManager {
         this.parsers.set('gitn', GroupIdToNameBoxParser);
         this.parsers.set('hdlr', HandlerBoxParser);
         this.parsers.set('hmhd', HintMediaHeaderBoxParser);
+        this.parsers.set('infe', ItemInfoEntryParser);
         this.parsers.set('iloc', ItemLocationBoxParser);
         this.parsers.set('iref', ItemReferenceBoxParser);
         this.parsers.set('kind', KindBoxParser);
