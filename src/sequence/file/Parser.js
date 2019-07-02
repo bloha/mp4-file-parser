@@ -267,7 +267,15 @@ export class Parser {
     }
 
     static _extractValue(parser, value) {
+        if (typeof value === 'object') {
+            return Parser._extractValueFromArray(parser, value);
+        }
         return (typeof value === 'string') ? parser.getField(value) : value;
+    }
+
+    static _extractValueFromArray(parser, array) {
+        return array.map(value => Parser._extractValue(parser, value))
+            .find(value => value);
     }
 
 }
