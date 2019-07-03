@@ -194,14 +194,23 @@ export class ParserManager {
     }
 
     async createParser({ blob, offset }) {
-        const boxParser = new BoxParser({ blob, offset });
-        const fields = await boxParser.parse();
-        const type = fields.get('type');
+        const parserClass = await this.detectParserClass({ blob, offset });
+        return new parserClass({ blob, offset });
+    }
+
+    async detectParserClass({ blob, offset }) {
+        const type = await this._detectType({ blob, offset });
         if (this.parsers.has(type)) {
-            const parserClass = this.parsers.get(type);
-            return new parserClass({ blob, offset });
+            return this.parsers.get(type);
         }
-        return new BoxParser({ blob, offset });
+        return BoxParser;
+    }
+
+    async _detectType({ blob, offset }) {
+        const parser = new BoxParser({ blob, offset });
+        const fields = await parser.parse();
+        const type = fields.get('type');
+        return type;
     }
 
     getParsers() {

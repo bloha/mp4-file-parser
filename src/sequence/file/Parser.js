@@ -187,21 +187,31 @@ export class Parser {
     static async parseClassifiedEntity(parser, parameters) {
         const blob = parser.getBlob();
         const offset = parser.getHead().getOffset();
-        const entityClass = Parser._findEntityClass(parser, parameters);
-        const entityParser = new entityClass({ blob, offset });
+        const parserClass = await Parser._findEntityParserClass(parser, parameters);
+        const entityParser = new parserClass({ blob, offset });
         const entity = await entityParser.parse();
         const newPosition = entityParser.getExecutionSequence().getFileParser().getHead().getOffset();
         parser.getHead().setPosition(newPosition);
         return entity;
     }
 
-    static _findEntityClass(parser, parameters) {
+    static async _findEntityParserClass(parser, parameters) {
+        if (!parameters.class) {
+            return await Parser._detectEntityParserClass(parser);
+        }
         if (typeof parameters.class === 'string') {
             const type = parser.getField(parameters.class);
             const manager = new ParserManager();
             return manager.getParsers().get(type);
         }
         return parameters.class;
+    }
+
+    static async _detectEntityParserClass(parser) {
+        const blob = parser.getBlob();
+        const offset = parser.getHead().getOffset();
+        const manager = new ParserManager();
+        return await manager.detectParserClass({ blob, offset });
     }
 
     static async parseEntries(parser, parameters) {
