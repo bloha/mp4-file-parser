@@ -195,7 +195,7 @@ export class Parser {
         return entity;
     }
 
-    static async _findEntityParserClass(parser, parameters) {
+    static async _findEntityParserClass(parser, parameters = {}) {
         if (!parameters.class) {
             return await Parser._detectEntityParserClass(parser);
         }
