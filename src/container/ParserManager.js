@@ -45,6 +45,7 @@ import { ProducerReferenceTimeBoxParser } from '../parsers/ProducerReferenceTime
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
 import { SampleAuxiliaryInformationOffsetsBoxParser } from '../parsers/SampleAuxiliaryInformationOffsetsBoxParser.js';
 import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxiliaryInformationSizesBoxParser.js';
+import { SampleDescriptionBoxParser } from '../parsers/SampleDescriptionBoxParser.js';
 import { SampleSizeBoxParser } from '../parsers/SampleSizeBoxParser.js';
 import { SampleToChunkBoxParser } from '../parsers/SampleToChunkBoxParser.js';
 import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
@@ -120,6 +121,7 @@ export class ParserManager {
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
+        this.parsers.set('stsd', SampleDescriptionBoxParser);
         this.parsers.set('stsz', SampleSizeBoxParser);
         this.parsers.set('stsc', SampleToChunkBoxParser);
         this.parsers.set('sbgp', SampleToGroupBoxParser);
