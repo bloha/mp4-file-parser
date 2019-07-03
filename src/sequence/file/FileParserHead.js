@@ -15,7 +15,7 @@ export class FileParserHead {
         return this.offset;
     }
 
-    setPostition(postition) {
+    setPosition(postition) {
         this.offset = postition;
     }
 
