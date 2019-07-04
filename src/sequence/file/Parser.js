@@ -1,6 +1,7 @@
 'use strict';
 
 import { ParserManager } from '../../container/ParserManager.js';
+import { ArrayParserFactory } from '../parser/array/ArrayParserFactory.js';
 
 export class Parser {
 
@@ -248,30 +249,9 @@ export class Parser {
         return entry;
     }
 
-    static async parseArray(parser, parameters) {
-        if (parameters.while) {
-            return await Parser._parseArrayUsingWhile(parser, parameters);
-        }
-        return await Parser._parseArrayUsingAmount(parser, parameters);
-    }
-
-    static async _parseArrayUsingWhile(parser, parameters) {
-        const values = [];
-        while (parameters.while(parser)) {
-            const value = await parameters.method(parser, parameters.parameters);
-            values.push(value);
-        }
-        return values;
-    }
-
-    static async _parseArrayUsingAmount(parser, parameters) {
-        const values = [];
-        const amount = Parser._extractAmount(parser, parameters);
-        for (let i = 0; i < amount; i++) {
-            const value = await parameters.method(parser, parameters.parameters);
-            values.push(value);
-        }
-        return values;
+    static async parseArray(fileParser, parameters) {
+        const parser = await ArrayParserFactory.create({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static _extractAmount(parser, parameters) {
