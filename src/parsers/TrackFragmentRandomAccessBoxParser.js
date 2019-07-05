@@ -64,7 +64,7 @@ export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 'length_size_of_traf_num',
-                            amountConverter: (amount) => (amount + 1) * 8
+                            converter: (amount) => (amount + 1) * 8
                         }
                     },
                     {
@@ -72,7 +72,7 @@ export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 'length_size_of_trun_num',
-                            amountConverter: (amount) => (amount + 1) * 8
+                            converter: (amount) => (amount + 1) * 8
                         }
                     },
                     {
@@ -80,7 +80,7 @@ export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
                         method: Parser.parseBits,
                         parameters: {
                             amount: 'length_size_of_sample_num',
-                            amountConverter: (amount) => (amount + 1) * 8
+                            converter: (amount) => (amount + 1) * 8
                         }
                     }
                 ]

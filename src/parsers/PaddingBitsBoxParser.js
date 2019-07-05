@@ -16,7 +16,7 @@ export class PaddingBitsBoxParser extends FullBoxParser {
             method: Parser.parseEntries,
             parameters: {
                 amount: 'sample_count',
-                amountConverter: (amount) => (amount + 1) / 2,
+                converter: (amount) => (amount + 1) / 2,
                 fields: [
                     {
                         name: 'reserved',
