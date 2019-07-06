@@ -9,6 +9,7 @@ import { BitParser } from '../parser/bit/BitParser.js';
 import { AccumulativeParser } from '../parser/string/AccumulativeParser.js';
 import { ByteOrderMarkStringParser } from '../parser/string/ByteOrderMarkStringParser.js';
 import { StringParser } from '../parser/string/StringParser.js';
+import { BitSkip } from '../parser/skip/BitSkip.js';
 
 export class Parser {
 
@@ -22,11 +23,9 @@ export class Parser {
         }
     }
 
-    static async skipBits(parser, parameters) {
-        const bitParser = parser.getBitParser();
-        const amount = Parser._extractAmount(parser, parameters);
-        await BitParser._loadMissingBits(parser, bitParser, amount);
-        bitParser.skip(amount);
+    static async skipBits(fileParser, parameters) {
+        const skip = new BitSkip({ fileParser, parameters });
+        await skip.skip();
     }
 
     static async parseInt8(parser) {
@@ -116,39 +115,10 @@ export class Parser {
         return await parser.parse();
     }
 
-    static _extractAmount(parser, parameters) {
-        const amount = Parser._extractValue(parser, parameters.amount);
-        if (parameters.amountConverter) {
-            return parameters.amountConverter(amount);
-        }
-        return amount;
-    }
-
     static async parseIfBoxHasFlags(parser, parameters) {
         if (parser.boxHasFlags(parameters.flags)) {
             return await parameters.method(parser, parameters.parameters);
         }
-    }
-
-    static _extractValue(parser, value) {
-        switch (typeof value) {
-            case 'function':
-                return value(parser);
-
-            case 'object':
-                return Parser._extractValueFromArray(parser, value);
-
-            case 'string':
-                return parser.getField(value);
-
-            default:
-                return value;
-        }
-    }
-
-    static _extractValueFromArray(parser, array) {
-        return array.map(value => Parser._extractValue(parser, value))
-            .find(value => value);
     }
 
 }
