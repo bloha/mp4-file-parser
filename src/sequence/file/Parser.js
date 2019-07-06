@@ -5,6 +5,7 @@ import { EntriesParserFactory } from '../parser/entry/EntriesParserFactory.js';
 import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
 import { ConditionBasedParser } from '../parser/condition/ConditionBasedParser.js';
 import { ClassifiedEntityParser } from '../parser/entity/ClassifiedEntityParser.js';
+import { BitParser } from '../parser/bit/BitParser.js';
 
 export class Parser {
 
@@ -21,7 +22,7 @@ export class Parser {
     static async skipBits(parser, parameters) {
         const bitParser = parser.getBitParser();
         const amount = Parser._extractAmount(parser, parameters);
-        await Parser._loadMissingBits(parser, bitParser, amount);
+        await BitParser._loadMissingBits(parser, bitParser, amount);
         bitParser.skip(amount);
     }
 
@@ -57,21 +58,9 @@ export class Parser {
         return await parser.takeUint64();
     }
 
-    static async parseBits(parser, parameters) {
-        const bitParser = parser.getBitParser();
-        const amount = Parser._extractAmount(parser, parameters);
-        await Parser._loadMissingBits(parser, bitParser, amount);
-        return bitParser.parse(amount);
-    }
-
-    static async _loadMissingBits(parser, bitParser, amount) {
-        if (!bitParser.hasBits(amount)) {
-            const lack = amount - bitParser.getAmount();
-            for (let i = 0; i < Math.ceil(lack / 8); i++) {
-                const number = await Parser.parseUint8(parser);
-                bitParser.addByte(number);
-            }
-        }
+    static async parseBits(fileParser, parameters) {
+        const parser = new BitParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static async parseText(parser, parameters) {
