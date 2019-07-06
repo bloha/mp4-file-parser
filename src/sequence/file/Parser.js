@@ -6,6 +6,9 @@ import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
 import { ConditionBasedParser } from '../parser/condition/ConditionBasedParser.js';
 import { ClassifiedEntityParser } from '../parser/entity/ClassifiedEntityParser.js';
 import { BitParser } from '../parser/bit/BitParser.js';
+import { AccumulativeParser } from '../parser/string/AccumulativeParser.js';
+import { ByteOrderMarkStringParser } from '../parser/string/ByteOrderMarkStringParser.js';
+import { StringParser } from '../parser/string/StringParser.js';
 
 export class Parser {
 
@@ -67,48 +70,19 @@ export class Parser {
         return await parser.takeText(parameters.amount);
     }
 
-    static async parseString(parser) {
-        const array = await Parser._parseNullTerminatedStringAsUint8Array(parser);
-        return Parser._convertArrayToString(array, 'utf-8');
+    static async parseString(fileParser, parameters) {
+        const parser = new StringParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
-    static async parseStringWithByteOrderMark(parser) {
-        const array = await Parser._parseNullTerminatedStringAsUint8Array(parser);
-        if (Parser._arrayHasByteOrderMark(array)) {
-            const withoutMark = array.slice(2);
-            return Parser._convertArrayToString(withoutMark, 'utf-16');
-
-        }
-        return Parser._convertArrayToString(array, 'utf-8');
+    static async parseStringWithByteOrderMark(fileParser, parameters) {
+        const parser = new ByteOrderMarkStringParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
-    static async _parseNullTerminatedStringAsUint8Array(parser) {
-        const bytes = [];
-        let byte = await parser.takeUint8();
-        while (byte != 0) {
-            bytes.push(byte);
-            byte = await parser.takeUint8();
-        }
-        return new Uint8Array(bytes);
-    }
-
-    static _arrayHasByteOrderMark(uint8Array) {
-        return uint8Array.length >= 2 && uint8Array[0] === 0xFE && uint8Array[1] === 0xFF;
-    }
-
-    static _convertArrayToString(array, encoding) {
-        const decoder = new TextDecoder(encoding);
-        return decoder.decode(array);
-    }
-
-    static async parseAccumulatively(parser, parameters) {
-        const amount = Parser._extractValue(parameters.amount);
-        let accumulatedValue = '';
-        for (let i = 0; i < amount; i++) {
-            const value = await parameters.method(parser, parameters.parameters);
-            accumulatedValue = parameters.accumulator(accumulatedValue, value);
-        }
-        return accumulatedValue;
+    static async parseAccumulatively(fileParser, parameters) {
+        const parser = new AccumulativeParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static async parseByVersion(fileParser, parameters) {
