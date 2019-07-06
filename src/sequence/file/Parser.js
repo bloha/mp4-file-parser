@@ -4,6 +4,7 @@ import { ParserManager } from '../../container/ParserManager.js';
 import { ArrayParserFactory } from '../parser/array/ArrayParserFactory.js';
 import { EntriesParserFactory } from '../parser/entry/EntriesParserFactory.js';
 import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
+import { ConditionBasedParser } from '../parser/condition/ConditionBasedParser.js';
 
 export class Parser {
 
@@ -132,32 +133,9 @@ export class Parser {
         }
     }
 
-    static async parseByCondition(parser, parameters) {
-        const values = parameters.values.map(value => Parser._extractValue(parser, value));
-        const condition = parameters.condition;
-        const needsExecution = (condition.length === 1)
-            ? Parser._checkConditionWithOneArgument(condition, values)
-            : Parser._checkConditionWithTwoArguments(condition, values);
-        if (needsExecution) {
-            return await parameters.method(parser, parameters.parameters);
-        } else if (parameters.else) {
-            return await Parser.parseByCondition(parser, parameters.else);
-        }
-    }
-
-    static _checkConditionWithOneArgument(condition, values) {
-        return values.every(condition);
-    }
-
-    static _checkConditionWithTwoArguments(condition, values) {
-        for (let i = 0; i < values.length - 1; i++) {
-            const v1 = values[i];
-            const v2 = values[i + 1];
-            if (!condition(v1, v2)) {
-                return false;
-            }
-        }
-        return true;
+    static async parseByCondition(fileParser, parameters) {
+        const parser = new ConditionBasedParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static async parseClassifiedEntity(parser, parameters) {
