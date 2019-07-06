@@ -1,10 +1,10 @@
 'use strict';
 
-import { ParserManager } from '../../container/ParserManager.js';
 import { ArrayParserFactory } from '../parser/array/ArrayParserFactory.js';
 import { EntriesParserFactory } from '../parser/entry/EntriesParserFactory.js';
 import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
 import { ConditionBasedParser } from '../parser/condition/ConditionBasedParser.js';
+import { ClassifiedEntityParser } from '../parser/entity/ClassifiedEntityParser.js';
 
 export class Parser {
 
@@ -138,34 +138,9 @@ export class Parser {
         return await parser.parse();
     }
 
-    static async parseClassifiedEntity(parser, parameters) {
-        const blob = parser.getBlob();
-        const offset = parser.getHead().getOffset();
-        const parserClass = await Parser._findEntityParserClass(parser, parameters);
-        const entityParser = new parserClass({ blob, offset });
-        const entity = await entityParser.parse();
-        const newPosition = entityParser.getExecutionSequence().getFileParser().getHead().getOffset();
-        parser.getHead().setPosition(newPosition);
-        return entity;
-    }
-
-    static async _findEntityParserClass(parser, parameters = {}) {
-        if (!parameters.class) {
-            return await Parser._detectEntityParserClass(parser);
-        }
-        if (typeof parameters.class === 'string') {
-            const type = parser.getField(parameters.class);
-            const manager = new ParserManager();
-            return manager.getParsers().get(type);
-        }
-        return parameters.class;
-    }
-
-    static async _detectEntityParserClass(parser) {
-        const blob = parser.getBlob();
-        const offset = parser.getHead().getOffset();
-        const manager = new ParserManager();
-        return await manager.detectParserClass({ blob, offset });
+    static async parseClassifiedEntity(fileParser, parameters) {
+        const parser = new ClassifiedEntityParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static async parseEntries(fileParser, parameters) {
