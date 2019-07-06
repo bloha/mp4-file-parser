@@ -3,6 +3,7 @@
 import { ParserManager } from '../../container/ParserManager.js';
 import { ArrayParserFactory } from '../parser/array/ArrayParserFactory.js';
 import { EntriesParserFactory } from '../parser/entry/EntriesParserFactory.js';
+import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
 
 export class Parser {
 
@@ -120,36 +121,9 @@ export class Parser {
         return accumulatedValue;
     }
 
-    static async parseByVersion(parser, parameters) {
-        const version = parser.getField('version');
-        const methods = parameters.methods;
-        const method = Parser._findValidMethod(version, methods);
-        return await method.method(parser, method.parameters);
-    }
-
-    static _findValidMethod(version, methods) {
-        if (Parser._methodsIsArrayOfFunctions(methods)) {
-            methods = Parser._convertFunctionsToObjects(methods);
-        }
-        const validMethod = methods.find(method => method.versions.includes(version));
-        return validMethod ? validMethod : Parser._findMaxVersionedMethod(methods);
-    }
-
-    static _methodsIsArrayOfFunctions(methods) {
-        return methods.every(method => typeof method === 'function');
-    }
-
-    static _convertFunctionsToObjects(methods) {
-        return methods.map((method, version) => {
-            return { method, versions: [version] }
-        });
-    }
-
-    static _findMaxVersionedMethod(methods) {
-        const versionReducer = (max, version) => version > max ? version : max;
-        const methodReducer = (max, method) =>
-            method.versions.reduce(versionReducer) > max.versions.reduce(versionReducer) ? method : max;
-        return methods.reduce(methodReducer);
+    static async parseByVersion(fileParser, parameters) {
+        const parser = new VersionBasedParser({ fileParser, parameters });
+        return await parser.parse();
     }
 
     static async parseIfVersionEquals(parser, parameters) {
