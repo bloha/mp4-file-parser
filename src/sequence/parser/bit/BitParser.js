@@ -28,7 +28,7 @@ export class BitParser {
     }
 
     async _extractAmount() {
-        const extractor = new ValueExtractor({ fileParser: this.fileParser, rawValue: this.parameters.amount });
+        const extractor = new ValueExtractor({ fileParser: this.fileParser, rawValue: this.parameters.amount, converter: this.parameters.converter });
         return await extractor.extract();
     }
 
