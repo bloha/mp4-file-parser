@@ -89,12 +89,6 @@ export class Parser {
         return await parser.parse();
     }
 
-    static async parseIfVersionEquals(parser, parameters) {
-        if (parser.getField('version') === parameters.version) {
-            return await parameters.method(parser);
-        }
-    }
-
     static async parseByCondition(fileParser, parameters) {
         const parser = new ConditionBasedParser({ fileParser, parameters });
         return await parser.parse();

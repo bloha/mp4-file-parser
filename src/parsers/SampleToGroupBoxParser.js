@@ -13,10 +13,11 @@ export class SampleToGroupBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'grouping_type_parameter',
-            method: Parser.parseIfVersionEquals,
+            method: Parser.parseByCondition,
             parameters: {
+                condition: (version) => version === 1,
+                values: ['version'],
                 method: Parser.parseUint32,
-                version: 1
             }
         });
         this.sequence.add({
