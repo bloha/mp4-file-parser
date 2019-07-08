@@ -17,72 +17,62 @@ export class FileParser extends DataParser {
         this.head.move(amount);
     }
 
-    async takeInt8() {
+    async _takeInt8() {
         const buffer = await this._fetchBuffer(1);
         const value = new DataView(buffer).getInt8(0);
-        await super.takeInt8();
         return value;
     }
 
-    async takeUint8() {
+    async _takeUint8() {
         const buffer = await this._fetchBuffer(1);
         const value = new DataView(buffer).getUint8(0);
-        await super.takeUint8();
         return value;
     }
 
-    async takeInt16() {
+    async _takeInt16() {
         const buffer = await this._fetchBuffer(2);
         const value = new DataView(buffer).getInt16(0);
-        await super.takeInt16();
         return value;
     }
 
-    async takeUint16() {
+    async _takeUint16() {
         const buffer = await this._fetchBuffer(2);
         const value = new DataView(buffer).getUint16(0);
-        await super.takeUint16();
         return value;
     }
 
-    async takeInt32() {
+    async _takeInt32() {
         const buffer = await this._fetchBuffer(4);
         const value = new DataView(buffer).getInt32(0);
-        await super.takeInt32();
         return value;
     }
 
-    async takeUint32() {
+    async _takeUint32() {
         const buffer = await this._fetchBuffer(4);
         const value = new DataView(buffer).getUint32(0);
-        await super.takeUint32();
         return value;
     }
 
-    async takeInt64() {
+    async _takeInt64() {
         const buffer = await this._fetchBuffer(8);
         const value = new DataView(buffer).getBigInt64(0);
-        await super.takeInt64();
         return value;
     }
 
-    async takeUint64() {
+    async _takeUint64() {
         const buffer = await this._fetchBuffer(8);
         const value = new DataView(buffer).getBigUint64(0);
-        await super.takeUint64();
         return value;
     }
 
-    async takeText(size) {
+    async _takeText(size) {
         const buffer = await this._fetchBuffer(size);
         const text = new TextDecoder().decode(buffer);
-        await super.takeText(size);
         return text;
     }
 
-    async takeBuffer(size) {
+    async _takeBuffer(size) {
         const buffer = await this._fetchBuffer(size);
-        await super.takeBuffer(size);
         return buffer;
     }
 
