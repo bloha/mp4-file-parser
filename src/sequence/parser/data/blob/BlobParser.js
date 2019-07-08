@@ -2,7 +2,7 @@
 
 import { DataParser } from '../DataParser.js';
 
-export class FileParser extends DataParser {
+export class BlobParser extends DataParser {
 
     constructor({ blob, offset, parsedFields }) {
         super({ offset, parsedFields });

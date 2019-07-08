@@ -4,19 +4,19 @@ import { ParserManager } from '../../../container/ParserManager.js';
 
 export class ClassifiedEntityParser {
 
-    constructor({ fileParser, parameters = {} }) {
-        this.fileParser = fileParser;
+    constructor({ blobParser, parameters = {} }) {
+        this.blobParser = blobParser;
         this.parameters = parameters;
     }
 
     async parse() {
-        const blob = this.fileParser.getBlob();
-        const offset = this.fileParser.getHead().getPosition();
+        const blob = this.blobParser.getBlob();
+        const offset = this.blobParser.getHead().getPosition();
         const parserClass = await this._findEntityParserClass();
         const entityParser = new parserClass({ blob, offset });
         const entity = await entityParser.parse();
-        const newPosition = entityParser.getExecutionSequence().getFileParser().getHead().getPosition();
-        this.fileParser.getHead().setPosition(newPosition);
+        const newPosition = entityParser.getExecutionSequence().getBlobParser().getHead().getPosition();
+        this.blobParser.getHead().setPosition(newPosition);
         return entity;
     }
 
@@ -25,7 +25,7 @@ export class ClassifiedEntityParser {
             return await this._detectEntityParserClass();
         }
         if (typeof this.parameters.class === 'string') {
-            const type = this.fileParser.getField(parameters.class);
+            const type = this.blobParser.getField(parameters.class);
             const manager = new ParserManager();
             return manager.getParsers().get(type);
         }
@@ -33,8 +33,8 @@ export class ClassifiedEntityParser {
     }
 
     async _detectEntityParserClass() {
-        const blob = this.fileParser.getBlob();
-        const offset = this.fileParser.getHead().getPosition();
+        const blob = this.blobParser.getBlob();
+        const offset = this.blobParser.getHead().getPosition();
         const manager = new ParserManager();
         return await manager.detectParserClass({ blob, offset });
     }

@@ -1,13 +1,13 @@
 'use strict';
 
-import { FileParser } from './parser/data/file/FileParser.js';
+import { BlobParser } from './parser/data/blob/BlobParser.js';
 import { ContainerParser } from '../container/ContainerParser.js';
 
 export class ExecutionSequence {
 
     constructor({ blob, offset }) {
         this.fields = new Map();
-        this.fileParser = new FileParser({ blob, offset, parsedFields: this.fields });
+        this.blobParser = new BlobParser({ blob, offset, parsedFields: this.fields });
         this.strategies = [];
         this.children = false;
     }
@@ -36,22 +36,22 @@ export class ExecutionSequence {
 
     async _executeStrategies() {
         for (const strategy of this.strategies) {
-            const value = await strategy.method(this.fileParser, strategy.parameters);
+            const value = await strategy.method(this.blobParser, strategy.parameters);
             this.fields.set(strategy.name, value);
         }
     }
 
     async _parseChildren() {
-        const blob = this.fileParser.getBlob();
-        const offset = this.fileParser.getHead().getPosition();
-        const maxOffset = this.fileParser.getHead().getInitialPosition() + this.fields.get('size');
+        const blob = this.blobParser.getBlob();
+        const offset = this.blobParser.getHead().getPosition();
+        const maxOffset = this.blobParser.getHead().getInitialPosition() + this.fields.get('size');
         const children = await new ContainerParser({ blob, offset, maxOffset })
             .parse();
         this.fields.set('children', children);
     }
 
-    getFileParser() {
-        return this.fileParser;
+    getBlobParser() {
+        return this.blobParser;
     }
 
 }

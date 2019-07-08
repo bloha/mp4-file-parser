@@ -103,8 +103,8 @@ export class Parser {
         return await parser.parse();
     }
 
-    static async parseClassifiedEntity(fileParser, parameters) {
-        const parser = new ClassifiedEntityParser({ fileParser, parameters });
+    static async parseClassifiedEntity(blobParser, parameters) {
+        const parser = new ClassifiedEntityParser({ blobParser, parameters });
         return await parser.parse();
     }
 
