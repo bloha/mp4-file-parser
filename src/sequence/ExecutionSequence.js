@@ -1,6 +1,6 @@
 'use strict';
 
-import { FileParser } from './file/FileParser.js';
+import { FileParser } from './parser/data/file/FileParser.js';
 import { ContainerParser } from '../container/ContainerParser.js';
 
 export class ExecutionSequence {
