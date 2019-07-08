@@ -8,7 +8,6 @@ export class FileParser extends DataParser {
     constructor({ blob, boxStart, parsedFields }) {
         super({ offset: boxStart });
         this.blob = blob;
-        this.boxStart = boxStart;
         this.fields = parsedFields;
         this.bitParser = new BitParser();
     }
@@ -94,10 +93,6 @@ export class FileParser extends DataParser {
 
     getBitParser() {
         return this.bitParser;
-    }
-
-    getBoxStart() {
-        return this.boxStart;
     }
 
     getBlob() {
