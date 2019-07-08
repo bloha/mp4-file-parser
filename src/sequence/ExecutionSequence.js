@@ -7,7 +7,7 @@ export class ExecutionSequence {
 
     constructor({ blob, offset }) {
         this.fields = new Map();
-        this.fileParser = new FileParser({ blob, boxStart: offset, parsedFields: this.fields });
+        this.fileParser = new FileParser({ blob, offset, parsedFields: this.fields });
         this.strategies = [];
         this.children = false;
     }

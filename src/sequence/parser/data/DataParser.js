@@ -2,6 +2,7 @@
 
 import { Abstraction } from '../../../../modules/javascript-abstraction/src/Abstraction.js';
 import { ParserHead } from './ParserHead.js';
+import { BitParser } from './BitParser.js';
 
 /**
  * Abstract Class DataParser.
@@ -10,9 +11,11 @@ import { ParserHead } from './ParserHead.js';
  */
 export class DataParser {
 
-    constructor({ offset }) {
+    constructor({ offset, parsedFields }) {
         Abstraction.needsInheritance(new.target, DataParser);
         this.head = new ParserHead(offset);
+        this.bitParser = new BitParser();
+        this.fields = parsedFields;
     }
 
     async takeInt8() {
@@ -115,8 +118,16 @@ export class DataParser {
         Abstraction.needsImplementation();
     }
 
+    getField(fieldName) {
+        return this.fields.get(fieldName);
+    }
+
     getHead() {
         return this.head;
+    }
+
+    getBitParser() {
+        return this.bitParser;
     }
 
 }

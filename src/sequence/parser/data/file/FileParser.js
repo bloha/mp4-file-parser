@@ -1,15 +1,12 @@
 'use strict';
 
 import { DataParser } from '../DataParser.js';
-import { BitParser } from './BitParser.js';
 
 export class FileParser extends DataParser {
 
-    constructor({ blob, boxStart, parsedFields }) {
-        super({ offset: boxStart });
+    constructor({ blob, offset, parsedFields }) {
+        super({ offset, parsedFields });
         this.blob = blob;
-        this.fields = parsedFields;
-        this.bitParser = new BitParser();
     }
 
     skip(amount) {
@@ -81,14 +78,6 @@ export class FileParser extends DataParser {
         const slice = this.blob.slice(start, end);
         const buffer = await (new Response(slice)).arrayBuffer();
         return buffer;
-    }
-
-    getField(fieldName) {
-        return this.fields.get(fieldName);
-    }
-
-    getBitParser() {
-        return this.bitParser;
     }
 
     getBlob() {
