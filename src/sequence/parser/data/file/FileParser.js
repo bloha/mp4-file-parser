@@ -100,10 +100,6 @@ export class FileParser extends DataParser {
         return this.boxStart;
     }
 
-    getBoxEnd() {
-        return this.boxStart + this.getField('size');
-    }
-
     getBlob() {
         return this.blob;
     }

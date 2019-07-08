@@ -20,4 +20,8 @@ export class ParserHead {
         return this;
     }
 
+    getInitialPosition() {
+        return this.initialPosition;
+    }
+
 }

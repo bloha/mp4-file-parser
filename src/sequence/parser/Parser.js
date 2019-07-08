@@ -13,8 +13,11 @@ import { BitSkip } from './skip/BitSkip.js';
 
 export class Parser {
 
-    static isNotEndOfBoxReached(parser) {
-        return parser.getHead().getPosition() < parser.getBoxEnd();
+    static isNotEndOfBoxReached(dataParser) {
+        const boxStart = dataParser.getHead().getInitialPosition();
+        const boxSize = dataParser.getField('size');
+        const boxEnd = boxStart + boxSize;
+        return dataParser.getHead().getPosition() < boxEnd;
     }
 
     static skip(parser, parameters) {
