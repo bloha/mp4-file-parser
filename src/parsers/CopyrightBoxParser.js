@@ -2,7 +2,7 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Strategy } from '../sequence/Strategy.js';
-import { Parser } from '../sequence/file/Parser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 
 export class CopyrightBoxParser extends FullBoxParser {
 

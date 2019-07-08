@@ -1,7 +1,7 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/file/Parser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 import { SingleItemTypeReferenceBoxParser } from './SingleItemTypeReferenceBoxParser.js';
 import { SingleItemTypeReferenceBoxLargeParser } from './SingleItemTypeReferenceBoxLargeParser.js';
 

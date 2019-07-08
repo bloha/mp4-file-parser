@@ -1,7 +1,7 @@
 'use strict';
 
 import { EntityParser } from './EntityParser.js';
-import { Parser } from '../sequence/file/Parser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 import { ItemInfoEntryParser } from './ItemInfoEntryParser.js';
 
 export class ItemInfoBoxParser extends EntityParser {

@@ -1,15 +1,15 @@
 'use strict';
 
-import { ArrayParserFactory } from '../parser/array/ArrayParserFactory.js';
-import { EntriesParserFactory } from '../parser/entry/EntriesParserFactory.js';
-import { VersionBasedParser } from '../parser/version/VersionBasedParser.js';
-import { ConditionBasedParser } from '../parser/condition/ConditionBasedParser.js';
-import { ClassifiedEntityParser } from '../parser/entity/ClassifiedEntityParser.js';
-import { BitParser } from '../parser/bit/BitParser.js';
-import { AccumulativeParser } from '../parser/string/AccumulativeParser.js';
-import { ByteOrderMarkStringParser } from '../parser/string/ByteOrderMarkStringParser.js';
-import { StringParser } from '../parser/string/StringParser.js';
-import { BitSkip } from '../parser/skip/BitSkip.js';
+import { ArrayParserFactory } from './array/ArrayParserFactory.js';
+import { EntriesParserFactory } from './entry/EntriesParserFactory.js';
+import { VersionBasedParser } from './version/VersionBasedParser.js';
+import { ConditionBasedParser } from './condition/ConditionBasedParser.js';
+import { ClassifiedEntityParser } from './entity/ClassifiedEntityParser.js';
+import { BitParser } from './bit/BitParser.js';
+import { AccumulativeParser } from './string/AccumulativeParser.js';
+import { ByteOrderMarkStringParser } from './string/ByteOrderMarkStringParser.js';
+import { StringParser } from './string/StringParser.js';
+import { BitSkip } from './skip/BitSkip.js';
 
 export class Parser {
 

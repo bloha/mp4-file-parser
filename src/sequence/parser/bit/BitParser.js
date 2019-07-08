@@ -1,7 +1,7 @@
 'use strict';
 
 import { ValueExtractor } from '../value/ValueExtractor.js';
-import { Parser } from '../../file/Parser.js';
+import { Parser } from '../Parser.js';
 
 export class BitParser {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Parser } from '../../file/Parser.js';
+import { Parser } from '../Parser.js';
 
 export class StringParser {
 

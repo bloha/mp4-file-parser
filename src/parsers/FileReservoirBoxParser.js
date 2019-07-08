@@ -1,7 +1,7 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/file/Parser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 
 export class FileReservoirBoxParser extends FullBoxParser {
 
@@ -24,7 +24,7 @@ export class FileReservoirBoxParser extends FullBoxParser {
                         name: 'item_ID',
                         method: Parser.parseByVersion,
                         parameters: {
-                            methods: [Praser.parseUint16, Parser.parseUint32]
+                            methods: [Parser.parseUint16, Parser.parseUint32]
                         }
                     },
                     {

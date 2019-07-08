@@ -1,7 +1,7 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
-import { Parser } from '../sequence/file/Parser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 
 export class TrackReferenceTypeBoxParser extends BoxParser {
 
