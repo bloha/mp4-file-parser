@@ -9,18 +9,18 @@ export class SampleAuxiliaryInformationOffsetsBoxParser extends FullBoxParser {
         super({ blob, offset });
         this.sequence.add({
             name: 'aux_info_type',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 1
+                flags: 1,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
             name: 'aux_info_type_parameter',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
+                flags: 1,
                 method: Parser.parseUint32,
-                flags: 1
             }
         });
         this.sequence.add({

@@ -13,7 +13,7 @@ export class TrackRunBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'data_offset',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
                 flags: 0x000001,
                 method: Parser.parseInt32
@@ -21,7 +21,7 @@ export class TrackRunBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'first_sample_flags',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
                 flags: 0x000004,
                 method: Parser.parseUint32
@@ -35,7 +35,7 @@ export class TrackRunBoxParser extends FullBoxParser {
                 fields: [
                     {
                         name: 'sample_duration',
-                        method: Parser.parseIfBoxHasFlags,
+                        method: Parser.parseByFlags,
                         parameters: {
                             flags: 0x000100,
                             method: Parser.parseUint32
@@ -43,7 +43,7 @@ export class TrackRunBoxParser extends FullBoxParser {
                     },
                     {
                         name: 'sample_size',
-                        method: Parser.parseIfBoxHasFlags,
+                        method: Parser.parseByFlags,
                         parameters: {
                             flags: 0x000200,
                             method: Parser.parseUint32
@@ -51,7 +51,7 @@ export class TrackRunBoxParser extends FullBoxParser {
                     },
                     {
                         name: 'sample_flags',
-                        method: Parser.parseIfBoxHasFlags,
+                        method: Parser.parseByFlags,
                         parameters: {
                             flags: 0x000400,
                             method: Parser.parseUint32
@@ -59,7 +59,7 @@ export class TrackRunBoxParser extends FullBoxParser {
                     },
                     {
                         name: 'sample_composition_time_offset',
-                        method: Parser.parseIfBoxHasFlags,
+                        method: Parser.parseByFlags,
                         parameters: {
                             flags: 0x000800,
                             method: Parser.parseByVersion,

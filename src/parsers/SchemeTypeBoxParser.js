@@ -20,7 +20,7 @@ export class SchemeTypeBoxParser extends FullBoxParser {
         });
         this.sequence.add({
             name: 'scheme_uri',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
                 flags: 0x000001,
                 method: Parser.parseString

@@ -10,42 +10,42 @@ export class TrackFragmentHeaderBoxParser extends FullBoxParser {
         this.sequence.add({ name: 'track_ID', method: Parser.parseUint32 });
         this.sequence.add({
             name: 'base_data_offset',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint64,
-                flags: 0x000001
+                flags: 0x000001,
+                method: Parser.parseUint64
             }
         });
         this.sequence.add({
             name: 'sample_description_index',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 0x000002
+                flags: 0x000002,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
             name: 'default_sample_duration',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 0x000008
+                flags: 0x000008,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
             name: 'default_sample_size',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 0x000010
+                flags: 0x000010,
+                method: Parser.parseUint32
             }
         });
         this.sequence.add({
             name: 'default_sample_flags',
-            method: Parser.parseIfBoxHasFlags,
+            method: Parser.parseByFlags,
             parameters: {
-                method: Parser.parseUint32,
-                flags: 0x000020
+                flags: 0x000020,
+                method: Parser.parseUint32
             }
         });
     }

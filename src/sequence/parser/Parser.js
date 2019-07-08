@@ -4,6 +4,7 @@ import { ArrayParserFactory } from './array/ArrayParserFactory.js';
 import { EntriesParserFactory } from './entry/EntriesParserFactory.js';
 import { VersionBasedParser } from './version/VersionBasedParser.js';
 import { ConditionBasedParser } from './condition/ConditionBasedParser.js';
+import { FlagsBasedParser } from './flags/FlagsBasedParser.js';
 import { ClassifiedEntityParser } from './entity/ClassifiedEntityParser.js';
 import { BitParser } from './bit/BitParser.js';
 import { AccumulativeParser } from './string/AccumulativeParser.js';
@@ -97,6 +98,11 @@ export class Parser {
         return await parser.parse();
     }
 
+    static async parseByFlags(dataParser, parameters) {
+        const parser = new FlagsBasedParser({ dataParser, parameters });
+        return await parser.parse();
+    }
+
     static async parseClassifiedEntity(fileParser, parameters) {
         const parser = new ClassifiedEntityParser({ fileParser, parameters });
         return await parser.parse();
@@ -110,12 +116,6 @@ export class Parser {
     static async parseArray(fileParser, parameters) {
         const parser = await ArrayParserFactory.create({ fileParser, parameters });
         return await parser.parse();
-    }
-
-    static async parseIfBoxHasFlags(parser, parameters) {
-        if (parser.boxHasFlags(parameters.flags)) {
-            return await parameters.method(parser, parameters.parameters);
-        }
     }
 
 }

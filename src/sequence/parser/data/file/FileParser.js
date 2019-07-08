@@ -87,10 +87,6 @@ export class FileParser extends DataParser {
         return this.fields.get(fieldName);
     }
 
-    boxHasFlags(flags) {
-        return (this.getField('flags') & flags) === flags;
-    }
-
     getBitParser() {
         return this.bitParser;
     }
