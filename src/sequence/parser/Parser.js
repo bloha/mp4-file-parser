@@ -14,7 +14,7 @@ import { BitSkip } from './skip/BitSkip.js';
 export class Parser {
 
     static isNotEndOfBoxReached(parser) {
-        return parser.getHead().getOffset() < parser.getBoxEnd();
+        return parser.getHead().getPosition() < parser.getBoxEnd();
     }
 
     static skip(parser, parameters) {

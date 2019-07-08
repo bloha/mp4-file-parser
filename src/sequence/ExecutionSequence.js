@@ -43,7 +43,7 @@ export class ExecutionSequence {
 
     async _parseChildren() {
         const blob = this.fileParser.getBlob();
-        const offset = this.fileParser.getHead().getOffset();
+        const offset = this.fileParser.getHead().getPosition();
         const maxOffset = this.fileParser.getBoxStart() + this.fields.get('size');
         const children = await new ContainerParser({ blob, offset, maxOffset })
             .parse();
