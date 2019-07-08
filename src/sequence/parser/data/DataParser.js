@@ -107,6 +107,14 @@ export class DataParser {
         Abstraction.needsImplementation();
     }
 
+    async _takeText(size) {
+        Abstraction.needsImplementation();
+    }
+
+    async _takeBuffer(size) {
+        Abstraction.needsImplementation();
+    }
+
     getHead() {
         return this.head;
     }
