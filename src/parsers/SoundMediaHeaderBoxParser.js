@@ -5,16 +5,19 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class SoundMediaHeaderBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({ name: 'balance', method: Parser.parseInt16 });
-        this.sequence.add({
-            name: 'reserved',
-            method: Parser.skip,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'balance',
+                method: Parser.parseInt16
+            },
+            {
+                name: 'reserved',
+                method: Parser.skip,
                 amount: 2
             }
-        });
+        ];
     }
 
 }

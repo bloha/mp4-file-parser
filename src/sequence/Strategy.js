@@ -9,20 +9,16 @@ export class Strategy {
             {
                 name: 'pad',
                 method: Parser.parseBits,
-                parameters: {
-                    amount: 1
-                }
+                amount: 1
             },
             {
                 name: 'language',
                 method: Parser.parseAccumulatively,
-                parameters: {
-                    amount: 3,
-                    accumulator: (acc, value) => acc + String.fromCharCode(0x60 + value),
+                accumulator: (acc, value) => acc + String.fromCharCode(0x60 + value),
+                amount: 3,
+                element: {
                     method: Parser.parseBits,
-                    parameters: {
-                        amount: 5
-                    }
+                    amount: 5
                 }
             }
         ];

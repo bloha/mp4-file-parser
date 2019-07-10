@@ -5,16 +5,16 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class ChunkOffsetBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entry_count',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'entry_count',
                 fields: [
                     {
@@ -22,8 +22,9 @@ export class ChunkOffsetBoxParser extends FullBoxParser {
                         method: Parser.parseUint32
                     }
                 ]
+
             }
-        });
+        ];
     }
 
 }

@@ -2,30 +2,24 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class SchemeTypeBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'scheme_type',
-            method: Parser.parseText,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'scheme_type',
+                method: Parser.parseText,
                 amount: 4
-            }
-        });
-        this.sequence.add({
-            name: 'scheme_version',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'scheme_uri',
-            method: Parser.parseByFlags,
-            parameters: {
-                flags: 0x000001,
-                method: Parser.parseString
-            }
-        });
+            },
+            {
+                name: 'scheme_version',
+                method: Parser.parseUint32
+            },
+            Template.getFlagsTemplate('scheme_uri', 0x000001, Parser.parseString)
+        ];
     }
 
 }

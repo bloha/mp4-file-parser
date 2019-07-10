@@ -2,71 +2,54 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class MovieHeaderBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'creation_time',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'modification_time',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'timescale',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'duration',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'rate',
-            method: Parser.parseInt32
-        });
-        this.sequence.add({
-            name: 'volume',
-            method: Parser.parseInt16
-        });
-        this.sequence.add({
-            name: 'reserved',
-            method: Parser.skip,
-            parameters: {
-                amount: 10
-            }
-        });
-        this.sequence.add({
-            name: 'matrix',
-            method: Parser.parseArray,
-            parameters: {
-                amount: 9,
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            Template.getVersionTemplate('creation_time', Parser.parseUint32, Parser.parseUint64),
+            Template.getVersionTemplate('modification_time', Parser.parseUint32, Parser.parseUint64),
+            {
+                name: 'timescale',
+                method: Parser.parseUint32
+            },
+            Template.getVersionTemplate('duration', Parser.parseUint32, Parser.parseUint64),
+            {
+                name: 'rate',
                 method: Parser.parseInt32
-            }
-        });
-        this.sequence.add({
-            name: 'pre_defined',
-            method: Parser.parseArray,
-            parameters: {
+            },
+            {
+                name: 'volume',
+                method: Parser.parseInt16
+            },
+            {
+                name: 'reserved',
+                method: Parser.skip,
+                amount: 10
+            },
+            {
+                name: 'matrix',
+                method: Parser.parseArray,
+                amount: 9,
+                element: {
+                    method: Parser.parseInt32
+                }
+            },
+            {
+                name: 'pre_defined',
+                method: Parser.parseArray,
                 amount: 6,
+                element: {
+                    method: Parser.parseUint32
+                }
+            },
+            {
+                name: 'next_track_ID',
                 method: Parser.parseUint32
             }
-        });
-        this.sequence.add({
-            name: 'next_track_ID',
-            method: Parser.parseUint32
-        });
+        ];
     }
 
 }

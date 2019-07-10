@@ -1,6 +1,6 @@
 'use strict';
 
-import { EntityParser } from './EntityParser.js';
+import { EntityParser } from './entity/EntityParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
 import { ItemInfoEntryParser } from './ItemInfoEntryParser.js';
 

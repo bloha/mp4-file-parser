@@ -5,12 +5,14 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class XmlBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'xml',
-            method: Parser.parseStringWithByteOrderMark
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'xml',
+                method: Parser.parseStringWithByteOrderMark
+            }
+        ];
     }
 
 }

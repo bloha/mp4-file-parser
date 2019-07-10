@@ -6,13 +6,15 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class CopyrightBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.addAll(Strategy.getLanguageParsingStrategy());
-        this.sequence.add({
-            name: 'notice',
-            method: Parser.parseStringWithByteOrderMark
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            ...Strategy.getLanguageParsingStrategy(),
+            {
+                name: 'notice',
+                method: Parser.parseStringWithByteOrderMark
+            }
+        ];
     }
 
 }

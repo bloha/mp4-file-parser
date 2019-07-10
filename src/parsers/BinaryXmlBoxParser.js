@@ -5,16 +5,18 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class BinaryXmlBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'data',
-            method: Parser.parseArray,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'data',
+                method: Parser.parseArray,
                 while: Parser.isNotEndOfBoxReached,
-                method: Parser.parseUint8
+                element: {
+                    method: Parser.parseUint8
+                }
             }
-        });
+        ];
     }
 
 }

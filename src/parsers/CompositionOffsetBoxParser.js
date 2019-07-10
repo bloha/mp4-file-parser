@@ -5,16 +5,16 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class CompositionOffsetBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entry_count',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'entry_count',
                 fields: [
                     {
@@ -22,15 +22,21 @@ export class CompositionOffsetBoxParser extends FullBoxParser {
                         method: Parser.parseUint32
                     },
                     {
-                        name: 'sample_offset',
-                        method: Parser.parseByVersion,
-                        parameters: {
-                            methods: [Parser.parseUint32, Parser.parseInt32]
+                        method: Parser.parseByCondition,
+                        condition: (version) => version === 0,
+                        values: ['version'],
+                        success: {
+                            name: 'sample_offset',
+                            method: Parser.parseUint32
+                        },
+                        fail: {
+                            name: 'sample_offset',
+                            method: Parser.parseInt32
                         }
                     }
                 ]
             }
-        });
+        ];
     }
 
 }

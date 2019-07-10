@@ -5,16 +5,18 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class TrackReferenceTypeBoxParser extends BoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'track_IDs',
-            method: Parser.parseArray,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'track_IDs',
+                method: Parser.parseArray,
                 while: Parser.isNotEndOfBoxReached,
-                method: Parser.parseUint32
+                element: {
+                    method: Parser.parseUint32
+                }
             }
-        });
+        ];
     }
 
 }

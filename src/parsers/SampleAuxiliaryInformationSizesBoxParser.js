@@ -2,43 +2,30 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'aux_info_type',
-            method: Parser.parseByFlags,
-            parameters: {
-                flags: 1,
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            Template.getFlagsTemplate('aux_info_type', 1, Parser.parseUint32),
+            Template.getFlagsTemplate('aux_info_type_parameter', 1, Parser.parseUint32),
+            {
+                name: 'default_sample_info_size',
+                method: Parser.parseUint8
+            },
+            {
+                name: 'sample_count',
                 method: Parser.parseUint32
-            }
-        });
-        this.sequence.add({
-            name: 'aux_info_type_parameter',
-            method: Parser.parseByFlags,
-            parameters: {
-                flags: 1,
-                method: Parser.parseUint32
-            }
-        });
-        this.sequence.add({
-            name: 'default_sample_info_size',
-            method: Parser.parseUint8
-        });
-        this.sequence.add({
-            name: 'sample_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (v1, v2) => v1 === v2,
-                values: ['default_sample_info_size', 0],
-                method: Parser.parseEntries,
-                parameters: {
+            },
+            {
+                name: 'entries',
+                method: Parser.parseByCondition,
+                condition: (default_sample_info_size) => default_sample_info_size === 0,
+                values: ['default_sample_info_size'],
+                success: {
+                    method: Parser.parseEntries,
                     amount: 'sample_count',
                     fields: [
                         {
@@ -48,7 +35,7 @@ export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
                     ]
                 }
             }
-        });
+        ];
     }
 
 }

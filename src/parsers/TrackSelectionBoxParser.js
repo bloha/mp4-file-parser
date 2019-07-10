@@ -5,20 +5,22 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class TrackSelectionBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'switch_group',
-            method: Parser.parseInt32
-        });
-        this.sequence.add({
-            name: 'attribute_list',
-            method: Parser.parseArray,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'switch_group',
+                method: Parser.parseInt32
+            },
+            {
+                name: 'attribute_list',
+                method: Parser.parseArray,
                 while: Parser.isNotEndOfBoxReached,
-                method: Parser.parseUint32
+                element: {
+                    method: Parser.parseUint32
+                }
             }
-        });
+        ];
     }
 
 }

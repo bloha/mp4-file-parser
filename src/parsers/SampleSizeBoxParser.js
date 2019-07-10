@@ -5,24 +5,24 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class SampleSizeBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'sample_size',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'sample_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (v1, v2) => v1 === v2,
-                values: ['sample_size', 0],
-                method: Parser.parseEntries,
-                parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'sample_size',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'sample_count',
+                method: Parser.parseUint32
+            },
+            {
+                method: Parser.parseByCondition,
+                condition: (sample_size) => sample_size === 0,
+                values: ['sample_size'],
+                success: {
+                    name: 'entries',
+                    method: Parser.parseEntries,
                     amount: 'sample_count',
                     fields: [
                         {
@@ -32,7 +32,7 @@ export class SampleSizeBoxParser extends FullBoxParser {
                     ]
                 }
             }
-        });
+        ];
     }
 
 }

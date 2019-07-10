@@ -5,34 +5,34 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class AlternativeStartupSequencePropertiesBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'min_initial_alt_startup_offset',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (value) => value === 0,
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                method: Parser.parseByCondition,
+                condition: (version) => version === 0,
                 values: ['version'],
-                method: Parser.parseInt32
-            }
-        });
-        this.sequence.add({
-            name: 'num_entries',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (value) => value === 1,
+                success: {
+                    name: 'min_initial_alt_startup_offset',
+                    method: Parser.parseInt32
+                }
+            },
+            {
+                method: Parser.parseByCondition,
+                condition: (version) => version === 1,
                 values: ['version'],
-                method: Parser.parseUint32
-            }
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (value) => value === 1,
+                success: {
+                    name: 'num_entries',
+                    method: Parser.parseUint32
+                }
+            },
+            {
+                method: Parser.parseByCondition,
+                condition: (version) => version === 1,
                 values: ['version'],
-                method: Parser.parseEntries,
-                parameters: {
+                success: {
+                    name: 'entries',
+                    method: Parser.parseEntries,
                     amount: 'num_entries',
                     fields: [
                         {
@@ -46,7 +46,7 @@ export class AlternativeStartupSequencePropertiesBoxParser extends FullBoxParser
                     ]
                 }
             }
-        });
+        ];
     }
 
 }

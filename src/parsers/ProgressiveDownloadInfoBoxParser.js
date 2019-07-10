@@ -5,12 +5,12 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 while: Parser.isNotEndOfBoxReached,
                 fields: [
                     {
@@ -23,7 +23,7 @@ export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
                     }
                 ]
             }
-        });
+        ];
     }
 
 }

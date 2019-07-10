@@ -5,16 +5,16 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class FdSessionGroupBoxParser extends BoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'num_session_groups',
-            method: Parser.parseUint16
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'num_session_groups',
+                method: Parser.parseUint16
+            },
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'num_session_groups',
                 fields: [
                     {
@@ -24,15 +24,13 @@ export class FdSessionGroupBoxParser extends BoxParser {
                     {
                         name: 'groups',
                         method: Parser.parseEntries,
-                        parameters: {
-                            amount: 'entry_count',
-                            fields: [
-                                {
-                                    name: 'group_ID',
-                                    method: Parser.parseUint32
-                                }
-                            ]
-                        }
+                        amount: 'entry_count',
+                        fields: [
+                            {
+                                name: 'group_ID',
+                                method: Parser.parseUint32
+                            }
+                        ]
                     },
                     {
                         name: 'num_channels_in_session_group',
@@ -41,19 +39,17 @@ export class FdSessionGroupBoxParser extends BoxParser {
                     {
                         name: 'tracks',
                         method: Parser.parseEntries,
-                        parameters: {
-                            amount: 'num_channels_in_session_group',
-                            fields: [
-                                {
-                                    name: 'hint_track_id',
-                                    method: Parser.parseUint32
-                                }
-                            ]
-                        }
+                        amount: 'num_channels_in_session_group',
+                        fields: [
+                            {
+                                name: 'hint_track_id',
+                                method: Parser.parseUint32
+                            }
+                        ]
                     }
                 ]
             }
-        });
+        ];
     }
 
 }

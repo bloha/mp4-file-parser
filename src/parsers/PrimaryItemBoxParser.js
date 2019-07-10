@@ -2,18 +2,15 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class PrimaryItemBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'item_ID',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint16, Parser.parseUint32]
-            }
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            Template.getVersionTemplate('item_ID', Parser.parseUint16, Parser.parseUint32)
+        ];
     }
 
 }

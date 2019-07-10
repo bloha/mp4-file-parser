@@ -5,9 +5,14 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class ExtendedLanguageBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({ name: extended_language, method: Parser.parseString });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'extended_language',
+                method: Parser.parseString
+            }
+        ];
     }
 
 }

@@ -5,9 +5,14 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class MovieFragmentHeaderBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({ name: 'sequence_number', method: Parser.parseUint32 });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'sequence_number',
+                method: Parser.parseUint32
+            }
+        ];
     }
 
 }

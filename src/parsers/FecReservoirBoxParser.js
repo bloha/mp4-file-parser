@@ -2,38 +2,28 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class FecReservoirBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint16, Parser.parseUint32]
-            }
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            this._getTemplate('entry_count', Parser.parseUint16, Parser.parseUint32),
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'entry_count',
                 fields: [
-                    {
-                        name: 'item_ID',
-                        method: Parser.parseByVersion,
-                        parameters: {
-                            methods: [Parser.parseUint16, Parser.parseUint32]
-                        }
-                    },
+                    Template.getVersionTemplate('item_ID', Parser.parseUint16, Parser.parseUint32),
                     {
                         name: 'symbol_count',
                         method: Parser.parseUint32
                     }
                 ]
+
             }
-        });
+        ];
     }
 
 }

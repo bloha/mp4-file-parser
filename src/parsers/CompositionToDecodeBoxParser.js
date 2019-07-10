@@ -5,43 +5,31 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class CompositionToDecodeBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'compositionToDTSShift',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseInt32, Parser.parseInt64]
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            this._getTemplate('compositionToDTSShift'),
+            this._getTemplate('leastDecodeToDisplayDelta'),
+            this._getTemplate('greatestDecodeToDisplayDelta'),
+            this._getTemplate('compositionStartTime'),
+            this._getTemplate('compositionEndTime')
+        ];
+    }
+
+    _getTemplate(name) {
+        return {
+            method: Parser.parseByCondition,
+            condition: (version) => version === 0,
+            values: ['version'],
+            success: {
+                name,
+                method: Parser.parseInt32
+            },
+            fail: {
+                name,
+                method: Parser.parseInt64
             }
-        });
-        this.sequence.add({
-            name: 'leastDecodeToDisplayDelta',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseInt32, Parser.parseInt64]
-            }
-        });
-        this.sequence.add({
-            name: 'greatestDecodeToDisplayDelta',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseInt32, Parser.parseInt64]
-            }
-        });
-        this.sequence.add({
-            name: 'compositionStartTime',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseInt32, Parser.parseInt64]
-            }
-        });
-        this.sequence.add({
-            name: 'compositionEndTime',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseInt32, Parser.parseInt64]
-            }
-        });
+        };
     }
 
 }

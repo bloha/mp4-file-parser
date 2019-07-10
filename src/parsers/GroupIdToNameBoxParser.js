@@ -5,16 +5,16 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class GroupIdToNameBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint16
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entry_count',
+                method: Parser.parseUint16
+            },
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'entry_count',
                 fields: [
                     {
@@ -27,7 +27,7 @@ export class GroupIdToNameBoxParser extends FullBoxParser {
                     }
                 ]
             }
-        });
+        ];
     }
 
 }

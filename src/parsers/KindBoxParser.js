@@ -5,16 +5,18 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class KindBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'schemeURI',
-            method: Parser.parseString
-        });
-        this.sequence.add({
-            name: 'value',
-            method: Parser.parseString
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'schemeURI',
+                method: Parser.parseString
+            },
+            {
+                name: 'value',
+                method: Parser.parseString
+            }
+        ];
     }
 
 }

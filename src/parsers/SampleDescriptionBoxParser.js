@@ -5,20 +5,22 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class SampleDescriptionBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseArray,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entry_count',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'entries',
+                method: Parser.parseArray,
                 amount: 'entry_count',
-                method: Parser.parseClassifiedEntity
+                element: {
+                    method: Parser.parseClassifiedEntity
+                }
             }
-        });
+        ];
     }
 
 }

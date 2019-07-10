@@ -5,29 +5,29 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class SampleToGroupBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'grouping_type',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'grouping_type_parameter',
-            method: Parser.parseByCondition,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'grouping_type',
+                method: Parser.parseUint32
+            },
+            {
+                method: Parser.parseByCondition,
                 condition: (version) => version === 1,
                 values: ['version'],
-                method: Parser.parseUint32,
-            }
-        });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
+                success: {
+                    name: 'grouping_type_parameter',
+                    method: Parser.parseUint32,
+                }
+            },
+            {
+                name: 'entry_count',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'entries',
+                method: Parser.parseEntries,
                 amount: 'entry_count',
                 fields: [
                     {
@@ -40,7 +40,7 @@ export class SampleToGroupBoxParser extends FullBoxParser {
                     }
                 ]
             }
-        });
+        ];
     }
 
 }

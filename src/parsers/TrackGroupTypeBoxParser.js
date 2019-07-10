@@ -5,12 +5,14 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class TrackGroupTypeBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'track_group_id',
-            method: Parser.parseUint32
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'track_group_id',
+                method: Parser.parseUint32
+            }
+        ];
     }
 
 }
