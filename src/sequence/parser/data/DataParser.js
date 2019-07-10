@@ -11,11 +11,10 @@ import { BitParser } from './BitParser.js';
  */
 export class DataParser {
 
-    constructor({ offset, parsedFields }) {
+    constructor({ offset }) {
         Abstraction.needsInheritance(new.target, DataParser);
         this.head = new ParserHead(offset);
         this.bitParser = new BitParser();
-        this.fields = parsedFields;
     }
 
     async takeInt8() {
@@ -116,10 +115,6 @@ export class DataParser {
 
     async _getBuffer(size) {
         Abstraction.needsImplementation();
-    }
-
-    getField(fieldName) {
-        return this.fields.get(fieldName);
     }
 
     getHead() {

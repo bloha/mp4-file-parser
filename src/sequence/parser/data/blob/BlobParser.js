@@ -4,8 +4,8 @@ import { DataParser } from '../DataParser.js';
 
 export class BlobParser extends DataParser {
 
-    constructor({ blob, offset, parsedFields }) {
-        super({ offset, parsedFields });
+    constructor({ blob, offset }) {
+        super({ offset });
         this.blob = blob;
     }
 

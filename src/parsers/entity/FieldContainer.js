@@ -39,6 +39,11 @@ export class FieldContainer {
     addField(name, value) {
         const currentEntry = this._getCurrentEntry();
         currentEntry.set(name, value);
+        this.lastCreatedField = value;
+    }
+
+    appendLastCreatedField(value) {
+        this.lastCreatedField.push(value);
     }
 
     findField(name) {
