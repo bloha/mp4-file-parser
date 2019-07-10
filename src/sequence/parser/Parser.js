@@ -1,6 +1,7 @@
 'use strict';
 
 import { DataParserMethodExecutor } from './data/DataParserMethodExecutor.js';
+import { ConditionExecutor } from './condition/ConditionExecutor.js';
 
 export class Parser {
 
@@ -61,6 +62,11 @@ export class Parser {
     static async parseBuffer({ entityParser, logicBlock }) {
         const dataParserMethod = entityParser.getDataParser().takeBuffer;
         const executor = new DataParserMethodExecutor({ entityParser, dataParserMethod, logicBlock });
+        await executor.execute();
+    }
+
+    static async parseByCondition({ entityParser, logicBlock }) {
+        const executor = new ConditionExecutor({ entityParser, logicBlock });
         await executor.execute();
     }
 
