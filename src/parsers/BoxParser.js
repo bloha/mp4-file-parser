@@ -1,48 +1,53 @@
 'use strict';
 
-import { EntityParser } from './EntityParser.js';
+import { EntityParser } from './entity/EntityParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
 
 export class BoxParser extends EntityParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'size',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'type',
-            method: Parser.parseText,
-            parameters: {
-                amount: 4
-            }
-        });
-        this.sequence.add({
-            name: 'size',
-            method: async (parser) => {
-                const size = parser.getField('size');
-                if (size === 1) {
-                    return await parser.takeUint64();
-                }
-                if (size === 0) {
-                    return parser.getBlob().size - parser.getHead().getInitialPosition();
-                }
-                return parser.getField('size');
-            }
-        });
-        this.sequence.add({
-            name: 'usertype',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (value) => (value === 'uuid'),
-                values: ['type'],
+    getLogicBlocks() {
+        return [
+            {
+                name: 'size',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'type',
                 method: Parser.parseText,
-                parameters: {
+                amount: 4
+            },
+            {
+                method: Parser.parseByCondition,
+                condition: (size) => size === 1,
+                values: ['size'],
+                success: {
+                    name: 'size',
+                    method: Parser.parseUint64
+                },
+                fail: {
+                    method: Parser.parseByCondition,
+                    condition: (size) => size === 0,
+                    values: ['size'],
+                    success: {
+                        method: ({ entityParser }) => {
+                            const dataParser = entityParser.getDataParser();
+                            const size = dataParser.getDataSize() - dataParser.getHead().getInitialPosition();
+                            entityParser.addField('size', size);
+                        }
+                    }
+                }
+            },
+            {
+                method: Parser.parseByCondition,
+                condition: (type) => type === 'uuid',
+                values: ['type'],
+                success: {
+                    name: 'usertype',
+                    method: Parser.parseText,
                     amount: 16
                 }
             }
-        });
+        ];
     }
 
 }

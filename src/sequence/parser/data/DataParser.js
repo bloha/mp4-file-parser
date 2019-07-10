@@ -77,6 +77,10 @@ export class DataParser {
         return value;
     }
 
+    getDataSize() {
+        Abstraction.needsImplementation();
+    }
+
     async _getInt8() {
         Abstraction.needsImplementation();
     }

@@ -80,6 +80,10 @@ export class BlobParser extends DataParser {
         return buffer;
     }
 
+    getDataSize() {
+        return this.blob.size;
+    }
+
     getBlob() {
         return this.blob;
     }
