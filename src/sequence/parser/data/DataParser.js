@@ -17,6 +17,10 @@ export class DataParser {
         this.bitParser = new BitParser();
     }
 
+    skipBytes(amount) {
+        this.head.move(amount);
+    }
+
     async takeInt8() {
         const value = await this._getInt8();
         this.head.move(1);

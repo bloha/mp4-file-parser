@@ -9,10 +9,6 @@ export class BlobParser extends DataParser {
         this.blob = blob;
     }
 
-    skip(amount) {
-        this.head.move(amount);
-    }
-
     async _getInt8() {
         const buffer = await this._fetchBuffer(1);
         const value = new DataView(buffer).getInt8(0);

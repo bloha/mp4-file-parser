@@ -5,6 +5,12 @@ import { ConditionExecutor } from './condition/ConditionExecutor.js';
 
 export class Parser {
 
+    static async skipBytes({ entityParser, logicBlock }) {
+        const dataParserMethod = entityParser.getDataParser().skipBytes;
+        const executor = new DataParserMethodExecutor({ entityParser, dataParserMethod, logicBlock });
+        await executor.execute();
+    }
+
     static async parseInt8({ entityParser, logicBlock }) {
         const dataParserMethod = entityParser.getDataParser().takeInt8;
         const executor = new DataParserMethodExecutor({ entityParser, dataParserMethod, logicBlock });
