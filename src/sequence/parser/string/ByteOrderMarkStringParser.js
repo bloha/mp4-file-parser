@@ -2,20 +2,15 @@
 
 import { StringParser } from './StringParser.js';
 
-export class ByteOrderMarkStringParser {
-
-    constructor({ fileParser, parameters }) {
-        this.fileParser = fileParser;
-        this.parameters = parameters;
-    }
+export class ByteOrderMarkStringParser extends StringParser {
 
     async parse() {
-        const array = await StringParser._parseNullTerminatedStringAsUint8Array(this.fileParser);
+        const array = await this._parseNullTerminatedStringAsUint8Array();
         if (this._arrayHasByteOrderMark(array)) {
             const withoutMark = array.slice(2);
-            return StringParser._convertArrayToString(withoutMark, 'utf-16');
+            return this._convertArrayToString(withoutMark, 'utf-16');
         }
-        return StringParser._convertArrayToString(array, 'utf-8');
+        return this._convertArrayToString(array, 'utf-8');
     }
 
     _arrayHasByteOrderMark(uint8Array) {

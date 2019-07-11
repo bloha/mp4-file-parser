@@ -5,6 +5,9 @@ import { DataParserMethodExecutor } from './data/DataParserMethodExecutor.js';
 import { ConditionExecutor } from './condition/ConditionExecutor.js';
 import { EntriesParser } from './collections/EntriesParser.js';
 import { ArrayParser } from './collections/ArrayParser.js';
+import { StringParser } from './string/StringParser.js';
+import { ByteOrderMarkStringParser } from './string/ByteOrderMarkStringParser.js';
+import { AccumulativeStringParser } from './string/AccumulativeStringParser.js';
 
 export class Parser {
 
@@ -110,6 +113,21 @@ export class Parser {
 
     static async parseArray({ entityParser, logicBlock }) {
         const parser = new ArrayParser({ entityParser, logicBlock });
+        await parser.parse();
+    }
+
+    static async parseString({ entityParser, logicBlock }) {
+        const parser = new StringParser({ entityParser, logicBlock });
+        await parser.parse();
+    }
+
+    static async parseStringWithByteOrderMark({ entityParser, logicBlock }) {
+        const parser = new ByteOrderMarkStringParser({ entityParser, logicBlock });
+        await parser.parse();
+    }
+
+    static async parseStringAccumulatively({ entityParser, logicBlock }) {
+        const parser = new AccumulativeStringParser({ entityParser, logicBlock });
         await parser.parse();
     }
 

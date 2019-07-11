@@ -1,30 +1,29 @@
 'use strict';
 
-import { Parser } from '../Parser.js';
-
 export class StringParser {
 
-    constructor({ fileParser, parameters }) {
-        this.fileParser = fileParser;
-        this.parameters = parameters;
+    constructor({ entityParser, logicBlock }) {
+        this.entityParser = entityParser;
+        this.logicBlock = logicBlock;
     }
 
     async parse() {
-        const array = await StringParser._parseNullTerminatedStringAsUint8Array(this.fileParser);
-        return StringParser._convertArrayToString(array, 'utf-8');
+        const array = await this._parseNullTerminatedStringAsUint8Array();
+        return this._convertArrayToString(array, 'utf-8');
     }
 
-    static async _parseNullTerminatedStringAsUint8Array(fileParser) {
+    async _parseNullTerminatedStringAsUint8Array() {
+        const dataParser = this.entityParser.getDataParser();
         const bytes = [];
-        let byte = await Parser.parseUint8(fileParser);
+        let byte = await dataParser.takeUint8();
         while (byte != 0) {
             bytes.push(byte);
-            byte = await Parser.parseUint8(fileParser);
+            byte = await dataParser.takeUint8();
         }
         return new Uint8Array(bytes);
     }
 
-    static _convertArrayToString(array, encoding) {
+    _convertArrayToString(array, encoding) {
         const decoder = new TextDecoder(encoding);
         return decoder.decode(array);
     }
