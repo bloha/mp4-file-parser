@@ -2,7 +2,7 @@
 
 import { Abstraction } from '../../../../modules/javascript-abstraction/src/Abstraction.js';
 import { ParserHead } from './ParserHead.js';
-import { BitParser } from './BitParser.js';
+import { BitParser } from './bit/BitParser.js';
 
 /**
  * Abstract Class DataParser.

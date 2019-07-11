@@ -1,38 +1,18 @@
 'use strict';
 
-import { ValueExtractor } from '../value/ValueExtractor.js';
+import { ParserMethodExecutor } from './ParserMethodExecutor.js';
 
-export class DataParserMethodExecutor {
+export class DataParserMethodExecutor extends ParserMethodExecutor {
 
-    constructor({ entityParser, dataParserMethod, logicBlock }) {
-        this.entityParser = entityParser;
+    constructor({ entityParser, logicBlock, dataParserMethod }) {
+        super({ entityParser, logicBlock });
         this.dataParserMethod = dataParserMethod.bind(this.entityParser.getDataParser());
-        this.logicBlock = logicBlock;
     }
 
     async execute() {
-        const amount = await this._extractAmount();
+        const amount = this.logicBlock.amount ? await this._extractAmount() : undefined;
         const value = await this.dataParserMethod(amount);
         this._saveReceivedValue(value);
-    }
-
-    _saveReceivedValue(value) {
-        if (!this.logicBlock.name) {
-            this.entityParser.appendLastCreatedField(value);
-        } else {
-            this.entityParser.addField(this.logicBlock.name, value);
-        }
-    }
-
-    async _extractAmount() {
-        if (this.logicBlock.amount) {
-            const extractor = new ValueExtractor({
-                entityParser: this.entityParser,
-                rawValue: this.logicBlock.amount,
-                converter: this.logicBlock.converter
-            });
-            return await extractor.extract();
-        }
     }
 
 }
