@@ -9,7 +9,7 @@ export class FecReservoirBoxParser extends FullBoxParser {
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            this._getTemplate('entry_count', Parser.parseUint16, Parser.parseUint32),
+            Template.getVersionTemplate('entry_count', Parser.parseUint16, Parser.parseUint32),
             {
                 name: 'entries',
                 method: Parser.parseEntries,
