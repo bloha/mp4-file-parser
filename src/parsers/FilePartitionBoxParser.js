@@ -15,8 +15,7 @@ export class FilePartitionBoxParser extends FullBoxParser {
                 method: Parser.parseUint16
             },
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 1
             },
             {

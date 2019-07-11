@@ -18,8 +18,7 @@ export class HandlerBoxParser extends FullBoxParser {
                 amount: 4
             },
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 32 / 8 * 3
             },
             {

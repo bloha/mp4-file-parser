@@ -25,8 +25,7 @@ export class MovieHeaderBoxParser extends FullBoxParser {
                 method: Parser.parseInt16
             },
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 10
             },
             {

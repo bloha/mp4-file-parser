@@ -25,8 +25,7 @@ export class HintMediaHeaderBoxParser extends FullBoxParser {
                 method: Parser.parseUint32
             },
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 4
             }
         ];

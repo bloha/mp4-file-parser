@@ -9,8 +9,7 @@ export class CompactSampleSizeBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 24 / 8
             },
             {

@@ -20,8 +20,7 @@ export class SegmentIndexBoxParser extends FullBoxParser {
             Template.getVersionTemplate('earliest_presentation_time', Parser.parseUint32, Parser.parseUint64),
             Template.getVersionTemplate('first_offset', Parser.parseUint32, Parser.parseUint64),
             {
-                name: 'reserved',
-                method: Parser.skip,
+                method: Parser.skipBytes,
                 amount: 2
             },
             {
