@@ -1,5 +1,7 @@
 'use strict';
 
+import { Parser } from './parser/Parser.js';
+
 export class Template {
 
     static getVersionTemplate(name, zeroVersionMethod, otherVersionMethod) {
