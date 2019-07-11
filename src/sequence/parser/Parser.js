@@ -3,6 +3,8 @@
 import { BitParserMethodExecutor } from './data/bit/BitParserMethodExecutor.js';
 import { DataParserMethodExecutor } from './data/DataParserMethodExecutor.js';
 import { ConditionExecutor } from './condition/ConditionExecutor.js';
+import { EntriesParser } from './collections/EntriesParser.js';
+import { ArrayParser } from './collections/ArrayParser.js';
 
 export class Parser {
 
@@ -91,10 +93,32 @@ export class Parser {
 
     static async parseEntry({ entityParser, logicBlock }) {
         entityParser.openNewEntry();
-        for (const field of logicBlock.fields) {
-            await field.method({ entityParser, logicBlock: field });
+        try {
+            for (const field of logicBlock.fields) {
+                await field.method({ entityParser, logicBlock: field });
+            }
         }
-        entityParser.closeNewEntry();
+        finally {
+            entityParser.closeNewEntry();
+        }
+    }
+
+    static async parseEntries({ entityParser, logicBlock }) {
+        const parser = new EntriesParser({ entityParser, logicBlock });
+        await parser.parse();
+    }
+
+    static async parseArray({ entityParser, logicBlock }) {
+        const parser = new ArrayParser({ entityParser, logicBlock });
+        await parser.parse();
+    }
+
+    static isNotEndOfBoxReached({ entityParser }) {
+        const dataParser = entityParser.getDataParser();
+        const boxStart = dataParser.getHead().getInitialPosition();
+        const boxSize = entityParser.findField('size');
+        const boxEnd = boxStart + boxSize;
+        return dataParser.getHead().getPosition() < boxEnd;
     }
 
 }
