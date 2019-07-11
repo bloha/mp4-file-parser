@@ -13,9 +13,7 @@ export class BitParserMethodExecutor extends ParserMethodExecutor {
         const amount = await this._extractAmount();
         await this._loadMissingBits(amount);
         const value = await this.bitParserMethod(amount);
-        if (value) {
-            this._saveReceivedValue(value);
-        }
+        this._saveReceivedValue(value);
     }
 
     async _loadMissingBits(amount) {

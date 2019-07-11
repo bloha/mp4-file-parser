@@ -17,10 +17,12 @@ export class ParserMethodExecutor {
     }
 
     _saveReceivedValue(value) {
-        if (!this.logicBlock.name) {
-            this.entityParser.appendLastCreatedField(value);
-        } else {
-            this.entityParser.addField(this.logicBlock.name, value);
+        if (value !== undefined) {
+            if (!this.logicBlock.name) {
+                this.entityParser.appendLastCreatedField(value);
+            } else {
+                this.entityParser.addField(this.logicBlock.name, value);
+            }
         }
     }
 
