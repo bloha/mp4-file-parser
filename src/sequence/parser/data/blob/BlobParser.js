@@ -4,11 +4,6 @@ import { DataParser } from '../DataParser.js';
 
 export class BlobParser extends DataParser {
 
-    constructor({ blob, offset }) {
-        super({ offset });
-        this.blob = blob;
-    }
-
     async _getInt8() {
         const buffer = await this._fetchBuffer(1);
         const value = new DataView(buffer).getInt8(0);
@@ -71,17 +66,13 @@ export class BlobParser extends DataParser {
     async _fetchBuffer(size) {
         const start = this.head.getPosition();
         const end = start + size;
-        const slice = this.blob.slice(start, end);
+        const slice = this.data.slice(start, end);
         const buffer = await (new Response(slice)).arrayBuffer();
         return buffer;
     }
 
     getDataSize() {
-        return this.blob.size;
-    }
-
-    getBlob() {
-        return this.blob;
+        return this.data.size;
     }
 
 }

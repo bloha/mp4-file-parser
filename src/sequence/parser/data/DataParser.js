@@ -11,8 +11,9 @@ import { BitParser } from './bit/BitParser.js';
  */
 export class DataParser {
 
-    constructor({ offset }) {
+    constructor({ data, offset }) {
         Abstraction.needsInheritance(new.target, DataParser);
+        this.data = data;
         this.head = new ParserHead(offset);
         this.bitParser = new BitParser();
     }
@@ -123,6 +124,10 @@ export class DataParser {
 
     async _getBuffer(size) {
         Abstraction.needsImplementation();
+    }
+
+    getData() {
+        return this.data;
     }
 
     getHead() {
