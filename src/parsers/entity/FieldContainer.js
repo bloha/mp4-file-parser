@@ -36,6 +36,11 @@ export class FieldContainer {
         this.openEntries.pop();
     }
 
+    addCompleteEntry(entry) {
+        const currentBranch = this._getCurrentBranch();
+        currentBranch.push(entry);
+    }
+
     addField(name, value) {
         const currentEntry = this._getCurrentEntry();
         currentEntry.set(name, value);
@@ -49,6 +54,10 @@ export class FieldContainer {
     findField(name) {
         const searchEngine = new FieldSearchEngine(this.rootEntry);
         return searchEngine.find(name);
+    }
+
+    getRootEntry() {
+        return this.rootEntry;
     }
 
     _getCurrentBranch() {

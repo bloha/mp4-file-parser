@@ -3,6 +3,7 @@
 import { BitParserMethodExecutor } from './data/bit/BitParserMethodExecutor.js';
 import { DataParserMethodExecutor } from './data/DataParserMethodExecutor.js';
 import { ConditionExecutor } from './condition/ConditionExecutor.js';
+import { EntitiesParser } from './collections/EntitiesParser.js';
 import { EntriesParser } from './collections/EntriesParser.js';
 import { ArrayParser } from './collections/ArrayParser.js';
 import { StringParser } from './string/StringParser.js';
@@ -92,6 +93,11 @@ export class Parser {
     static async parseByCondition({ entityParser, logicBlock }) {
         const executor = new ConditionExecutor({ entityParser, logicBlock });
         await executor.execute();
+    }
+
+    static async parseEntities({ entityParser, logicBlock }) {
+        const parser = new EntitiesParser({ entityParser, logicBlock });
+        await parser.parse();
     }
 
     static async parseEntry({ entityParser, logicBlock }) {
