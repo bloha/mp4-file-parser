@@ -1,12 +1,18 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
+import { Parser } from '../sequence/parser/Parser.js';
 
 export class ContainerBoxParser extends BoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.addChildren();
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'children',
+                method: Parser.parseEntities
+            }
+        ];
     }
 
 }
