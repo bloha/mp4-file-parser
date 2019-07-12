@@ -21,14 +21,19 @@ export class Template {
     }
 
     static getFlagsTemplate(name, flags, method) {
+        const success = {
+            name,
+            method
+        };
+        return this.getFlagsSuccessTemplate(flags, success);
+    }
+
+    static getFlagsSuccessTemplate(flags, success) {
         return {
             method: Parser.parseByCondition,
             condition: (f) => f & flags === flags,
             values: ['flags'],
-            success: {
-                name,
-                method
-            }
+            success
         }
     }
 
