@@ -2,85 +2,61 @@
 
 import { FullBoxParser } from './FullBoxParser.js';
 import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../sequence/Template.js';
 
 export class TrackHeaderBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'creation_time',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'modification_time',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'track_ID',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'reserved',
-            method: Parser.skip,
-            parameters: {
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            Template.getVersionTemplate('creation_time', Parser.parseUint32, Parser.parseUint64),
+            Template.getVersionTemplate('modification_time', Parser.parseUint32, Parser.parseUint64),
+            {
+                name: 'track_ID',
+                method: Parser.parseUint32
+            },
+            {
+                method: Parser.skipBytes,
                 amount: 4
-            }
-        });
-        this.sequence.add({
-            name: 'duration',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint32, Parser.parseUint64]
-            }
-        });
-        this.sequence.add({
-            name: 'reserved',
-            method: Parser.skip,
-            parameters: {
+            },
+            Template.getVersionTemplate('duration', Parser.parseUint32, Parser.parseUint64),
+            {
+                method: Parser.skipBytes,
                 amount: 8
-            }
-        });
-        this.sequence.add({
-            name: 'layer',
-            method: Parser.parseInt16
-        });
-        this.sequence.add({
-            name: 'alternate_group',
-            method: Parser.parseInt16
-        });
-        this.sequence.add({
-            name: 'volume',
-            method: Parser.parseInt16
-        });
-        this.sequence.add({
-            name: 'reserved',
-            method: Parser.skip,
-            parameters: {
+            },
+            {
+                name: 'layer',
+                method: Parser.parseInt16
+            },
+            {
+                name: 'alternate_group',
+                method: Parser.parseInt16
+            },
+            {
+                name: 'volume',
+                method: Parser.parseInt16
+            },
+            {
+                method: Parser.skipBytes,
                 amount: 2
-            }
-        });
-        this.sequence.add({
-            name: 'matrix',
-            method: Parser.parseArray,
-            parameters: {
+            },
+            {
+                name: 'matrix',
+                method: Parser.parseArray,
                 amount: 9,
-                method: Parser.parseInt32
+                element: {
+                    method: Parser.parseInt32
+                }
+            },
+            {
+                name: 'width',
+                method: Parser.parseUint32
+            },
+            {
+                name: 'height',
+                method: Parser.parseUint32
             }
-        });
-        this.sequence.add({
-            name: 'width',
-            method: Parser.parseUint32
-        });
-        this.sequence.add({
-            name: 'height',
-            method: Parser.parseUint32
-        });
+        ];
     }
 
 }
