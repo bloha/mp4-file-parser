@@ -1,6 +1,7 @@
 'use strict';
 
-import { ContainerParser } from './container/ContainerParser.js';
+import { BlobParser } from './sequence/parser/data/blob/BlobParser.js';
+import { MainParser } from './parsers/MainParser.js';
 
 export class Mp4FileParser {
 
@@ -9,8 +10,11 @@ export class Mp4FileParser {
     }
 
     async parse() {
-        return await new ContainerParser({ blob: this.blob, offset: 0, maxOffset: this.blob.size })
-            .parse();
+        const dataParser = new BlobParser({ data: this.blob, offset: 0 });
+        const parser = new MainParser({ dataParser });
+        await parser.parse();
+        const children = parser.getRootEntry().get('children');
+        return children;
     }
 
 }
