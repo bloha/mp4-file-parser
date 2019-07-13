@@ -5,13 +5,18 @@ import { Parser } from '../sequence/parser/Parser.js';
 
 export class FdItemInformationBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseUint16
-        });
-        this.sequence.addChildren();
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+            {
+                name: 'entry_count',
+                method: Parser.parseUint16
+            },
+            {
+                name: 'children',
+                method: Parser.parseEntities
+            }
+        ];
     }
 
 }
