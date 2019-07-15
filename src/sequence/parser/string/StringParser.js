@@ -9,7 +9,8 @@ export class StringParser {
 
     async parse() {
         const array = await this._parseNullTerminatedStringAsUint8Array();
-        return this._convertArrayToString(array, 'utf-8');
+        const string = this._convertArrayToString(array, 'utf-8');
+        this.entityParser.addField(this.logicBlock.name, string);
     }
 
     async _parseNullTerminatedStringAsUint8Array() {

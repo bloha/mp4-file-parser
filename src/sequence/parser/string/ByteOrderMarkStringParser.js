@@ -8,9 +8,11 @@ export class ByteOrderMarkStringParser extends StringParser {
         const array = await this._parseNullTerminatedStringAsUint8Array();
         if (this._arrayHasByteOrderMark(array)) {
             const withoutMark = array.slice(2);
-            return this._convertArrayToString(withoutMark, 'utf-16');
+            const string = this._convertArrayToString(withoutMark, 'utf-16');
+            this.entityParser.addField(this.logicBlock.name, string);
         }
-        return this._convertArrayToString(array, 'utf-8');
+        const string = this._convertArrayToString(array, 'utf-8');
+        this.entityParser.addField(this.logicBlock.name, string);
     }
 
     _arrayHasByteOrderMark(uint8Array) {
