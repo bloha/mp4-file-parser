@@ -19,9 +19,9 @@ export class LogicBlock {
     }
 
     async execute() {
-        if (this._canBeExecuted()) {
+        if (await this._canBeExecuted()) {
             await this._execute();
-        } else {
+        } else if (this.elseLogicBlock) {
             await this.elseLogicBlock.execute();
         }
     }
@@ -30,13 +30,18 @@ export class LogicBlock {
         Abstraction.needsImplementation();
     }
 
-    _canBeExecuted() {
-        return this._hasValidVersion() && this._fulfillsConditions();
+    async _canBeExecuted() {
+        return this._hasValidVersion() && await this._fulfillsConditions();
     }
 
-    _fulfillsConditions() {
+    async _fulfillsConditions() {
         if (this._hasConditions()) {
-            // TODO
+            for (const condition of this.conditions) {
+                await condition.execute()
+                if (!condition.isFulfilled()) {
+                    return false;
+                }
+            }
         }
         return true;
     }
