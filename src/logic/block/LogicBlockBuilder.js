@@ -21,6 +21,7 @@ export class LogicBlockBuilder {
             name: this.name,
             type: this.type,
             versions: this.versions,
+            flags: this.flags,
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock
         });
@@ -33,6 +34,11 @@ export class LogicBlockBuilder {
 
     setVersions(...versions) {
         this.versions = versions;
+        return this;
+    }
+
+    setFlags(flags) {
+        this.flags = flags;
         return this;
     }
 

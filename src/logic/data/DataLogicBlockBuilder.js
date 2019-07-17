@@ -11,6 +11,7 @@ export class DataLogicBlockBuilder extends LogicBlockBuilder {
             name: this.name,
             type: this.type,
             versions: this.versions,
+            flags: this.flags,
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock,
             dataType: this.dataType,

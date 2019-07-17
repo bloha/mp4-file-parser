@@ -9,11 +9,12 @@ import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstrac
  */
 export class LogicBlock {
 
-    constructor({ entityParser, name, versions, conditions, elseLogicBlock }) {
+    constructor({ entityParser, name, versions, flags, conditions, elseLogicBlock }) {
         Abstraction.needsInheritance(new.target, LogicBlock);
         this.entityParser = entityParser;
         this.name = name;
         this.versions = versions;
+        this.flags = flags;
         this.conditions = conditions;
         this.elseLogicBlock = elseLogicBlock;
     }
@@ -31,7 +32,7 @@ export class LogicBlock {
     }
 
     async _canBeExecuted() {
-        return this._hasValidVersion() && await this._fulfillsConditions();
+        return this._hasValidVersion() && this._hasValidFlags() && await this._fulfillsConditions();
     }
 
     async _fulfillsConditions() {
@@ -54,12 +55,24 @@ export class LogicBlock {
         return true;
     }
 
+    _hasValidFlags() {
+        if (this._hasFlags()) {
+            const flags = this.entityParser.findField('flags');
+            return (this.flags & flags) === this.flags;
+        }
+        return true;
+    }
+
     _hasConditions() {
         return this.conditions && this.conditions.length > 0;
     }
 
     _hasVersions() {
         return this.versions && this.versions.length > 0;
+    }
+
+    _hasFlags() {
+        return this.flags !== undefined;
     }
 
 }
