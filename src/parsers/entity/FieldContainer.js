@@ -6,28 +6,28 @@ export class FieldContainer {
 
     constructor() {
         this.openEntries = []
-        this.openBranches = [];
+        this.openCollections = [];
     }
 
-    openNewBranch(name) {
+    openNewCollection(name) {
         const currentEntry = this._getCurrentEntry();
-        const newBranch = [];
-        currentEntry.set(name, newBranch);
-        this.openBranches.push(newBranch);
+        const newCollection = [];
+        currentEntry.set(name, newCollection);
+        this.openCollections.push(newCollection);
     }
 
-    closeNewBranch() {
-        this.openBranches.pop();
+    closeNewCollection() {
+        this.openCollections.pop();
     }
 
     openNewEntry() {
-        if (this.openBranches.length === 0) {
+        if (this.openCollections.length === 0) {
             this.rootEntry = new Map();
             this.openEntries.push(this.rootEntry);
         } else {
-            const currentBranch = this._getCurrentBranch();
+            const currentCollection = this._getCurrentCollection();
             const newEntry = new Map();
-            currentBranch.push(newEntry);
+            currentCollection.push(newEntry);
             this.openEntries.push(newEntry);
         }
     }
@@ -36,22 +36,15 @@ export class FieldContainer {
         this.openEntries.pop();
     }
 
-    addCompleteEntry(entry) {
-        const currentBranch = this._getCurrentBranch();
-        currentBranch.push(entry);
+    saveValue(name, value) {
+        if (!name) {
+            this._addCompleteEntry(value);
+        } else {
+            this._setValue(name, value);
+        }
     }
 
-    addField(name, value) {
-        const currentEntry = this._getCurrentEntry();
-        currentEntry.set(name, value);
-        this.lastCreatedField = value;
-    }
-
-    appendLastCreatedField(value) {
-        this.lastCreatedField.push(value);
-    }
-
-    findField(name) {
+    findValue(name) {
         const searchEngine = new FieldSearchEngine(this.rootEntry);
         return searchEngine.find(name);
     }
@@ -60,8 +53,18 @@ export class FieldContainer {
         return this.rootEntry;
     }
 
-    _getCurrentBranch() {
-        return this.openBranches[this.openBranches.length - 1];
+    _addCompleteEntry(entry) {
+        const currentCollection = this._getCurrentCollection();
+        currentCollection.push(entry);
+    }
+
+    _setValue(name, value) {
+        const currentEntry = this._getCurrentEntry();
+        currentEntry.set(name, value);
+    }
+
+    _getCurrentCollection() {
+        return this.openCollections[this.openCollections.length - 1];
     }
 
     _getCurrentEntry() {

@@ -9,7 +9,7 @@ export class ConditionBlock {
     }
 
     async execute() {
-        this.values = this.valueNames.map((name) => this.entityParser.findField(name));
+        this.values = this.valueNames.map((name) => this.entityParser.findValue(name));
         this.fulfilled = (this.condition.length === 1)
             ? this._checkConditionWithOneArgument()
             : this._checkConditionWithTwoArguments();

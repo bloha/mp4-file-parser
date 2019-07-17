@@ -49,7 +49,7 @@ export class LogicBlock {
 
     _hasValidVersion() {
         if (this._hasVersions()) {
-            const version = this.entityParser.findField('version');
+            const version = this.entityParser.findValue('version');
             return this.versions.includes(version);
         }
         return true;
@@ -57,7 +57,7 @@ export class LogicBlock {
 
     _hasValidFlags() {
         if (this._hasFlags()) {
-            const flags = this.entityParser.findField('flags');
+            const flags = this.entityParser.findValue('flags');
             return (this.flags & flags) === this.flags;
         }
         return true;
