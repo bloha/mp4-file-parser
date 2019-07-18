@@ -32,7 +32,10 @@ export class LogicBlock {
     }
 
     async _canBeExecuted() {
-        return this._hasValidVersion() && this._hasValidFlags() && await this._fulfillsConditions();
+        if (this.staticConditionResult === undefined) {
+            this.staticConditionResult = this._hasValidVersion() && this._hasValidFlags();
+        }
+        return this.staticConditionResult && await this._fulfillsConditions();
     }
 
     async _fulfillsConditions() {
