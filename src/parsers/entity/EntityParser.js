@@ -2,7 +2,6 @@
 
 import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstraction.js';
 import { FieldContainer } from './FieldContainer.js';
-import { Parser } from '../../sequence/parser/Parser.js';
 
 /**
  * Abstract Class EntityParser.
@@ -20,10 +19,11 @@ export class EntityParser extends FieldContainer {
     }
 
     async parse() {
-        const entryLogicBlock = {
-            fields: this.getLogicBlocks()
-        };
-        await Parser.parseEntry({ entityParser: this, logicBlock: entryLogicBlock });
+        this.openNewEntry();
+        for (const block of this.getLogicBlocks()) {
+            await block.execute();
+        }
+        this.closeNewEntry();
     }
 
     getLogicBlocks() {
