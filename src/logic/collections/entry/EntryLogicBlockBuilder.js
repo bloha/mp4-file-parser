@@ -15,6 +15,7 @@ export class EntryLogicBlockBuilder extends CollectionLogicBlockBuilder {
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock,
             size: this.size,
+            sizeConverter: this.sizeConverter,
             whileCondition: this.whileCondition,
             entries: this.entries
         });

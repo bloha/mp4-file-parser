@@ -14,6 +14,7 @@ export class CollectionLogicBlock extends LogicBlock {
         Abstraction.needsInheritance(new.target, CollectionLogicBlock)
         super(obj);
         this.size = obj.size;
+        this.sizeConverter = obj.sizeConverter;
         this.whileCondition = obj.whileCondition;
     }
 
@@ -35,11 +36,18 @@ export class CollectionLogicBlock extends LogicBlock {
     }
 
     async _executeBySize() {
+        this._extractSize();
+        for (let i = 0; i < this.size; i++) {
+            await this._performOneIteration();
+        }
+    }
+
+    _extractSize() {
         if (typeof this.size === 'string') {
             this.size = this.entityParser.findValue(this.size);
         }
-        for (let i = 0; i < this.size; i++) {
-            await this._performOneIteration();
+        if (this.sizeConverter) {
+            this.size = this.sizeConverter(this.size);
         }
     }
 

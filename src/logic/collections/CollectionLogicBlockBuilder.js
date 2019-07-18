@@ -20,12 +20,18 @@ export class CollectionLogicBlockBuilder extends LogicBlockBuilder {
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock,
             size: this.size,
+            sizeConverter: this.sizeConverter,
             whileCondition: this.whileCondition,
         });
     }
 
     setSize(size) {
         this.size = size;
+        return this;
+    }
+
+    setSizeConverter(converter) {
+        this.sizeConverter = converter;
         return this;
     }
 
