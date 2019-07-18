@@ -15,7 +15,8 @@ export class DataLogicBlockBuilder extends LogicBlockBuilder {
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock,
             dataType: this.dataType,
-            size: this.size
+            size: this.size,
+            sizeConverter: this.sizeConverter
         });
     }
 
@@ -26,6 +27,11 @@ export class DataLogicBlockBuilder extends LogicBlockBuilder {
 
     setSize(size) {
         this.size = size;
+        return this;
+    }
+
+    setSizeConverter(converter) {
+        this.sizeConverter = converter;
         return this;
     }
 
