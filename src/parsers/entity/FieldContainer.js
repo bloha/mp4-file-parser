@@ -25,7 +25,7 @@ export class FieldContainer {
             this.rootEntry = new Map();
             this.openEntries.push(this.rootEntry);
         } else {
-            const currentCollection = this._getCurrentCollection();
+            const currentCollection = this.getCurrentCollection();
             const newEntry = new Map();
             currentCollection.push(newEntry);
             this.openEntries.push(newEntry);
@@ -54,7 +54,7 @@ export class FieldContainer {
     }
 
     _addCompleteEntry(entry) {
-        const currentCollection = this._getCurrentCollection();
+        const currentCollection = this.getCurrentCollection();
         currentCollection.push(entry);
     }
 
@@ -63,7 +63,7 @@ export class FieldContainer {
         currentEntry.set(name, value);
     }
 
-    _getCurrentCollection() {
+    getCurrentCollection() {
         return this.openCollections[this.openCollections.length - 1];
     }
 
