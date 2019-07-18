@@ -1,9 +1,9 @@
 'use strict';
 
-import { LogicBlockBuilder } from '../block/LogicBlockBuilder.js';
 import { ArrayLogicBlock } from './ArrayLogicBlock.js';
+import { CollectionLogicBlockBuilder } from '../CollectionLogicBlockBuilder.js';
 
-export class ArrayLogicBlockBuilder extends LogicBlockBuilder {
+export class ArrayLogicBlockBuilder extends CollectionLogicBlockBuilder {
 
     build() {
         return new ArrayLogicBlock({
@@ -18,16 +18,6 @@ export class ArrayLogicBlockBuilder extends LogicBlockBuilder {
             whileCondition: this.whileCondition,
             elementLogicBlock: this.elementLogicBlock
         });
-    }
-
-    setSize(size) {
-        this.size = size;
-        return this;
-    }
-
-    setWhileCondition(condition) {
-        this.whileCondition = condition;
-        return this;
     }
 
     setElementLogicBlock(block) {

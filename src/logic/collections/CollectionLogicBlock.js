@@ -1,14 +1,20 @@
 'use strict';
 
 import { LogicBlock } from '../block/LogicBlock.js';
+import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstraction.js';
 
-export class ArrayLogicBlock extends LogicBlock {
+/**
+ * Abstract Class CollectionLogicBlock.
+ * 
+ * @class CollectionLogicBlock
+ */
+export class CollectionLogicBlock extends LogicBlock {
 
     constructor(obj) {
+        Abstraction.needsInheritance(new.target, CollectionLogicBlock)
         super(obj);
         this.size = obj.size;
         this.whileCondition = obj.whileCondition;
-        this.elementLogicBlock = obj.elementLogicBlock;
     }
 
     async _execute() {
@@ -24,15 +30,22 @@ export class ArrayLogicBlock extends LogicBlock {
         }
     }
 
+    async _performOneIteration() {
+        Abstraction.needsImplementation();
+    }
+
     async _executeBySize() {
+        if (typeof this.size === 'string') {
+            this.size = this.entityParser.findValue(this.size);
+        }
         for (let i = 0; i < this.size; i++) {
-            await this.elementLogicBlock.execute();
+            await this._performOneIteration();
         }
     }
 
     async _executeByCondition() {
         while (await this._canIterate()) {
-            await this.elementLogicBlock.execute();
+            await this._performOneIteration();
         }
     }
 

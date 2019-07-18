@@ -1,9 +1,9 @@
 'use strict';
 
-import { LogicBlockBuilder } from '../block/LogicBlockBuilder.js';
 import { EntryLogicBlock } from './EntryLogicBlock.js';
+import { CollectionLogicBlockBuilder } from '../CollectionLogicBlockBuilder.js';
 
-export class EntryLogicBlockBuilder extends LogicBlockBuilder {
+export class EntryLogicBlockBuilder extends CollectionLogicBlockBuilder {
 
     build() {
         return new EntryLogicBlock({
@@ -11,16 +11,13 @@ export class EntryLogicBlockBuilder extends LogicBlockBuilder {
             name: this.name,
             type: this.type,
             versions: this.versions,
+            flags: this.flags,
             conditions: this.conditions,
             elseLogicBlock: this.elseLogicBlock,
             size: this.size,
+            whileCondition: this.whileCondition,
             entries: this.entries
         });
-    }
-
-    setSize(size) {
-        this.size = size;
-        return this;
     }
 
     setEntries(...entries) {

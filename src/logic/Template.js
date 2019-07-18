@@ -2,8 +2,8 @@
 
 import { DataType } from './data/DataType.js';
 import { DataLogicBlockBuilder } from './data/DataLogicBlockBuilder.js';
-import { ArrayLogicBlockBuilder } from './array/ArrayLogicBlockBuilder.js';
-import { EntryLogicBlockBuilder } from './entry/EntryLogicBlockBuilder.js';
+import { ArrayLogicBlockBuilder } from './collections/array/ArrayLogicBlockBuilder.js';
+import { EntryLogicBlockBuilder } from './collections/entry/EntryLogicBlockBuilder.js';
 import { StringLogicBlockBuilder } from './string/StringLogicBlockBuilder.js';
 import { EntityCollectionLogicBlockBuilder } from './entity/collection/EntityCollectionLogicBlockBuilder.js';
 
