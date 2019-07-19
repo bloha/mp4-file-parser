@@ -2,7 +2,6 @@
 
 import { AlternativeStartupSequencePropertiesBoxParser } from '../parsers/AlternativeStartupSequencePropertiesBoxParser.js';
 import { BinaryXmlBoxParser } from '../parsers/BinaryXmlBoxParser.js';
-import { BoxParser } from '../parsers/BoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
 import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
 import { CompactSampleSizeBoxParser } from '../parsers/CompactSampleSizeBoxParser.js';
@@ -193,26 +192,6 @@ export class ParserManager {
 
     _connectBoxesAndParserClass(boxNames, parserClass) {
         boxNames.forEach(box => this.parsers.set(box, parserClass));
-    }
-
-    async createParser({ blob, offset }) {
-        const parserClass = await this.detectParserClass({ blob, offset });
-        return new parserClass({ blob, offset });
-    }
-
-    async detectParserClass({ blob, offset }) {
-        const type = await this._detectType({ blob, offset });
-        if (this.parsers.has(type)) {
-            return this.parsers.get(type);
-        }
-        return BoxParser;
-    }
-
-    async _detectType({ blob, offset }) {
-        const parser = new BoxParser({ blob, offset });
-        const fields = await parser.parse();
-        const type = fields.get('type');
-        return type;
     }
 
     getParsers() {
