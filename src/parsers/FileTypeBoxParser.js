@@ -1,31 +1,29 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { DataType } from '../logic/data/DataType.js';
+import { ArrayLogicBlockBuilder } from '../logic/collections/array/ArrayLogicBlockBuilder.js';
+import { Template } from '../logic/Template.js';
+import { Condition } from '../logic/Condition.js';
 
 export class FileTypeBoxParser extends BoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'major_brand',
-                method: Parser.parseText,
-                amount: 4
-            },
-            {
-                name: 'minor_version',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'compatible_brands',
-                method: Parser.parseArray,
-                while: Parser.isNotEndOfBoxReached,
-                element: {
-                    method: Parser.parseText,
-                    amount: 4
-                }
-            }
+
+            Template.getSimpleEntryTemplate(this, 'major_brand', DataType.TEXT, 4),
+            Template.getSimpleEntryTemplate(this, 'minor_version', DataType.UINT32),
+
+            new ArrayLogicBlockBuilder(this)
+                .setName('compatible_brands')
+                .setWhileCondition(
+                    Condition.getEndOfBoxNotReachedCondition(this)
+                )
+                .setElementLogicBlock(
+                    Template.getSimpleEntryTemplate(this, undefined, DataType.TEXT, 4)
+                )
+                .build()
         ]
     }
 

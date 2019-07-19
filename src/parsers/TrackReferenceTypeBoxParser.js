@@ -1,21 +1,22 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { ArrayLogicBlockBuilder } from '../logic/collections/array/ArrayLogicBlockBuilder.js';
+import { Condition } from '../logic/Condition.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackReferenceTypeBoxParser extends BoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_IDs',
-                method: Parser.parseArray,
-                while: Parser.isNotEndOfBoxReached,
-                element: {
-                    method: Parser.parseUint32
-                }
-            }
+
+            new ArrayLogicBlockBuilder(this)
+                .setName('track_IDs')
+                .setWhileCondition(Condition.getEndOfBoxNotReachedCondition(this))
+                .setElementLogicBlock(Template.getSimpleEntryTemplate(this, undefined, DataType.UINT32))
+                .build()
         ];
     }
 

@@ -1,7 +1,8 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class CompositionToDecodeBoxParser extends FullBoxParser {
 
@@ -17,19 +18,7 @@ export class CompositionToDecodeBoxParser extends FullBoxParser {
     }
 
     _getTemplate(name) {
-        return {
-            method: Parser.parseByCondition,
-            condition: (version) => version === 0,
-            values: ['version'],
-            success: {
-                name,
-                method: Parser.parseInt32
-            },
-            fail: {
-                name,
-                method: Parser.parseInt64
-            }
-        };
+        return Template.getSimpleVersionTemplate(this, name, DataType.INT32, DataType.INT64);
     }
 
 }

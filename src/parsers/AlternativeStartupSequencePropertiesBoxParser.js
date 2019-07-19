@@ -1,51 +1,38 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { DataType } from '../logic/data/DataType.js';
+import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
+import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlockBuilder.js';
+import { Template } from '../logic/Template.js';
 
 export class AlternativeStartupSequencePropertiesBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                method: Parser.parseByCondition,
-                condition: (version) => version === 0,
-                values: ['version'],
-                success: {
-                    name: 'min_initial_alt_startup_offset',
-                    method: Parser.parseInt32
-                }
-            },
-            {
-                method: Parser.parseByCondition,
-                condition: (version) => version === 1,
-                values: ['version'],
-                success: {
-                    name: 'num_entries',
-                    method: Parser.parseUint32
-                }
-            },
-            {
-                method: Parser.parseByCondition,
-                condition: (version) => version === 1,
-                values: ['version'],
-                success: {
-                    name: 'entries',
-                    method: Parser.parseEntries,
-                    amount: 'num_entries',
-                    fields: [
-                        {
-                            name: 'grouping_type_parameter',
-                            method: Parser.parseUint32
-                        },
-                        {
-                            name: 'min_initial_alt_startup_offset',
-                            method: Parser.parseInt32
-                        }
-                    ]
-                }
-            }
+
+            new DataLogicBlockBuilder(this)
+                .setName('min_initial_alt_startup_offset')
+                .setType(DataType.INT32)
+                .setVersions(0)
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('num_entries')
+                .setType(DataType.UINT32)
+                .setVersions(1)
+                .build(),
+
+            new EntryLogicBlockBuilder(this)
+                .setName('entries')
+                .setSize('num_entries')
+                .setVersions(1)
+                .setEntries(
+                    Template.getSimpleEntryTemplate(this, 'grouping_type_parameter', DataType.UINT32),
+                    Template.getSimpleEntryTemplate(this, 'min_initial_alt_startup_offset', DataType.UINT32),
+                )
+                .build()
         ];
     }
 

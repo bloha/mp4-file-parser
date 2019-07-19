@@ -1,37 +1,23 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class CompactSampleSizeBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                method: Parser.skipBytes,
-                amount: 24 / 8
-            },
-            {
-                name: 'field_size',
-                method: Parser.parseUint8
-            },
-            {
-                name: 'sample_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'sample_count',
-                fields: [
-                    {
-                        name: 'entry_size',
-                        method: Parser.parseBits,
-                        amount: 'field_size'
-                    }
-                ]
-            }
+
+            Template.skipBytes(this, 24 / 8),
+
+            Template.getSimpleEntryTemplate(this, 'field_size', DataType.UINT8),
+            Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'sample_count',
+                Template.getSimpleEntryTemplate(this, 'entry_size', DataType.BIT, 'field_size')
+            )
         ];
     }
 

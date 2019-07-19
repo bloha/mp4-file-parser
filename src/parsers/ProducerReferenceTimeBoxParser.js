@@ -1,23 +1,19 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class ProducerReferenceTimeBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'reference_track_ID',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'ntp_timestamp',
-                method: Parser.parseUint64
-            },
-            Template.getVersionTemplate('media_time', Parser.parseUint32, Parser.parseUint64)
+
+            Template.getSimpleEntryTemplate(this, 'reference_track_ID', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'ntp_timestamp', DataType.UINT64),
+
+            Template.getSimpleVersionTemplate(this, 'media_time', DataType.UINT32, DataType.UINT64)
         ];
     }
 

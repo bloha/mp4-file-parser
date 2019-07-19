@@ -1,28 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class FecReservoirBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            Template.getVersionTemplate('entry_count', Parser.parseUint16, Parser.parseUint32),
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    Template.getVersionTemplate('item_ID', Parser.parseUint16, Parser.parseUint32),
-                    {
-                        name: 'symbol_count',
-                        method: Parser.parseUint32
-                    }
-                ]
 
-            }
+            Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleVersionTemplate(this, 'item_ID', DataType.UINT16, DataType.UINT32),
+                Template.getSimpleEntryTemplate(this, 'symbol_count', DataType.UINT32)
+            )
         ];
     }
 

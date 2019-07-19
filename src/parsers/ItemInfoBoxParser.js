@@ -1,31 +1,25 @@
 'use strict';
 
-import { EntityParser } from './entity/EntityParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { FullBoxParser } from './FullBoxParser.js';
 import { ItemInfoEntryParser } from './ItemInfoEntryParser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder.js';
 
-export class ItemInfoBoxParser extends EntityParser {
+export class ItemInfoBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'entry_count',
-            method: Parser.parseByVersion,
-            parameters: {
-                methods: [Parser.parseUint16, Parser.parseUint32]
-            }
-        });
-        this.sequence.add({
-            name: 'item_infos',
-            method: Parser.parseArray,
-            parameters: {
-                amount: 'entry_count',
-                method: Parser.parseClassifiedEntity,
-                parameters: {
-                    class: ItemInfoEntryParser
-                }
-            }
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+
+            Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
+
+            Template.getArrayTemplate(this, 'item_infos', 'entry_count',
+                new EntityLogicBlockBuilder(this)
+                    .setClass(ItemInfoEntryParser)
+                    .build()
+            )
+        ];
     }
 
 }

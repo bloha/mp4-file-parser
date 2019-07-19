@@ -1,28 +1,25 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlockBuilder.js';
+import { Condition } from '../logic/Condition.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                while: Parser.isNotEndOfBoxReached,
-                fields: [
-                    {
-                        name: 'rate',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        name: 'initial_delay',
-                        method: Parser.parseUint32
-                    }
-                ]
-            }
+
+            new EntryLogicBlockBuilder(this)
+                .setName('entries')
+                .setWhileCondition(Condition.getEndOfBoxNotReachedCondition(this))
+                .setEntries(
+                    Template.getSimpleEntryTemplate(this, 'rate', DataType.UINT32),
+                    Template.getSimpleEntryTemplate(this, 'initial_delay', DataType.UINT32)
+                )
+                .build()
         ];
     }
 

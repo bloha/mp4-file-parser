@@ -1,19 +1,18 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Strategy } from '../sequence/Strategy.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Strategy } from '../logic/Strategy.js';
+import { Template } from '../logic/Template.js';
 
 export class CopyrightBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
+
             ...Strategy.getLanguageParsingStrategy(),
-            {
-                name: 'notice',
-                method: Parser.parseStringWithByteOrderMark
-            }
+
+            Template.getByteOrderMarkStringTemplate(this, 'notice')
         ];
     }
 

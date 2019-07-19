@@ -1,25 +1,24 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { ArrayLogicBlockBuilder } from '../logic/collections/array/ArrayLogicBlockBuilder.js';
+import { Condition } from '../logic/Condition.js';
 
 export class TrackSelectionBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'switch_group',
-                method: Parser.parseInt32
-            },
-            {
-                name: 'attribute_list',
-                method: Parser.parseArray,
-                while: Parser.isNotEndOfBoxReached,
-                element: {
-                    method: Parser.parseUint32
-                }
-            }
+
+            Template.getSimpleEntryTemplate(this, 'switch_group', DataType.INT32),
+
+            new ArrayLogicBlockBuilder(this)
+                .setName('attribute_list')
+                .setWhileCondition(Condition.getEndOfBoxNotReachedCondition(this))
+                .setElementLogicBlock(Template.getSimpleEntryTemplate(this, undefined, DataType.UINT32))
+                .build()
         ];
     }
 

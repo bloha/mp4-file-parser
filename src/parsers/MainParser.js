@@ -1,19 +1,20 @@
 'use strict';
 
 import { EntityParser } from './entity/EntityParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { CustomLogicBlockBuilder } from '../logic/custom/CustomLogicBlockBuilder.js';
+import { Template } from '../logic/Template.js';
 
 export class MainParser extends EntityParser {
 
     getLogicBlocks() {
         return [
-            {
-                method: ({ entityParser }) => entityParser.addField('size', entityParser.getDataParser().getDataSize())
-            },
-            {
-                name: 'children',
-                method: Parser.parseEntities
-            }
+            new CustomLogicBlockBuilder(this)
+                .setCustomMethod(
+                    ({ entityParser }) => entityParser.saveValue('size', entityParser.getDataParser().getDataSize())
+                )
+                .build(),
+
+            Template.getEntityCollectionTemplate(this, 'children')
         ];
     }
 

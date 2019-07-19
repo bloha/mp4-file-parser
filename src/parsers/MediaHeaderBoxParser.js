@@ -1,27 +1,26 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Strategy } from '../sequence/Strategy.js';
-import { Template } from '../sequence/Template.js';
+import { Strategy } from '../logic/Strategy.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class MediaHeaderBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            Template.getVersionTemplate('creation_time', Parser.parseUint32, Parser.parseUint64),
-            Template.getVersionTemplate('modification_time', Parser.parseUint32, Parser.parseUint64),
-            {
-                name: 'duration',
-                method: Parser.parseUint32
-            },
-            Template.getVersionTemplate('modification_time', Parser.parseUint32, Parser.parseUint64),
-            ...Strategy.getLanguageParsingStrategy(),
-            {
-                name: 'pre_defined',
-                method: Parser.parseUint16
-            }
+
+            Template.getSimpleVersionTemplate(this, 'creation_time', DataType.UINT32, DataType.UINT64),
+            Template.getSimpleVersionTemplate(this, 'modification_time', DataType.UINT32, DataType.UINT64),
+
+            Template.getSimpleEntryTemplate(this, 'timescale', DataType.UINT32),
+
+            Template.getSimpleVersionTemplate(this, 'duration', DataType.UINT32, DataType.UINT64),
+
+            ...Strategy.getLanguageParsingStrategy(this),
+
+            Template.getSimpleEntryTemplate(this, 'pre_defined', DataType.UINT16)
         ];
     }
 

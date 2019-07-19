@@ -1,25 +1,20 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class VideoMediaHeaderBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'graphicsmode',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'opcolor',
-                method: Parser.parseArray,
-                amount: 3,
-                element: {
-                    method: Parser.parseUint16
-                }
-            }
+
+            Template.getSimpleEntryTemplate(this, 'graphicsmode', DataType.UINT16),
+
+            Template.getArrayTemplate(this, 'opcolor', 3,
+                Template.getSimpleEntryTemplate(this, undefined, DataType.UINT16)
+            )
         ];
     }
 

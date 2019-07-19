@@ -1,21 +1,16 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
 
 export class DataEntryUrnBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'name',
-                method: Parser.parseString
-            },
-            {
-                name: 'location',
-                method: Parser.parseString
-            }
+
+            Template.getStringTemplate(this, 'name'),
+            Template.getStringTemplate(this, 'location')
         ];
     }
 

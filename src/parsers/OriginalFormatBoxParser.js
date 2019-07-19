@@ -1,18 +1,16 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class OriginalFormatBoxParser extends BoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'data_format',
-                method: Parser.parseText,
-                amount: 4
-            }
+
+            Template.getSimpleEntryTemplate(this, 'data_format', DataType.TEXT, 4)
         ];
     }
 

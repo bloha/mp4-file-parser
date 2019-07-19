@@ -1,44 +1,25 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class SubsegmentIndexBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'subsegment_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'subsegment_count',
-                fields: [
-                    {
-                        name: 'range_count',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        name: 'entries',
-                        method: Parser.parseEntries,
-                        amount: 'range_count',
-                        fields: [
-                            {
-                                name: 'level',
-                                method: Parser.parseUint8
-                            },
-                            {
-                                name: 'range_size',
-                                method: Parser.parseBits,
-                                amount: 24
-                            }
-                        ]
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'subsegment_count', DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'subsegment_count',
+                Template.getSimpleEntryTemplate(this, 'range_count', DataType.UINT32),
+
+                Template.getEntryTemplate(this, 'entries', 'range_count',
+                    Template.getSimpleEntryTemplate(this, 'level', DataType.UINT8),
+                    Template.getSimpleEntryTemplate(this, 'range_size', DataType.BIT, 24),
+                )
+            )
         ];
     }
 

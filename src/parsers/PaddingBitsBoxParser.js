@@ -1,45 +1,29 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlockBuilder.js';
 
 export class PaddingBitsBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'sample_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'sample_count',
-                converter: (amount) => (amount + 1) / 2,
-                fields: [
-                    {
-                        name: 'reserved',
-                        method: Parser.parseBits,
-                        amount: 1
-                    },
-                    {
-                        name: 'pad1',
-                        method: Parser.parseBits,
-                        amount: 3
-                    },
-                    {
-                        name: 'reserved',
-                        method: Parser.parseBits,
-                        amount: 1
-                    },
-                    {
-                        name: 'pad2',
-                        method: Parser.parseBits,
-                        amount: 3
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
+
+            new EntryLogicBlockBuilder(this)
+                .setName('entries')
+                .setSize('sample_count')
+                .setSizeConverter((size) => (size + 1) / 2)
+                .setEntries(
+                    Template.getBitSkipTemplate(this, 1),
+                    Template.getSimpleEntryTemplate(this, 'pad1', DataType.BIT, 3),
+                    Template.getBitSkipTemplate(this, 1),
+                    Template.getSimpleEntryTemplate(this, 'pad2', DataType.BIT, 3),
+                )
+                .build()
         ];
     }
 

@@ -1,15 +1,16 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackFragmentBaseMediaDecodeTimeBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            Template.getVersionTemplate('baseMediaDecodeTime', Parser.parseUint32, Parser.parseUint64)
+
+            Template.getSimpleVersionTemplate(this, 'baseMediaDecodeTime', DataType.UINT32, DataType.UINT64)
         ];
     }
 

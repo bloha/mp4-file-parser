@@ -1,148 +1,123 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
+import { DataType } from '../logic/data/DataType.js';
+import { StringLogicBlockBuilder } from '../logic/string/StringLogicBlockBuilder.js';
+import { Condition } from '../logic/Condition.js';
+import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder.js';
+import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.js';
 
 export class ItemInfoEntryParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'item_ID',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 0 || version === 1,
-                values: ['version'],
-                method: Parser.parseUint16
-            }
-        });
-        this.sequence.add({
-            name: 'item_protection_index',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 0 || version === 1,
-                values: ['version'],
-                method: Parser.parseUint16
-            }
-        });
-        this.sequence.add({
-            name: 'item_name',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 0 || version === 1,
-                values: ['version'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'content_type',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 0 || version === 1,
-                values: ['version'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'content_encoding',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 0 || version === 1,
-                values: ['version'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'extension_type',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version, isNotEndOfBoxReached) => version === 1 && isNotEndOfBoxReached,
-                values: ['version', Parser.isNotEndOfBoxReached],
-                method: Parser.parseText,
-                parameters: {
-                    amount: 4
-                }
-            }
-        });
-        this.sequence.add({
-            name: 'extension',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 1,
-                values: ['version'],
-                method: Parser.parseClassifiedEntity,
-                parameters: {
-                    class: 'extension_type'
-                }
-            }
-        });
-        this.sequence.add({
-            name: 'item_ID',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version === 2,
-                values: ['version'],
-                method: Parser.parseUint16,
-                else: {
-                    condition: (version) => version === 3,
-                    values: ['version'],
-                    method: Parser.parseUint32
-                }
-            }
-        });
-        this.sequence.add({
-            name: 'item_protection_index',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version >= 2,
-                values: ['version'],
-                method: Parser.parseUint16
-            }
-        });
-        this.sequence.add({
-            name: 'item_type',
-            method: Parser.parseByCondition,
-            parameters: {
-                condition: (version) => version >= 2,
-                values: ['version'],
-                method: Parser.parseText,
-                parameters: {
-                    amount: 4
-                }
-            }
-        });
-        this.sequence.add({
-            name: 'item_name',
-            parameters: {
-                condition: (version) => version >= 2,
-                values: ['version'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'content_type',
-            parameters: {
-                condition: (version, item_type) => version >= 2 && item_type === 'mime',
-                values: ['version', 'item_type'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'content_encoding;',
-            parameters: {
-                condition: (version, item_type) => version >= 2 && item_type === 'mime',
-                values: ['version', 'item_type'],
-                method: Parser.parseString
-            }
-        });
-        this.sequence.add({
-            name: 'item_uri_type',
-            parameters: {
-                condition: (version, item_type) => version >= 2 && item_type === 'uri ',
-                values: ['version', 'item_type'],
-                method: Parser.parseString
-            }
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('item_ID')
+                .setDataType(DataType.UINT16)
+                .setVersions(0, 1)
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('item_protection_index')
+                .setDataType(DataType.UINT16)
+                .setVersions(0, 1)
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('item_name')
+                .setVersions(0, 1)
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('content_type')
+                .setVersions(0, 1)
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('content_encoding')
+                .setVersions(0, 1)
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('extension_type')
+                .setDataType(DataType.TEXT)
+                .setSize(4)
+                .setConditions(Condition.getEndOfBoxNotReachedCondition(this))
+                .setVersions(1)
+                .build(),
+
+            new EntityLogicBlockBuilder(this)
+                .setName('extension')
+                .setClass('extension_type')
+                .setVersions(1)
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('item_ID')
+                .setDataType(DataType.UINT16)
+                .setVersions(2)
+                .setElseLogicBlock(
+                    new DataLogicBlockBuilder(this)
+                        .setName('item_ID')
+                        .setDataType(DataType.UINT32)
+                        .setVersions(3)
+                        .build()
+                )
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('item_protection_index')
+                .setDataType(DataType.UINT16)
+                .setVersions(2, 3)
+                .build(),
+
+            new DataLogicBlockBuilder(this)
+                .setName('item_type')
+                .setDataType(DataType.TEXT)
+                .setVersions(2, 3)
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('item_name')
+                .setVersions(2, 3)
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('content_type')
+                .setVersions(2, 3)
+                .setConditions(
+                    new ConditionBlockBuilder(this)
+                        .setCondition((item_type) => item_type === 'mime')
+                        .setValueNames('item_type')
+                        .build()
+                )
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('content_encoding')
+                .setVersions(2, 3)
+                .setConditions(
+                    new ConditionBlockBuilder(this)
+                        .setCondition((item_type) => item_type === 'mime')
+                        .setValueNames('item_type')
+                        .build()
+                )
+                .build(),
+
+            new StringLogicBlockBuilder(this)
+                .setName('item_uri_type')
+                .setVersions(2, 3)
+                .setConditions(
+                    new ConditionBlockBuilder(this)
+                        .setCondition((item_type) => item_type === 'uri ')
+                        .setValueNames('item_type')
+                        .build()
+                )
+                .build(),
+        ];
     }
 
 }

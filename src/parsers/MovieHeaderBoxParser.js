@@ -1,53 +1,34 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class MovieHeaderBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            Template.getVersionTemplate('creation_time', Parser.parseUint32, Parser.parseUint64),
-            Template.getVersionTemplate('modification_time', Parser.parseUint32, Parser.parseUint64),
-            {
-                name: 'timescale',
-                method: Parser.parseUint32
-            },
-            Template.getVersionTemplate('duration', Parser.parseUint32, Parser.parseUint64),
-            {
-                name: 'rate',
-                method: Parser.parseInt32
-            },
-            {
-                name: 'volume',
-                method: Parser.parseInt16
-            },
-            {
-                method: Parser.skipBytes,
-                amount: 10
-            },
-            {
-                name: 'matrix',
-                method: Parser.parseArray,
-                amount: 9,
-                element: {
-                    method: Parser.parseInt32
-                }
-            },
-            {
-                name: 'pre_defined',
-                method: Parser.parseArray,
-                amount: 6,
-                element: {
-                    method: Parser.parseUint32
-                }
-            },
-            {
-                name: 'next_track_ID',
-                method: Parser.parseUint32
-            }
+
+            Template.getSimpleVersionTemplate(this, 'creation_time', DataType.UINT32, DataType.UINT64),
+            Template.getSimpleVersionTemplate(this, 'modification_time', DataType.UINT32, DataType.UINT64),
+
+            Template.getSimpleEntryTemplate(this, 'timescale', DataType.UINT32),
+
+            Template.getSimpleVersionTemplate(this, 'duration', DataType.UINT32, DataType.UINT64),
+
+            Template.getSimpleEntryTemplate(this, 'rate', DataType.INT32),
+            Template.getSimpleEntryTemplate(this, 'volume', DataType.INT16),
+
+            Template.getByteSkipTemplate(this, 10),
+
+            Template.getArrayTemplate(this, 'matrix', 9,
+                Template.getSimpleEntryTemplate(this, undefined, DataType.INT32)),
+
+            Template.getArrayTemplate(this, 'pre_defined', 6,
+                Template.getSimpleEntryTemplate(this, undefined, DataType.UINT32)),
+
+            Template.getSimpleEntryTemplate(this, 'next_track_ID', DataType.UINT32)
         ];
     }
 

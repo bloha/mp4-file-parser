@@ -1,17 +1,16 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackGroupTypeBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_group_id',
-                method: Parser.parseUint32
-            }
+
+            Template.getSimpleEntryTemplate(this, 'track_group_id', DataType.UINT32)
         ];
     }
 

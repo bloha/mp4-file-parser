@@ -1,32 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class SubTrackSampleGroupBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'grouping_type',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'item_count',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'item_count',
-                fields: [
-                    {
-                        name: 'group_description_index',
-                        method: Parser.parseUint32
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'grouping_type', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'item_count', DataType.UINT16),
+
+            Template.getSimpleEntryTemplate(this, 'entries', 'item_count',
+                Template.getSimpleEntryTemplate(this, 'group_description_index', DataType.UINT32),
+            )
         ];
     }
 

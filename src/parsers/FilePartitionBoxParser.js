@@ -1,63 +1,35 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class FilePartitionBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            Template.getVersionTemplate('item_ID', Parser.parseUint16, Parser.parseUint32),
-            {
-                name: 'packet_payload_size',
-                method: Parser.parseUint16
-            },
-            {
-                method: Parser.skipBytes,
-                amount: 1
-            },
-            {
-                name: 'FEC_encoding_ID',
-                method: Parser.parseUint8
-            },
-            {
-                name: 'FEC_instance_ID',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'max_source_block_length',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'encoding_symbol_length',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'max_number_of_encoding_symbols',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'scheme_specific_info',
-                method: Parser.parseString
-            },
-            Template.getVersionTemplate('entry_count', Parser.parseUint16, Parser.parseUint32),
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    {
-                        name: 'block_count',
-                        method: Parser.parseUint16
-                    },
-                    {
-                        name: 'block_size',
-                        method: Parser.parseUint32
-                    }
-                ]
-            }
+
+            Template.getSimpleVersionTemplate(this, 'item_ID', DataType.UINT16, DataType.UINT32),
+
+            Template.getSimpleEntryTemplate(this, 'packet_payload_size', DataType.UINT16),
+
+            Template.getByteSkipTemplate(this, 1),
+
+            Template.getSimpleEntryTemplate(this, 'FEC_encoding_ID', DataType.UINT8),
+            Template.getSimpleEntryTemplate(this, 'FEC_instance_ID', DataType.UINT16),
+            Template.getSimpleEntryTemplate(this, 'max_source_block_length', DataType.UINT16),
+            Template.getSimpleEntryTemplate(this, 'encoding_symbol_length', DataType.UINT16),
+            Template.getSimpleEntryTemplate(this, 'max_number_of_encoding_symbols', DataType.UINT16),
+
+            Template.getStringTemplate(this, 'scheme_specific_info'),
+
+            Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleEntryTemplate(this, 'block_count', DataType.UINT16),
+                Template.getSimpleEntryTemplate(this, 'block_size', DataType.UINT32)
+            )
         ];
     }
 

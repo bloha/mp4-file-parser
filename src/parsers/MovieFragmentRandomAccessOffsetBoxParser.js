@@ -1,17 +1,16 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class MovieFragmentRandomAccessOffsetBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'size',
-                method: Parser.parseUint32
-            }
+
+            Template.getSimpleEntryTemplate(this, 'size', DataType.UINT32)
         ];
     }
 

@@ -1,44 +1,25 @@
 'use strict';
 
 import { EntityParser } from './entity/EntityParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class FdItemInfoExtensionParser extends EntityParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'content_location',
-                method: Parser.parseString
-            },
-            {
-                name: 'content_MD5',
-                method: Parser.parseString
-            },
-            {
-                name: 'content_length',
-                method: Parser.parseUint64
-            },
-            {
-                name: 'transfer_length',
-                method: Parser.parseUint64
-            },
-            {
-                name: 'entry_count',
-                method: Parser.parseUint8
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    {
-                        name: 'group_id',
-                        method: Parser.parseUint32
-                    }
-                ]
-            }
+
+            Template.getStringTemplate(this, 'content_location'),
+            Template.getStringTemplate(this, 'content_MD5'),
+
+            Template.getSimpleEntryTemplate(this, 'content_length', DataType.UINT64),
+            Template.getSimpleEntryTemplate(this, 'transfer_length', DataType.UINT64),
+            Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT8),
+
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleEntryTemplate(this, 'group_id', DataType.UINT32)
+            )
         ];
     }
 

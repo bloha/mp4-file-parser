@@ -1,68 +1,35 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class SegmentIndexBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'reference_ID',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'timescale',
-                method: Parser.parseUint32
-            },
-            Template.getVersionTemplate('earliest_presentation_time', Parser.parseUint32, Parser.parseUint64),
-            Template.getVersionTemplate('first_offset', Parser.parseUint32, Parser.parseUint64),
-            {
-                method: Parser.skipBytes,
-                amount: 2
-            },
-            {
-                name: 'reference_count',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'reference_count',
-                fields: [
-                    {
-                        name: 'reference_type',
-                        method: Parser.parseBits,
-                        amount: 1
-                    },
-                    {
-                        name: 'referenced_size',
-                        method: Parser.parseBits,
-                        amount: 31
-                    },
-                    {
-                        name: 'subsegment_duration',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        name: 'starts_with_SAP',
-                        method: Parser.parseBits,
-                        amount: 1
-                    },
-                    {
-                        name: 'SAP_type',
-                        method: Parser.parseBits,
-                        amount: 3
-                    },
-                    {
-                        name: 'SAP_delta_time',
-                        method: Parser.parseBits,
-                        amount: 28
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'reference_ID', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'timescale', DataType.UINT32),
+
+            Template.getSimpleVersionTemplate(this, 'earliest_presentation_time', DataType.UINT32, DataType.UINT64),
+            Template.getSimpleVersionTemplate(this, 'first_offset', DataType.UINT32, DataType.UINT64),
+
+            Template.getByteSkipTemplate(this, 2),
+
+            Template.getSimpleEntryTemplate(this, 'reference_count', DataType.UINT16),
+
+            Template.getEntryTemplate(this, 'entries', 'reference_count',
+                Template.getSimpleEntryTemplate(this, 'reference_type', DataType.BIT, 1),
+                Template.getSimpleEntryTemplate(this, 'referenced_size', DataType.BIT, 31),
+
+                Template.getSimpleEntryTemplate(this, 'subsegment_duration', DataType.UINT32),
+
+                Template.getSimpleEntryTemplate(this, 'starts_with_SAP', DataType.BIT, 1),
+                Template.getSimpleEntryTemplate(this, 'SAP_type', DataType.BIT, 3),
+                Template.getSimpleEntryTemplate(this, 'SAP_delta_time', DataType.BIT, 28)
+            )
         ];
     }
 

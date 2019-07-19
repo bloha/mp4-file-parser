@@ -1,17 +1,15 @@
 'use strict';
 
 import { BoxParser } from './BoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
 
 export class ContainerBoxParser extends BoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'children',
-                method: Parser.parseEntities
-            }
+
+            Template.getEntityCollectionTemplate(this, 'children')
         ];
     }
 

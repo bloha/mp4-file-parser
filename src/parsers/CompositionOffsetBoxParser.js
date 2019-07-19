@@ -1,41 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class CompositionOffsetBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'entry_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    {
-                        name: 'sample_count',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        method: Parser.parseByCondition,
-                        condition: (version) => version === 0,
-                        values: ['version'],
-                        success: {
-                            name: 'sample_offset',
-                            method: Parser.parseUint32
-                        },
-                        fail: {
-                            name: 'sample_offset',
-                            method: Parser.parseInt32
-                        }
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
+                Template.getSimpleVersionTemplate(this, 'sample_offset', DataType.UINT32, DataType.INT32)
+            )
         ];
     }
 

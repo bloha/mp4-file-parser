@@ -1,35 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class EditListBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'entry_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    Template.getVersionTemplate('segment_duration', Parser.parseUint32, Parser.parseUint64),
-                    Template.getVersionTemplate('media_time', Parser.parseInt32, Parser.parseInt64),
-                    {
-                        name: 'media_rate_integer',
-                        method: Parser.parseInt16
-                    },
-                    {
-                        name: 'media_rate_fraction',
-                        method: Parser.parseInt16
-                    }
-                ]
-            }
+            Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleVersionTemplate(this, 'segment_duration', DataType.UINT32, DataType.UINT64),
+                Template.getSimpleVersionTemplate(this, 'media_time', DataType.UINT32, DataType.UINT64),
+                Template.getSimpleEntryTemplate(this, 'media_rate_integer', DataType.INT16),
+                Template.getSimpleEntryTemplate(this, 'media_rate_fraction', DataType.INT16),
+            )
         ];
     }
 

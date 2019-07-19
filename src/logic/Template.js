@@ -6,11 +6,18 @@ import { ArrayLogicBlockBuilder } from './collections/array/ArrayLogicBlockBuild
 import { EntryLogicBlockBuilder } from './collections/entry/EntryLogicBlockBuilder.js';
 import { StringLogicBlockBuilder } from './string/StringLogicBlockBuilder.js';
 import { EntityCollectionLogicBlockBuilder } from './entity/collection/EntityCollectionLogicBlockBuilder.js';
+import { ByteOrderMarkStringLogicBlockBuilder } from './string/ByteOrderMarkStringLogicBlockBuilder.js';
 
 export class Template {
 
     static getEntityCollectionTemplate(entityParser, name) {
         return new EntityCollectionLogicBlockBuilder(entityParser)
+            .setName(name)
+            .build();
+    }
+
+    static getByteOrderMarkStringTemplate(entityParser, name) {
+        return new ByteOrderMarkStringLogicBlockBuilder(entityParser)
             .setName(name)
             .build();
     }
@@ -34,6 +41,13 @@ export class Template {
             .setName(name)
             .setSize(size)
             .setElementLogicBlock(elementLogicBlock)
+            .build();
+    }
+
+    static getBitSkipTemplate(entityParser, size) {
+        return new DataLogicBlockBuilder(entityParser)
+            .setDataType(DataType.BIT_SKIP)
+            .setSize(size)
             .build();
     }
 

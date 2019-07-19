@@ -1,21 +1,18 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class FdItemInformationBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'entry_count',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'children',
-                method: Parser.parseEntities
-            }
+
+            Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT16),
+
+            Template.getEntityCollectionTemplate(this, 'children')
         ];
     }
 

@@ -1,23 +1,22 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackFragmentHeaderBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_ID',
-                method: Parser.parseUint32
-            },
-            Template.getFlagsTemplate('base_data_offset', 0x000001, Parser.parseUint64),
-            Template.getFlagsTemplate('sample_description_index', 0x000002, Parser.parseUint32),
-            Template.getFlagsTemplate('default_sample_duration', 0x000008, Parser.parseUint32),
-            Template.getFlagsTemplate('default_sample_size', 0x000010, Parser.parseUint32),
-            Template.getFlagsTemplate('default_sample_flags', 0x000020, Parser.parseUint32)
+
+            Template.getSimpleEntryTemplate(this, 'track_ID', DataType.UINT32),
+
+            Template.getSimpleFlagsTemplate(this, 'base_data_offset', 0x000001, DataType.UINT64),
+            Template.getSimpleFlagsTemplate(this, 'sample_description_index', 0x000002, DataType.UINT32),
+            Template.getSimpleFlagsTemplate(this, 'default_sample_duration', 0x000008, DataType.UINT32),
+            Template.getSimpleFlagsTemplate(this, 'default_sample_size', 0x000010, DataType.UINT32),
+            Template.getSimpleFlagsTemplate(this, 'default_sample_flags', 0x000020, DataType.UINT32)
         ];
     }
 

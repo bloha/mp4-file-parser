@@ -1,21 +1,18 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackExtensionPropertiesBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_id',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'children',
-                method: Parser.parseEntities
-            }
+
+            Template.getSimpleEntryTemplate(this, 'track_id', DataType.UINT32),
+
+            Template.getEntityCollectionTemplate(this, 'children')
         ];
     }
 

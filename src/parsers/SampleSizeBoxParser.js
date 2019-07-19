@@ -1,37 +1,33 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlockBuilder.js';
+import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.js';
 
 export class SampleSizeBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'sample_size',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'sample_count',
-                method: Parser.parseUint32
-            },
-            {
-                method: Parser.parseByCondition,
-                condition: (sample_size) => sample_size === 0,
-                values: ['sample_size'],
-                success: {
-                    name: 'entries',
-                    method: Parser.parseEntries,
-                    amount: 'sample_count',
-                    fields: [
-                        {
-                            name: 'entry_size',
-                            method: Parser.parseUint32
-                        }
-                    ]
-                }
-            }
+
+            Template.getSimpleEntryTemplate(this, 'sample_size', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
+
+            new EntryLogicBlockBuilder(this)
+                .setName('entries')
+                .setSize('sample_count')
+                .setConditions(
+                    new ConditionBlockBuilder(this)
+                        .setCondition((sample_size) => sample_size === 0)
+                        .setValueNames('sample_size')
+                        .build()
+                )
+                .setEntries(
+                    Template.getSimpleEntryTemplate(this, 'entry_size', DataType.UINT32)
+                )
+                .build()
         ];
     }
 

@@ -1,21 +1,26 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { ArrayLogicBlockBuilder } from '../logic/collections/array/ArrayLogicBlockBuilder.js';
+import { Condition } from '../logic/Condition.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class BinaryXmlBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'data',
-                method: Parser.parseArray,
-                while: Parser.isNotEndOfBoxReached,
-                element: {
-                    method: Parser.parseUint8
-                }
-            }
+
+            new ArrayLogicBlockBuilder(this)
+                .setName('data')
+                .setWhileCondition(
+                    Condition.getEndOfBoxNotReachedCondition(this)
+                )
+                .setElementLogicBlock(
+                    Template.getSimpleEntryTemplate(this, undefined, DataType.UINT8)
+                )
+                .build()
         ];
     }
 

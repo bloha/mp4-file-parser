@@ -1,53 +1,28 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class SubSampleInformationBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'entry_count',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'entry_count',
-                fields: [
-                    {
-                        name: 'sample_delta',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        name: 'subsample_count',
-                        method: Parser.parseUint16
-                    },
-                    {
-                        name: 'entries',
-                        method: Parser.parseEntries,
-                        amount: 'subsample_count',
-                        fields: [
-                            Template.getVersionTemplate('subsample_size', Parser.parseUint16, Parser.parseUint32),
-                            {
-                                name: 'subsample_priority',
-                                method: Parser.parseUint8
-                            },
-                            {
-                                name: 'discardable',
-                                method: Parser.parseUint8
-                            },
-                            {
-                                name: 'codec_specific_parameters',
-                                method: Parser.parseUint32
-                            }
-                        ]
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                Template.getSimpleEntryTemplate(this, 'sample_delta', DataType.UINT32),
+                Template.getSimpleEntryTemplate(this, 'subsample_count', DataType.UINT16),
+
+                Template.getEntryTemplate(this, 'entries', 'subsample_count',
+                    Template.getSimpleVersionTemplate(this, 'subsample_size', DataType.UINT16, DataType.UINT32),
+                    Template.getSimpleEntryTemplate(this, 'subsample_priority', DataType.UINT8),
+                    Template.getSimpleEntryTemplate(this, 'discardable', DataType.UINT8),
+                    Template.getSimpleEntryTemplate(this, 'codec_specific_parameters', DataType.UINT32),
+                )
+            )
         ];
     }
 

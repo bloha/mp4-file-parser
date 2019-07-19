@@ -1,30 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class HandlerBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'pre_defined',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'handler_type',
-                method: Parser.parseText,
-                amount: 4
-            },
-            {
-                method: Parser.skipBytes,
-                amount: 32 / 8 * 3
-            },
-            {
-                name: 'name',
-                method: Parser.parseString
-            }
+
+            Template.getSimpleEntryTemplate(this, 'pre_defined', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'handler_type', DataType.TEXT, 4),
+
+            Template.getByteSkipTemplate(this, 32 / 8 * 3),
+
+            Template.getStringTemplate(this, 'name')
         ];
     }
 

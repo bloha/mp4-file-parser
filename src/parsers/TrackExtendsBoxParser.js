@@ -1,33 +1,20 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class TrackExtendsBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_ID',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'default_sample_description_index',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'default_sample_duration',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'default_sample_size',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'default_sample_flags',
-                method: Parser.parseUint32
-            }
+
+            Template.getSimpleEntryTemplate(this, 'track_ID', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'default_sample_description_index', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'default_sample_duration', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'default_sample_size', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'default_sample_flags', DataType.UINT32),
         ];
     }
 

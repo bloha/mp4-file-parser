@@ -1,70 +1,42 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
+import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.js';
 
 export class LevelAssignmentBoxParser extends FullBoxParser {
 
-    constructor({ blob, offset }) {
-        super({ blob, offset });
-        this.sequence.add({
-            name: 'level_count',
-            method: Parser.parseUint8
-        });
-        this.sequence.add({
-            name: 'entries',
-            method: Parser.parseEntries,
-            parameters: {
-                amount: 'level_count',
-                fields: [
-                    {
-                        name: 'track_id',
-                        method: Parser.parseUint32
-                    },
-                    {
-                        name: 'padding_flag',
-                        method: Parser.parseBits,
-                        parameters: {
-                            amount: 1
-                        }
-                    },
-                    {
-                        name: 'assignment_type',
-                        method: Parser.parseBits,
-                        parameters: {
-                            amount: 7
-                        }
-                    },
-                    {
-                        name: 'grouping_type',
-                        method: Parser.parseByCondition,
-                        parameters: {
-                            condition: (value) => value === 0 || value === 1,
-                            values: ['assignment_type'],
-                            method: Parser.parseUint32
-                        }
-                    },
-                    {
-                        name: 'grouping_type_parameter',
-                        method: Parser.parseByCondition,
-                        parameters: {
-                            condition: (value) => value === 1,
-                            values: ['assignment_type'],
-                            method: Parser.parseUint32
-                        }
-                    },
-                    {
-                        name: 'sub_track_id',
-                        method: Parser.parseByCondition,
-                        parameters: {
-                            condition: (value) => value === 4,
-                            values: ['assignment_type'],
-                            method: Parser.parseUint32
-                        }
-                    }
-                ]
-            }
-        });
+    getLogicBlocks() {
+        return [
+            ...super.getLogicBlocks(),
+
+            Template.getSimpleEntryTemplate(this, 'level_count', DataType.UINT8),
+
+            Template.getEntryTemplate(this, 'entries', 'level_count',
+                Template.getSimpleEntryTemplate(this, 'track_id', DataType.UINT32),
+                Template.getSimpleEntryTemplate(this, 'padding_flag', DataType.BIT, 1),
+                Template.getSimpleEntryTemplate(this, 'assignment_type', DataType.BIT, 7),
+
+                this._getTemplate('grouping_type', (assignment_type) => assignment_type === 0 || assignment_type === 1),
+                this._getTemplate('grouping_type_parameter', (assignment_type) => assignment_type === 1),
+                this._getTemplate('sub_track_id', (assignment_type) => assignment_type === 4),
+            )
+        ];
+    }
+
+    _getTemplate(name, condition) {
+        return new DataLogicBlockBuilder(this)
+            .setName(name)
+            .setDataType(DataType.UINT32)
+            .setConditions(
+                new ConditionBlockBuilder(this)
+                    .setCondition(condition)
+                    .setValueNames('assignment_type')
+                    .build()
+            )
+            .build();
     }
 
 }

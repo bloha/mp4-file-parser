@@ -1,33 +1,21 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
 
 export class HintMediaHeaderBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             super.getLogicBlocks(),
-            {
-                name: 'maxPDUsize',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'avgPDUsize',
-                method: Parser.parseUint16
-            },
-            {
-                name: 'maxbitrate',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'avgbitrate',
-                method: Parser.parseUint32
-            },
-            {
-                method: Parser.skipBytes,
-                amount: 4
-            }
+
+            Template.getSimpleEntryTemplate(this, 'maxPDUsize', DataType.UINT16),
+            Template.getSimpleEntryTemplate(this, 'avgPDUsize', DataType.UINT16),
+            Template.getSimpleEntryTemplate(this, 'maxbitrate', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'avgbitrate', DataType.UINT32),
+
+            Template.skipBytes(this, 4)
         ];
     }
 

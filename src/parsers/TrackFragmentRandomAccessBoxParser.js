@@ -1,70 +1,43 @@
 'use strict';
 
 import { FullBoxParser } from './FullBoxParser.js';
-import { Parser } from '../sequence/parser/Parser.js';
-import { Template } from '../sequence/Template.js';
+import { Template } from '../logic/Template.js';
+import { DataType } from '../logic/data/DataType.js';
+import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
 
 export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
 
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
-            {
-                name: 'track_ID',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'reserved',
-                method: Parser.skipBits,
-                amount: 26
-            },
-            {
-                name: 'length_size_of_traf_num',
-                method: Parser.parseBits,
-                amount: 2
-            },
-            {
-                name: 'length_size_of_trun_num',
-                method: Parser.parseBits,
-                amount: 2
-            },
-            {
-                name: 'length_size_of_sample_num',
-                method: Parser.parseBits,
-                amount: 2
-            },
-            {
-                name: 'number_of_entry',
-                method: Parser.parseUint32
-            },
-            {
-                name: 'entries',
-                method: Parser.parseEntries,
-                amount: 'number_of_entry',
-                fields: [
-                    Template.getVersionTemplate('time', Parser.parseUint32, Parser.parseUint64),
-                    Template.getVersionTemplate('moof_offset', Parser.parseUint32, Parser.parseUint64),
-                    {
-                        name: 'traf_number',
-                        method: Parser.parseBits,
-                        amount: 'length_size_of_traf_num',
-                        converter: (amount) => (amount + 1) * 8
-                    },
-                    {
-                        name: 'trun_number',
-                        method: Parser.parseBits,
-                        amount: 'length_size_of_trun_num',
-                        converter: (amount) => (amount + 1) * 8
-                    },
-                    {
-                        name: 'sample_number',
-                        method: Parser.parseBits,
-                        amount: 'length_size_of_sample_num',
-                        converter: (amount) => (amount + 1) * 8
-                    }
-                ]
-            }
+
+            Template.getSimpleEntryTemplate(this, 'track_ID', DataType.UINT32),
+
+            Template.getBitSkipTemplate(this, 26),
+
+            Template.getSimpleEntryTemplate(this, 'length_size_of_traf_num', DataType.BIT, 2),
+            Template.getSimpleEntryTemplate(this, 'length_size_of_trun_num', DataType.BIT, 2),
+            Template.getSimpleEntryTemplate(this, 'length_size_of_sample_num', DataType.BIT, 2),
+
+            Template.getSimpleEntryTemplate(this, 'number_of_entry', DataType.UINT32),
+
+            Template.getEntryTemplate(this, 'entries', 'number_of_entry',
+                Template.getSimpleVersionTemplate(this, 'time', DataType.UINT32, DataType.UINT64),
+                Template.getSimpleVersionTemplate(this, 'moof_offset', DataType.UINT32, DataType.UINT64),
+                this._getTemplate('traf_number', 'length_size_of_traf_num'),
+                this._getTemplate('trun_number', 'length_size_of_trun_num'),
+                this._getTemplate('sample_number', 'length_size_of_sample_num'),
+            )
         ];
+    }
+
+    _getTemplate(name, size) {
+        return new DataLogicBlockBuilder(this)
+            .setName(name)
+            .setDataType(DataType.BIT)
+            .setSize(size)
+            .setSizeConverter((s) => (s + 1) * 8)
+            .build();
     }
 
 }
