@@ -10,7 +10,7 @@ export class CompactSampleSizeBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
 
-            Template.skipBytes(this, 24 / 8),
+            Template.getByteSkipTemplate(this, 24 / 8),
 
             Template.getSimpleEntryTemplate(this, 'field_size', DataType.UINT8),
             Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),

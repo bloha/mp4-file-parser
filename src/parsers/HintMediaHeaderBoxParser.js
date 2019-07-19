@@ -15,7 +15,7 @@ export class HintMediaHeaderBoxParser extends FullBoxParser {
             Template.getSimpleEntryTemplate(this, 'maxbitrate', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'avgbitrate', DataType.UINT32),
 
-            Template.skipBytes(this, 4)
+            Template.getByteSkipTemplate(this, 4)
         ];
     }
 
