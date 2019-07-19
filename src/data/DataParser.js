@@ -1,6 +1,6 @@
 'use strict';
 
-import { Abstraction } from '../../../../modules/javascript-abstraction/src/Abstraction.js';
+import { Abstraction } from '../../modules/javascript-abstraction/src/Abstraction.js';
 import { ParserHead } from './ParserHead.js';
 import { BitParser } from './bit/BitParser.js';
 

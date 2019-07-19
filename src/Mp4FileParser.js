@@ -1,6 +1,6 @@
 'use strict';
 
-import { BlobParser } from './sequence/parser/data/blob/BlobParser.js';
+import { BlobParser } from './data/blob/BlobParser.js';
 import { MainParser } from './parsers/MainParser.js';
 
 export class Mp4FileParser {
