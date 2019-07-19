@@ -9,13 +9,31 @@ export class EntityLogicBlock extends LogicBlock {
     constructor(obj) {
         super(obj);
         this.class = obj.class;
+        this.type = obj.type;
     }
 
     async _execute() {
-        const entityParser = this.class ? this._createClassifiedParser() : await this._detectEntityParser();
+        const entityParser = await this._createEntityParser();
         await entityParser.parse();
         this._changeOriginalDataParserPosition(entityParser);
         this.entityParser.saveValue(this.name, entityParser.getRootEntry());
+    }
+
+    async _createEntityParser() {
+        return this.class
+            ? typeof this.class === 'string'
+                ? this._createParserByType()
+                : this._createClassifiedParser()
+            : await this._detectEntityParser();
+    }
+
+    _createParserByType() {
+        const type = this.entityParser.findValue(this.class);
+        const manager = new ParserManager();
+        const parsers = manager.getParsers();
+        const entityClass = parsers.get(type);
+        const dataParser = this._createDataParser();
+        return new entityClass({ dataParser });
     }
 
     _createClassifiedParser() {
