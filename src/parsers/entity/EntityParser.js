@@ -43,7 +43,7 @@ export class EntityParser extends FieldContainer {
         return this;
     }
 
-    getRequiredClasses() {
+    static getRequiredClasses() {
         return [];
     }
 

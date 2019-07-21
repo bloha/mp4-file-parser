@@ -44,9 +44,20 @@ export class FieldContainer {
         }
     }
 
+    setExternalValues(values) {
+        this.externalValues = values;
+    }
+
     findValue(name) {
-        const searchEngine = new FieldSearchEngine(this.rootEntry);
-        return searchEngine.find(name);
+        try {
+            const searchEngine = new FieldSearchEngine(this.rootEntry);
+            return searchEngine.find(name);
+        } catch (error) {
+            if (this.externalValues && this.externalValues.has(name)) {
+                return this.externalValues.get(name);
+            }
+            throw error;
+        }
     }
 
     getRootEntry() {
