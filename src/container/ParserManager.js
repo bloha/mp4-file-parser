@@ -2,6 +2,7 @@
 
 import { AlternativeStartupSequencePropertiesBoxParser } from '../parsers/AlternativeStartupSequencePropertiesBoxParser.js';
 import { BinaryXmlBoxParser } from '../parsers/BinaryXmlBoxParser.js';
+import { BitRateBoxParser } from '../parsers/BitRateBoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
 import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
 import { CompactSampleSizeBoxParser } from '../parsers/CompactSampleSizeBoxParser.js';
@@ -80,6 +81,7 @@ export class ParserManager {
         this.parsers = new Map();
         this.parsers.set('assp', AlternativeStartupSequencePropertiesBoxParser);
         this.parsers.set('bxml', BinaryXmlBoxParser);
+        this.parsers.set('btrt', BitRateBoxParser);
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
         this.parsers.set('stz2', CompactSampleSizeBoxParser);
