@@ -6,6 +6,7 @@ import { BitRateBoxParser } from '../parsers/BitRateBoxParser.js';
 import { ChunkLargeOffsetBoxParser } from '../parsers/ChunkLargeOffsetBoxParser.js';
 import { ChunkOffsetBoxParser } from '../parsers/ChunkOffsetBoxParser.js';
 import { CompactSampleSizeBoxParser } from '../parsers/CompactSampleSizeBoxParser.js';
+import { CompleteTrackInfoBoxParser } from '../parsers/CompleteTrackInfoBoxParser.js';
 import { CompositionOffsetBoxParser } from '../parsers/CompositionOffsetBoxParser.js';
 import { CompositionToDecodeBoxParser } from '../parsers/CompositionToDecodeBoxParser.js';
 import { ContainerBoxParser } from '../parsers/ContainerBoxParser.js';
@@ -88,6 +89,7 @@ export class ParserManager {
         this.parsers.set('co64', ChunkLargeOffsetBoxParser);
         this.parsers.set('stco', ChunkOffsetBoxParser);
         this.parsers.set('stz2', CompactSampleSizeBoxParser);
+        this.parsers.set('cinf', CompleteTrackInfoBoxParser);
         this.parsers.set('ctts', CompositionOffsetBoxParser);
         this.parsers.set('cslg', CompositionToDecodeBoxParser);
         this.parsers.set('cprt', CopyrightBoxParser);
