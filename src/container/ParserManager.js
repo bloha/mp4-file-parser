@@ -44,6 +44,7 @@ import { PaddingBitsBoxParser } from '../parsers/PaddingBitsBoxParser.js';
 import { PrimaryItemBoxParser } from '../parsers/PrimaryItemBoxParser.js';
 import { ProducerReferenceTimeBoxParser } from '../parsers/ProducerReferenceTimeBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
+import { ProtectionSchemeInfoBoxParser } from '../parsers/ProtectionSchemeInfoBoxParser.js';
 import { SampleAuxiliaryInformationOffsetsBoxParser } from '../parsers/SampleAuxiliaryInformationOffsetsBoxParser.js';
 import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxiliaryInformationSizesBoxParser.js';
 import { SampleDependencyTypeBoxParser } from '../parsers/SampleDependencyTypeBoxParser.js';
@@ -124,6 +125,7 @@ export class ParserManager {
         this.parsers.set('pitm', PrimaryItemBoxParser);
         this.parsers.set('prft', ProducerReferenceTimeBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
+        this.parsers.set('sinf', ProtectionSchemeInfoBoxParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
         this.parsers.set('sdtp', SampleDependencyTypeBoxParser);
@@ -174,7 +176,6 @@ export class ParserManager {
             'mfra',
             'udta',
             'strk',
-            'sinf',
             'strd',
             'dinf',
             'meco',
