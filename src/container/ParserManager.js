@@ -57,6 +57,7 @@ import { SampleToGroupBoxParser } from '../parsers/SampleToGroupBoxParser.js';
 import { SchemeInformationBoxParser } from '../parsers/SchemeInformationBoxParser.js';
 import { SchemeTypeBoxParser } from '../parsers/SchemeTypeBoxParser.js';
 import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
+import { SequenceOffsetParser } from '../parsers/SequenceOffsetParser.js';
 import { ShadowSyncSampleBoxParser } from '../parsers/ShadowSyncSampleBoxParser.js';
 import { SoundMediaHeaderBoxParser } from '../parsers/SoundMediaHeaderBoxParser.js';
 import { StereoVideoBoxParser } from '../parsers/StereoVideoBoxParser.js';
@@ -144,6 +145,7 @@ export class ParserManager {
         this.parsers.set('schi', SchemeInformationBoxParser);
         this.parsers.set('schm', SchemeTypeBoxParser);
         this.parsers.set('sidx', SegmentIndexBoxParser);
+        this.parsers.set('snro', SequenceOffsetParser);
         this.parsers.set('stsh', ShadowSyncSampleBoxParser);
         this.parsers.set('smhd', SoundMediaHeaderBoxParser);
         this.parsers.set('stvi', StereoVideoBoxParser);
