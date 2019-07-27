@@ -46,6 +46,7 @@ import { PrimaryItemBoxParser } from '../parsers/PrimaryItemBoxParser.js';
 import { ProducerReferenceTimeBoxParser } from '../parsers/ProducerReferenceTimeBoxParser.js';
 import { ProgressiveDownloadInfoBoxParser } from '../parsers/ProgressiveDownloadInfoBoxParser.js';
 import { ProtectionSchemeInfoBoxParser } from '../parsers/ProtectionSchemeInfoBoxParser.js';
+import { RtpHintSampleEntryParser } from '../parsers/RtpHintSampleEntryParser.js';
 import { SampleAuxiliaryInformationOffsetsBoxParser } from '../parsers/SampleAuxiliaryInformationOffsetsBoxParser.js';
 import { SampleAuxiliaryInformationSizesBoxParser } from '../parsers/SampleAuxiliaryInformationSizesBoxParser.js';
 import { SampleDependencyTypeBoxParser } from '../parsers/SampleDependencyTypeBoxParser.js';
@@ -130,6 +131,7 @@ export class ParserManager {
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('sinf', ProtectionSchemeInfoBoxParser);
         this.parsers.set('rinf', RestrictedSchemeInfoBoxParser);
+        this.parsers.set('rtp ', RtpHintSampleEntryParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
         this.parsers.set('sdtp', SampleDependencyTypeBoxParser);
