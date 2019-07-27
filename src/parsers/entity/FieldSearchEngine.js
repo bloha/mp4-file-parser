@@ -17,7 +17,9 @@ export class FieldSearchEngine {
             .flatMap(value => value)
             .filter(value => value instanceof Map)
             .flatMap(value => this._collectMaps(value));
-        return [root, ...children];
+
+        return [root, ...children]
+            .reverse();
     }
 
 }
