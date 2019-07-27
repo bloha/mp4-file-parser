@@ -32,6 +32,7 @@ import { HintMediaHeaderBoxParser } from '../parsers/HintMediaHeaderBoxParser.js
 import { ItemInfoBoxParser } from '../parsers/ItemInfoBoxParser.js';
 import { ItemInfoEntryParser } from '../parsers/ItemInfoEntryParser.js';
 import { ItemLocationBoxParser } from '../parsers/ItemLocationBoxParser.js';
+import { ItemProtectionBoxParser } from '../parsers/ItemProtectionBoxParser.js';
 import { ItemReferenceBoxParser } from '../parsers/ItemReferenceBoxParser.js';
 import { KindBoxParser } from '../parsers/KindBoxParser.js';
 import { LevelAssignmentBoxParser } from '../parsers/LevelAssignmentBoxParser.js';
@@ -121,6 +122,7 @@ export class ParserManager {
         this.parsers.set('iinf', ItemInfoBoxParser);
         this.parsers.set('infe', ItemInfoEntryParser);
         this.parsers.set('iloc', ItemLocationBoxParser);
+        this.parsers.set('ipro', ItemProtectionBoxParser);
         this.parsers.set('iref', ItemReferenceBoxParser);
         this.parsers.set('kind', KindBoxParser);
         this.parsers.set('leva', LevelAssignmentBoxParser);
