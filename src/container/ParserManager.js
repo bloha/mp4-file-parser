@@ -76,6 +76,7 @@ import { TrackRunBoxParser } from '../parsers/TrackRunBoxParser.js';
 import { TrackSelectionBoxParser } from '../parsers/TrackSelectionBoxParser.js';
 import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.js';
 import { XmlBoxParser } from '../parsers/XmlBoxParser.js';
+import { RestrictedSchemeInfoBoxParser } from '../parsers/RestrictedSchemeInfoBoxParser.js';
 
 export class ParserManager {
 
@@ -126,6 +127,7 @@ export class ParserManager {
         this.parsers.set('prft', ProducerReferenceTimeBoxParser);
         this.parsers.set('pdin', ProgressiveDownloadInfoBoxParser);
         this.parsers.set('sinf', ProtectionSchemeInfoBoxParser);
+        this.parsers.set('rinf', RestrictedSchemeInfoBoxParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
         this.parsers.set('sdtp', SampleDependencyTypeBoxParser);
