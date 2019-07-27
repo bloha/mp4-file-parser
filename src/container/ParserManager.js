@@ -65,6 +65,7 @@ import { SubsegmentIndexBoxParser } from '../parsers/SubsegmentIndexBoxParser.js
 import { SubTrackInformationParser } from '../parsers/SubTrackInformationParser.js';
 import { SubTrackSampleGroupBoxParser } from '../parsers/SubTrackSampleGroupBoxParser.js';
 import { SyncSampleBoxParser } from '../parsers/SyncSampleBoxParser.js';
+import { TimeOffsetParser } from '../parsers/TimeOffsetParser.js';
 import { TimescaleEntryParser } from '../parsers/TimescaleEntryParser.js';
 import { TimeToSampleBoxParser } from '../parsers/TimeToSampleBoxParser.js';
 import { TrackExtendsBoxParser } from '../parsers/TrackExtendsBoxParser.js';
@@ -151,6 +152,7 @@ export class ParserManager {
         this.parsers.set('stri', SubTrackInformationParser);
         this.parsers.set('stsg', SubTrackSampleGroupBoxParser);
         this.parsers.set('stss', SyncSampleBoxParser);
+        this.parsers.set('tsro', TimeOffsetParser);
         this.parsers.set('tims', TimescaleEntryParser);
         this.parsers.set('stts', TimeToSampleBoxParser);
         this.parsers.set('trex', TrackExtendsBoxParser);
