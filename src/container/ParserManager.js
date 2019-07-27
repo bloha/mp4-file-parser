@@ -135,6 +135,7 @@ export class ParserManager {
         this.parsers.set('sinf', ProtectionSchemeInfoBoxParser);
         this.parsers.set('rinf', RestrictedSchemeInfoBoxParser);
         this.parsers.set('rtp ', RtpHintSampleEntryParser);
+        this.parsers.set('srtp', RtpHintSampleEntryParser);
         this.parsers.set('saio', SampleAuxiliaryInformationOffsetsBoxParser);
         this.parsers.set('saiz', SampleAuxiliaryInformationSizesBoxParser);
         this.parsers.set('sdtp', SampleDependencyTypeBoxParser);
