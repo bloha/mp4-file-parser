@@ -21,13 +21,13 @@ export class ProtectionSchemeInfoBoxParser extends BoxParser {
             new EntityLogicBlockBuilder(this)
                 .setName('scheme_type_box')
                 .setClass(SchemeTypeBoxParser)
-                .setConditions(Condition.getEndOfBoxNotReachedCondition())
+                .setConditions(Condition.getEndOfBoxNotReachedCondition(this))
                 .build(),
 
             new EntityLogicBlockBuilder(this)
                 .setName('info')
                 .setClass(SchemeInformationBoxParser)
-                .setConditions(Condition.getEndOfBoxNotReachedCondition())
+                .setConditions(Condition.getEndOfBoxNotReachedCondition(this))
                 .build()
         ];
     }
