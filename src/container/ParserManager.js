@@ -60,6 +60,7 @@ import { SegmentIndexBoxParser } from '../parsers/SegmentIndexBoxParser.js';
 import { SequenceOffsetParser } from '../parsers/SequenceOffsetParser.js';
 import { ShadowSyncSampleBoxParser } from '../parsers/ShadowSyncSampleBoxParser.js';
 import { SoundMediaHeaderBoxParser } from '../parsers/SoundMediaHeaderBoxParser.js';
+import { SrtpProcessBoxParser } from '../parsers/SrtpProcessBoxParser.js';
 import { StereoVideoBoxParser } from '../parsers/StereoVideoBoxParser.js';
 import { SubSampleInformationBoxParser } from '../parsers/SubSampleInformationBoxParser.js';
 import { SubsegmentIndexBoxParser } from '../parsers/SubsegmentIndexBoxParser.js';
@@ -149,6 +150,7 @@ export class ParserManager {
         this.parsers.set('snro', SequenceOffsetParser);
         this.parsers.set('stsh', ShadowSyncSampleBoxParser);
         this.parsers.set('smhd', SoundMediaHeaderBoxParser);
+        this.parsers.set('srpp', SrtpProcessBoxParser);
         this.parsers.set('stvi', StereoVideoBoxParser);
         this.parsers.set('subs', SubSampleInformationBoxParser);
         this.parsers.set('ssix', SubsegmentIndexBoxParser);
