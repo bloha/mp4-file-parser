@@ -88,6 +88,7 @@ import { XmlBoxParser } from '../parsers/XmlBoxParser.js';
 import { RestrictedSchemeInfoBoxParser } from '../parsers/RestrictedSchemeInfoBoxParser.js';
 import { VisualRollRecoveryEntryParser } from '../parsers/VisualRollRecoveryEntryParser.js';
 import { AlternativeStartupEntryParser } from '../parsers/AlternativeStartupEntryParser.js';
+import { VisualRandomAccessEntryParser } from '../parsers/VisualRandomAccessEntryParser.js';
 
 export class ParserManager {
 
@@ -182,6 +183,7 @@ export class ParserManager {
         this.parsers.set('roll', VisualRollRecoveryEntryParser);
         this.parsers.set('prol', VisualRollRecoveryEntryParser);
         this.parsers.set('xml ', XmlBoxParser);
+        this.parsers.set('rap ', VisualRandomAccessEntryParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
     }
