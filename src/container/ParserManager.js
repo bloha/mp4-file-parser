@@ -87,11 +87,13 @@ import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.
 import { XmlBoxParser } from '../parsers/XmlBoxParser.js';
 import { RestrictedSchemeInfoBoxParser } from '../parsers/RestrictedSchemeInfoBoxParser.js';
 import { VisualRollRecoveryEntryParser } from '../parsers/VisualRollRecoveryEntryParser.js';
+import { AlternativeStartupEntryParser } from '../parsers/AlternativeStartupEntryParser.js';
 
 export class ParserManager {
 
     constructor() {
         this.parsers = new Map();
+        this.parsers.set('alst', AlternativeStartupEntryParser);
         this.parsers.set('assp', AlternativeStartupSequencePropertiesBoxParser);
         this.parsers.set('bxml', BinaryXmlBoxParser);
         this.parsers.set('btrt', BitRateBoxParser);
