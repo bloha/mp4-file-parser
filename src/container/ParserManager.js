@@ -86,6 +86,7 @@ import { TrackSelectionBoxParser } from '../parsers/TrackSelectionBoxParser.js';
 import { VideoMediaHeaderBoxParser } from '../parsers/VideoMediaHeaderBoxParser.js';
 import { XmlBoxParser } from '../parsers/XmlBoxParser.js';
 import { RestrictedSchemeInfoBoxParser } from '../parsers/RestrictedSchemeInfoBoxParser.js';
+import { VisualRollRecoveryEntryParser } from '../parsers/VisualRollRecoveryEntryParser.js';
 
 export class ParserManager {
 
@@ -176,6 +177,8 @@ export class ParserManager {
         this.parsers.set('trun', TrackRunBoxParser);
         this.parsers.set('tsel', TrackSelectionBoxParser);
         this.parsers.set('vmhd', VideoMediaHeaderBoxParser);
+        this.parsers.set('roll', VisualRollRecoveryEntryParser);
+        this.parsers.set('prol', VisualRollRecoveryEntryParser);
         this.parsers.set('xml ', XmlBoxParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
