@@ -1,11 +1,18 @@
 'use strict';
 
+import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstraction.js';
 import { FieldSearchEngine } from './FieldSearchEngine.js';
 
+/**
+ * Abstract Class FieldContainer.
+ * 
+ * @class FieldContainer
+ */
 export class FieldContainer {
 
     constructor() {
-        this.openEntries = []
+        Abstraction.needsInheritance(new.target, FieldContainer);
+        this.openEntries = [];
         this.openCollections = [];
     }
 
