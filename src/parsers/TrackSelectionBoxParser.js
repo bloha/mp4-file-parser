@@ -17,7 +17,7 @@ export class TrackSelectionBoxParser extends FullBoxParser {
             new ArrayLogicBlockBuilder(this)
                 .setName('attribute_list')
                 .setWhileCondition(Condition.getEndOfBoxNotReachedCondition(this))
-                .setElementLogicBlock(Template.getSimpleEntryTemplate(this, undefined, DataType.UINT32))
+                .setElementLogicBlock(Template.getSimpleEntryTemplate(this, undefined, DataType.TEXT, 4))
                 .build()
         ];
     }
