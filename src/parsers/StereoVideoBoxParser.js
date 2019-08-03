@@ -20,7 +20,7 @@ export class StereoVideoBoxParser extends FullBoxParser {
                 Template.getSimpleEntryTemplate(this, undefined, DataType.UINT8)
             ),
 
-            Template.getEntityCollectionTemplate(this, 'children')
+            Template.getEntityCollectionTemplate(this, 'any_box')
         ];
     }
 

@@ -3,6 +3,7 @@
 import { FullBoxParser } from './FullBoxParser.js';
 import { Template } from '../logic/Template.js';
 import { DataType } from '../logic/data/DataType.js';
+import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder.js';
 
 export class DataReferenceBoxParser extends FullBoxParser {
 
@@ -12,7 +13,11 @@ export class DataReferenceBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 
-            Template.getEntityCollectionTemplate(this, 'children')
+            Template.getEntryTemplate(this, 'entries', 'entry_count',
+                new EntityLogicBlockBuilder(this)
+                    .setName('data_entry')
+                    .build()
+            )
         ];
     }
 
