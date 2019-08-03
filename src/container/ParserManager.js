@@ -90,6 +90,7 @@ import { VisualRollRecoveryEntryParser } from '../parsers/VisualRollRecoveryEntr
 import { AlternativeStartupEntryParser } from '../parsers/AlternativeStartupEntryParser.js';
 import { VisualRandomAccessEntryParser } from '../parsers/VisualRandomAccessEntryParser.js';
 import { TemporalLevelEntryParser } from '../parsers/TemporalLevelEntryParser.js';
+import { PartitionEntryParser } from '../parsers/PartitionEntryParser.js';
 
 export class ParserManager {
 
@@ -186,6 +187,7 @@ export class ParserManager {
         this.parsers.set('xml ', XmlBoxParser);
         this.parsers.set('rap ', VisualRandomAccessEntryParser);
         this.parsers.set('tele', TemporalLevelEntryParser);
+        this.parsers.set('paen', PartitionEntryParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
     }
@@ -210,7 +212,6 @@ export class ParserManager {
             'dinf',
             'meco',
             'meta',
-            'paen'
         ];
         this._connectBoxesAndParserClass(containers, ContainerBoxParser);
     }
