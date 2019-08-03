@@ -92,6 +92,7 @@ import { VisualRandomAccessEntryParser } from '../parsers/VisualRandomAccessEntr
 import { TemporalLevelEntryParser } from '../parsers/TemporalLevelEntryParser.js';
 import { PartitionEntryParser } from '../parsers/PartitionEntryParser.js';
 import { DataInformationBoxParser } from '../parsers/DataInformationBoxParser.js';
+import { MetaBoxParser } from '../parsers/MetaBoxParser.js';
 
 export class ParserManager {
 
@@ -190,6 +191,7 @@ export class ParserManager {
         this.parsers.set('tele', TemporalLevelEntryParser);
         this.parsers.set('paen', PartitionEntryParser);
         this.parsers.set('dinf', DataInformationBoxParser);
+        this.parsers.set('meta', MetaBoxParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
     }
@@ -212,7 +214,6 @@ export class ParserManager {
             'strk',
             'strd',
             'meco',
-            'meta',
         ];
         this._connectBoxesAndParserClass(containers, ContainerBoxParser);
     }
