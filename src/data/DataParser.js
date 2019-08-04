@@ -1,8 +1,8 @@
 'use strict';
 
-import { Abstraction } from '../../modules/javascript-abstraction/src/Abstraction.js';
-import { ParserHead } from './ParserHead.js';
+import { Abstraction } from 'javascript-abstraction';
 import { BitParser } from './bit/BitParser.js';
+import { ParserHead } from './ParserHead.js';
 
 /**
  * Abstract Class DataParser.

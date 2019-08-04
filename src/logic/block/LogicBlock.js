@@ -1,6 +1,6 @@
 'use strict';
 
-import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstraction.js';
+import { Abstraction } from 'javascript-abstraction';
 
 /**
  * Abstract Class LogicBlock.

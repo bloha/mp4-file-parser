@@ -1,7 +1,7 @@
 'use strict';
 
+import { Abstraction } from 'javascript-abstraction';
 import { LogicBlock } from '../block/LogicBlock.js';
-import { Abstraction } from '../../../modules/javascript-abstraction/src/Abstraction.js';
 
 /**
  * Abstract Class CollectionLogicBlock.
