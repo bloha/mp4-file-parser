@@ -3,7 +3,6 @@
 import { LogicBlock } from '../../block/LogicBlock.js';
 import { EntityLogicBlockBuilder } from '../EntityLogicBlockBuilder.js';
 import { BoxParser } from '../../../parsers/BoxParser.js';
-import { ParserManager } from '../../../container/ParserManager.js';
 
 export class EntityCollectionLogicBlock extends LogicBlock {
 
@@ -65,7 +64,8 @@ export class EntityCollectionLogicBlock extends LogicBlock {
 
     _createEntityParser(klass, offset) {
         const dataParser = this._createDataParser(offset);
-        const entityParser = new klass({ dataParser });
+        const parserManager = this.entityParser.getParserManager();
+        const entityParser = new klass({ dataParser, parserManager });
         return entityParser;
     }
 
@@ -78,7 +78,7 @@ export class EntityCollectionLogicBlock extends LogicBlock {
 
     async _collectClassesAndOffsets() {
         const [boxes, offsets] = await this._collectBoxesAndOffsets();
-        const classes = Array.from(boxes, this._detectEntityClass);
+        const classes = boxes.map(box => this._detectEntityClass(box));
         return [classes, offsets];
     }
 
@@ -115,9 +115,8 @@ export class EntityCollectionLogicBlock extends LogicBlock {
 
     _detectEntityClass(box) {
         const type = box.get('type');
-        const manager = new ParserManager();
-        const parsers = manager.getParsers();
-        return parsers.has(type) ? parsers.get(type) : BoxParser;
+        const manager = this.entityParser.getParserManager();
+        return manager.hasParserClass(type) ? manager.getParserClass(type) : BoxParser;
     }
 
 }

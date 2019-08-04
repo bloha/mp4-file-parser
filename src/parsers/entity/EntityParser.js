@@ -10,11 +10,12 @@ import { FieldContainer } from './FieldContainer.js';
  */
 export class EntityParser extends FieldContainer {
 
-    constructor({ dataParser }) {
+    constructor({ dataParser, parserManager }) {
         Abstraction.needsInheritance(new.target, EntityParser);
         super();
         this.initialDataParser = dataParser;
         this.dataParser = dataParser;
+        this.parserManager = parserManager;
         this.logicBlocks = [];
     }
 
@@ -41,6 +42,10 @@ export class EntityParser extends FieldContainer {
     setDataParser(dataParser) {
         this.dataParser = dataParser;
         return this;
+    }
+
+    getParserManager() {
+        return this.parserManager;
     }
 
     static getRequiredClasses() {

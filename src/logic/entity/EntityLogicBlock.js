@@ -2,7 +2,6 @@
 
 import { LogicBlock } from '../block/LogicBlock.js';
 import { BoxParser } from '../../parsers/BoxParser.js';
-import { ParserManager } from '../../container/ParserManager.js';
 
 export class EntityLogicBlock extends LogicBlock {
 
@@ -29,36 +28,38 @@ export class EntityLogicBlock extends LogicBlock {
 
     _createParserByType() {
         const type = this.entityParser.findValue(this.class);
-        const manager = new ParserManager();
-        const parsers = manager.getParsers();
-        const entityClass = parsers.get(type);
+        const manager = this.entityParser.getParserManager();
+        const entityClass = manager.getParserClass(type);
         const dataParser = this._createDataParser();
-        return new entityClass({ dataParser });
+        const parserManager = this.entityParser.getParserManager();
+        return new entityClass({ dataParser, parserManager });
     }
 
     _createClassifiedParser() {
         const dataParser = this._createDataParser();
-        return new this.class({ dataParser });
+        const parserManager = this.entityParser.getParserManager();
+        return new this.class({ dataParser, parserManager });
     }
 
     async _detectEntityParser() {
         const entityClass = await this._detectEntityClass();
         const dataParser = this._createDataParser();
-        return new entityClass({ dataParser });
+        const parserManager = this.entityParser.getParserManager();
+        return new entityClass({ dataParser, parserManager });
     }
 
     async _detectEntityClass() {
         const boxParser = this._createBoxParser();
         await boxParser.parse();
         const type = boxParser.findValue('type');
-        const manager = new ParserManager();
-        const parsers = manager.getParsers();
-        return parsers.has(type) ? parsers.get(type) : BoxParser;
+        const manager = this.entityParser.getParserManager();
+        return manager.hasParserClass(type) ? manager.getParserClass(type) : BoxParser;
     }
 
     _createBoxParser() {
         const dataParser = this._createDataParser();
-        return new BoxParser({ dataParser });
+        const parserManager = this.entityParser.getParserManager();
+        return new BoxParser({ dataParser, parserManager });
     }
 
     _createDataParser() {

@@ -3,6 +3,7 @@
 import { BlobParser } from './data/blob/BlobParser.js';
 import { MainParser } from './parsers/MainParser.js';
 import { BufferParser } from './data/buffer/BufferParser.js';
+import { ParserManager } from './container/ParserManager.js';
 
 export class Mp4FileParser {
 
@@ -12,7 +13,8 @@ export class Mp4FileParser {
     }
 
     async parse() {
-        const parser = new MainParser({ dataParser: this.dataParser });
+        const parserManager = new ParserManager();
+        const parser = new MainParser({ dataParser: this.dataParser, parserManager });
         await parser.parse();
         const children = parser.getRootEntry().get('children');
         return children;

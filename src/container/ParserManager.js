@@ -235,8 +235,12 @@ export class ParserManager {
         boxNames.forEach(box => this.parsers.set(box, parserClass));
     }
 
-    getParsers() {
-        return this.parsers;
+    hasParserClass(type) {
+        return this.parsers.has(type);
+    }
+
+    getParserClass(type) {
+        return this.parsers.get(type);
     }
 
 }
