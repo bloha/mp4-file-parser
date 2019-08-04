@@ -20,10 +20,13 @@ export class EntityParser extends FieldContainer {
 
     async parse() {
         this.openNewEntry();
-        for (const block of this.getLogicBlocks()) {
-            await block.execute();
+        try {
+            for (const block of this.getLogicBlocks()) {
+                await block.execute();
+            }
+        } finally {
+            this.closeNewEntry();
         }
-        this.closeNewEntry();
     }
 
     getLogicBlocks() {
