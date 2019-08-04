@@ -1,7 +1,7 @@
 'use strict';
 
 import { Abstraction } from 'javascript-abstraction';
-import { BitParser } from './bit/BitParser.js';
+import { BitParser } from './BitParser.js';
 import { ParserHead } from './ParserHead.js';
 
 /**
