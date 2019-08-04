@@ -96,7 +96,7 @@ import { MetaBoxParser } from '../parsers/MetaBoxParser.js';
 
 export class ParserManager {
 
-    constructor() {
+    constructor({ exclude = [] }) {
         this.parsers = new Map();
         this.parsers.set('alst', AlternativeStartupEntryParser);
         this.parsers.set('assp', AlternativeStartupSequencePropertiesBoxParser);
@@ -194,6 +194,7 @@ export class ParserManager {
         this.parsers.set('meta', MetaBoxParser);
         this._initContainers();
         this._initTrackReferenceBoxes();
+        exclude.forEach(type => this.parsers.delete(type));
     }
 
     _initContainers() {

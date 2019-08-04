@@ -7,13 +7,14 @@ import { ParserManager } from './container/ParserManager.js';
 
 export class Mp4FileParser {
 
-    constructor({ data }) {
+    constructor({ data, exclude = [] }) {
         const dataParserClass = data instanceof Blob ? BlobParser : BufferParser;
         this.dataParser = new dataParserClass({ data, offset: 0 });
+        this.exclude = exclude;
     }
 
     async parse() {
-        const parserManager = new ParserManager();
+        const parserManager = new ParserManager({ exclude: this.exclude });
         const parser = new MainParser({ dataParser: this.dataParser, parserManager });
         await parser.parse();
         const children = parser.getRootEntry().get('children');
