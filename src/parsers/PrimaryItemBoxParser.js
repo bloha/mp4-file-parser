@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class PrimaryItemBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['pitm'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

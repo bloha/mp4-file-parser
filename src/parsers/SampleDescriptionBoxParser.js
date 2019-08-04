@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SampleDescriptionBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stsd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

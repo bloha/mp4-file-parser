@@ -9,6 +9,10 @@ import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder
 
 export class ItemReferenceBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['iref'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

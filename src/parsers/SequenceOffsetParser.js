@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SequenceOffsetParser extends BoxParser {
 
+    static getTypes() {
+        return ['snro'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

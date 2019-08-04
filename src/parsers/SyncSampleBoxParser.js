@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SyncSampleBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stss'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SampleAuxiliaryInformationOffsetsBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['saio'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TimeToSampleBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stts'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

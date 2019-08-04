@@ -7,6 +7,10 @@ import { StringLogicBlockBuilder } from '../logic/string/StringLogicBlockBuilder
 
 export class SchemeTypeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['schm'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

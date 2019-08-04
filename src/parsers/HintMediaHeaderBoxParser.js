@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class HintMediaHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['hmhd'];
+    }
+
     getLogicBlocks() {
         return [
             super.getLogicBlocks(),

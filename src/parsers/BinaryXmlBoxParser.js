@@ -8,6 +8,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class BinaryXmlBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['bxml'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

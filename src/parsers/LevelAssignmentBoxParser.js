@@ -8,6 +8,10 @@ import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.
 
 export class LevelAssignmentBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['leva'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

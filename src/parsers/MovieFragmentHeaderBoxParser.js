@@ -6,6 +6,10 @@ import { Template } from '../logic/Template.js';
 
 export class MovieFragmentHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['mfhd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

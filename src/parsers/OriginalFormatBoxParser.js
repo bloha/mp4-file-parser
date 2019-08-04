@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class OriginalFormatBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['frma'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -8,6 +8,10 @@ import { CustomLogicBlockBuilder } from '../logic/custom/CustomLogicBlockBuilder
 
 export class ItemLocationBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['iloc'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class StereoVideoBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stvi'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

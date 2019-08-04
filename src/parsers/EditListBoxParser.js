@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class EditListBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['elst'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

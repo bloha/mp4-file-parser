@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FilePartitionBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['fpar'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

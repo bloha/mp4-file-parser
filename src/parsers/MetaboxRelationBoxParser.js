@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class MetaboxRelationBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['mere'];
+    }
+
     getLogicBlocks() {
         return [
             super.getLogicBlocks(),

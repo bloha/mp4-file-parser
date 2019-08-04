@@ -8,6 +8,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class AlternativeStartupEntryParser extends EntityParser {
 
+    static getTypes() {
+        return ['alst'];
+    }
+
     getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'roll_count', DataType.UINT16),

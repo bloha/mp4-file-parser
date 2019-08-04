@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class MovieFragmentRandomAccessOffsetBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['mfro'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SoundMediaHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['smhd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

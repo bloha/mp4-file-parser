@@ -8,6 +8,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class TrackSelectionBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['tsel'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

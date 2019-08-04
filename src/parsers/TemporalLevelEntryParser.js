@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TemporalLevelEntryParser extends EntityParser {
 
+    static getTypes() {
+        return ['tele'];
+    }
+
     getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'level_independently_decodable', DataType.BIT, 1),

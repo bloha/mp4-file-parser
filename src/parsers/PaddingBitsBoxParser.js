@@ -7,6 +7,10 @@ import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlo
 
 export class PaddingBitsBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['padb'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

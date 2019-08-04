@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class BitRateBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['btrt'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

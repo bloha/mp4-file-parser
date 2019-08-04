@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class GroupIdToNameBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['gitn'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

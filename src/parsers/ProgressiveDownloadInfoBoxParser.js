@@ -8,6 +8,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['pdin'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

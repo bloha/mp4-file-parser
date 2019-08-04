@@ -10,6 +10,10 @@ import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.
 
 export class ItemInfoEntryParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['infe'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

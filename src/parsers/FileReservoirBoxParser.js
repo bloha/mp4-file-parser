@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FileReservoirBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['fire'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SubsegmentIndexBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['ssix'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

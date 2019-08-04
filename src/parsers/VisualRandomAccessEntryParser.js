@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class VisualRandomAccessEntryParser extends EntityParser {
 
+    static getTypes() {
+        return ['rap '];
+    }
+
     getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'num_leading_samples_known', DataType.BIT, 1),

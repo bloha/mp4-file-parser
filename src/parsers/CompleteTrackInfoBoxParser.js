@@ -6,6 +6,10 @@ import { OriginalFormatBoxParser } from './OriginalFormatBoxParser.js';
 
 export class CompleteTrackInfoBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['cinf'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

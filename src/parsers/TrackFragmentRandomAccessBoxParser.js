@@ -7,6 +7,10 @@ import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
 
 export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['tfra'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

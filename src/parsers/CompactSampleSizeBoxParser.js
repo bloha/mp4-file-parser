@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class CompactSampleSizeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stz2'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

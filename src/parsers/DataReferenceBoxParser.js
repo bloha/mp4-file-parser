@@ -7,6 +7,10 @@ import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder
 
 export class DataReferenceBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['dref'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

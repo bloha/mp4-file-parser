@@ -8,6 +8,10 @@ import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder
 
 export class ItemInfoBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['iinf'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

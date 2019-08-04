@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TrackExtendsBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['trex'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

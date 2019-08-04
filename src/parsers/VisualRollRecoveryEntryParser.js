@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class VisualRollRecoveryEntryParser extends EntityParser {
 
+    static getTypes() {
+        return ['roll', 'prol'];
+    }
+
     getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'roll_distance', DataType.INT16)

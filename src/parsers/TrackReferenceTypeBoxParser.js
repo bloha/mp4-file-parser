@@ -8,6 +8,18 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TrackReferenceTypeBoxParser extends BoxParser {
 
+    static getTypes() {
+        return [
+            'hint',
+            'cdsc',
+            'font',
+            'hind',
+            'vdep',
+            'vplx',
+            'subt'
+        ];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

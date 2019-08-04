@@ -8,6 +8,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class SubTrackInformationParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stri'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

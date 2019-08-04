@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class ShadowSyncSampleBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stsh'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

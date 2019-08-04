@@ -11,6 +11,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class FdItemInformationBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['fiin'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

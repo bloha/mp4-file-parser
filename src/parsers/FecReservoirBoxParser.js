@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FecReservoirBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['fecr'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

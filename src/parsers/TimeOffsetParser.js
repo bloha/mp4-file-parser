@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TimeOffsetParser extends BoxParser {
 
+    static getTypes() {
+        return ['tsro'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

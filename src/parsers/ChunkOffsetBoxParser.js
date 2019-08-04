@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class ChunkOffsetBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stco'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

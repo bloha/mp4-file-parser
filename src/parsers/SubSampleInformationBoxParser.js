@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SubSampleInformationBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['subs'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

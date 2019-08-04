@@ -8,6 +8,10 @@ import { ProtectionSchemeInfoBoxParser } from './ProtectionSchemeInfoBoxParser.j
 
 export class ItemProtectionBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['ipro'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

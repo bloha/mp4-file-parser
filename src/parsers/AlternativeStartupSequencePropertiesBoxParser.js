@@ -8,6 +8,10 @@ import { Template } from '../logic/Template.js';
 
 export class AlternativeStartupSequencePropertiesBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['assp'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

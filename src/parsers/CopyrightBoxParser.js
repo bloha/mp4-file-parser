@@ -6,6 +6,10 @@ import { Template } from '../logic/Template.js';
 
 export class CopyrightBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['cprt'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

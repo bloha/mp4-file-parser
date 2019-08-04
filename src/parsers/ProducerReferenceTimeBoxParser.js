@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class ProducerReferenceTimeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['prft'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

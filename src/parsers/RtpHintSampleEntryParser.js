@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class RtpHintSampleEntryParser extends SampleEntryParser {
 
+    static getTypes() {
+        return ['rtp ', 'srtp'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

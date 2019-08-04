@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class VideoMediaHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['vmhd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

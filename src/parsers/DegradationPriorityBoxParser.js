@@ -7,6 +7,14 @@ import { SampleSizeBoxParser } from './SampleSizeBoxParser.js';
 
 export class DegradationPriorityBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stdp'];
+    }
+
+    static getRequiredClasses() {
+        return [SampleSizeBoxParser];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
@@ -15,10 +23,6 @@ export class DegradationPriorityBoxParser extends FullBoxParser {
                 Template.getSimpleEntryTemplate(this, 'priority', DataType.UINT16)
             )
         ];
-    }
-
-    static getRequiredClasses() {
-        return [SampleSizeBoxParser];
     }
 
 }

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SampleToChunkBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stsc'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

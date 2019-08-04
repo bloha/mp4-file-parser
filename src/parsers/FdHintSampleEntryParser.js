@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FdHintSampleEntryParser extends SampleEntryParser {
 
+    static getTypes() {
+        return ['fdp '];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

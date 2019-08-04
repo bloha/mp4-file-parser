@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TrackGroupTypeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['msrc'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

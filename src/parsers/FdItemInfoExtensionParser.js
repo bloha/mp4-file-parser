@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FdItemInfoExtensionParser extends EntityParser {
 
+    static getTypes() {
+        return ['fdel'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

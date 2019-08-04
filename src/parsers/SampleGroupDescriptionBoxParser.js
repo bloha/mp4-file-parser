@@ -9,6 +9,10 @@ import { EntityLogicBlockBuilder } from '../logic/entity/EntityLogicBlockBuilder
 
 export class SampleGroupDescriptionBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['sgpd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

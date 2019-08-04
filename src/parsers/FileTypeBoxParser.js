@@ -8,6 +8,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class FileTypeBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['ftyp', 'styp'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

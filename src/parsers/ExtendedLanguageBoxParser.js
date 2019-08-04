@@ -5,6 +5,10 @@ import { Template } from '../logic/Template.js';
 
 export class ExtendedLanguageBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['elng'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

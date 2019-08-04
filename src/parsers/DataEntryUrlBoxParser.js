@@ -5,6 +5,10 @@ import { Template } from '../logic/Template.js';
 
 export class DataEntryUrlBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['url '];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

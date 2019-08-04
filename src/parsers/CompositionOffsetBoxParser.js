@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class CompositionOffsetBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['ctts'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

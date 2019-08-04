@@ -48,6 +48,10 @@ export class EntityParser extends FieldContainer {
         return this.parserManager;
     }
 
+    static getTypes() {
+        return [];
+    }
+
     static getRequiredClasses() {
         return [];
     }

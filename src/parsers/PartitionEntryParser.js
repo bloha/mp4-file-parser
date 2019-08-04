@@ -9,6 +9,10 @@ import { FileReservoirBoxParser } from './FileReservoirBoxParser.js';
 
 export class PartitionEntryParser extends BoxParser {
 
+    static getTypes() {
+        return ['paen'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

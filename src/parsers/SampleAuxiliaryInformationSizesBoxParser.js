@@ -8,6 +8,10 @@ import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.
 
 export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['saiz'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

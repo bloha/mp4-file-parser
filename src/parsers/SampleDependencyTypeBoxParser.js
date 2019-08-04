@@ -8,6 +8,14 @@ import { CompactSampleSizeBoxParser } from './CompactSampleSizeBoxParser.js';
 
 export class SampleDependencyTypeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['sdtp'];
+    }
+
+    static getRequiredClasses() {
+        return [SampleSizeBoxParser, CompactSampleSizeBoxParser];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
@@ -19,10 +27,6 @@ export class SampleDependencyTypeBoxParser extends FullBoxParser {
                 Template.getSimpleEntryTemplate(this, 'sample_has_redundancy', DataType.BIT, 2)
             )
         ];
-    }
-
-    static getRequiredClasses() {
-        return [SampleSizeBoxParser, CompactSampleSizeBoxParser];
     }
 
 }

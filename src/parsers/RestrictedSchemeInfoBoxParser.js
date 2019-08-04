@@ -9,6 +9,10 @@ import { Condition } from '../logic/Condition.js';
 
 export class RestrictedSchemeInfoBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['rinf'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

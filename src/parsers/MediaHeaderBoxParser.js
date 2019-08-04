@@ -7,6 +7,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class MediaHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['mdhd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TrackHeaderBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['tkhd'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

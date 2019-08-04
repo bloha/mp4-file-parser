@@ -9,6 +9,10 @@ import { SchemeInformationBoxParser } from './SchemeInformationBoxParser.js';
 
 export class SrtpProcessBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['srpp'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

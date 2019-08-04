@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class CompositionToDecodeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['cslg'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

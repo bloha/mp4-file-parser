@@ -15,6 +15,10 @@ import { Template } from '../logic/Template.js';
 
 export class MetaBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['meta'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

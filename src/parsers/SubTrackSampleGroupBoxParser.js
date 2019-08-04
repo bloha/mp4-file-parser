@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SubTrackSampleGroupBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['stsg'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

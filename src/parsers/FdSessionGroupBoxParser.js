@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class FdSessionGroupBoxParser extends BoxParser {
 
+    static getTypes() {
+        return ['segr'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

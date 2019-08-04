@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class TrackFragmentBaseMediaDecodeTimeBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['tfdt'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

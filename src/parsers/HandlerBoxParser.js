@@ -6,6 +6,10 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class HandlerBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['hdlr'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),

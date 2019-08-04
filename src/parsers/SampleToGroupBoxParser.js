@@ -7,6 +7,10 @@ import { DataLogicBlockBuilder } from '../logic/data/DataLogicBlockBuilder.js';
 
 export class SampleToGroupBoxParser extends FullBoxParser {
 
+    static getTypes() {
+        return ['sbgp'];
+    }
+
     getLogicBlocks() {
         return [
             ...super.getLogicBlocks(),
