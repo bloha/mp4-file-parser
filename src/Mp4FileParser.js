@@ -3,7 +3,7 @@
 import { BlobParser } from './data/blob/BlobParser.js';
 import { MainParser } from './parsers/MainParser.js';
 import { BufferParser } from './data/buffer/BufferParser.js';
-import { ParserManager } from './container/ParserManager.js';
+import { ParserManager } from './parsers/entity/ParserManager.js';
 
 export class Mp4FileParser {
 
