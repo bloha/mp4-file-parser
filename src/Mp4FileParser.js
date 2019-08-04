@@ -6,7 +6,7 @@ import { BufferParser } from './data/buffer/BufferParser.js';
 
 export class Mp4FileParser {
 
-    constructor(data) {
+    constructor({ data }) {
         const dataParserClass = data instanceof Blob ? BlobParser : BufferParser;
         this.dataParser = new dataParserClass({ data, offset: 0 });
     }
