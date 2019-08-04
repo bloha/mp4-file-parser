@@ -13,7 +13,6 @@ export class EntityParser extends FieldContainer {
     constructor({ dataParser, parserManager }) {
         Abstraction.needsInheritance(new.target, EntityParser);
         super();
-        this.initialDataParser = dataParser;
         this.dataParser = dataParser;
         this.parserManager = parserManager;
         this.logicBlocks = [];
@@ -31,17 +30,8 @@ export class EntityParser extends FieldContainer {
         Abstraction.needsImplementation();
     }
 
-    restoreInitialDataParser() {
-        this.dataParser = this.initialDataParser;
-    }
-
     getDataParser() {
         return this.dataParser;
-    }
-
-    setDataParser(dataParser) {
-        this.dataParser = dataParser;
-        return this;
     }
 
     getParserManager() {
