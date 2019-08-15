@@ -14,7 +14,7 @@ export class MovieExtendsHeaderBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
 
-            Template.getSimpleEntryTemplate(this, 'fragment_duration', DataType.UINT32, DataType.UINT64)
+            Template.getSimpleVersionTemplate(this, 'fragment_duration', DataType.UINT32, DataType.UINT64)
         ];
     }
 
