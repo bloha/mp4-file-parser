@@ -18,7 +18,7 @@ export class LevelAssignmentBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'level_count', DataType.UINT8),
 
-            Template.getEntryTemplate(this, 'entries', 'level_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'level_count',
                 Template.getSimpleEntryTemplate(this, 'track_id', DataType.UINT32),
                 Template.getSimpleEntryTemplate(this, 'padding_flag', DataType.BIT, 1),
                 Template.getSimpleEntryTemplate(this, 'assignment_type', DataType.BIT, 7),

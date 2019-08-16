@@ -16,10 +16,10 @@ export class SubsegmentIndexBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'subsegment_count', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'subsegment_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'subsegment_count',
                 Template.getSimpleEntryTemplate(this, 'range_count', DataType.UINT32),
 
-                Template.getEntryTemplate(this, 'entries', 'range_count',
+                Template.getEntryCollectionTemplate(this, 'entries', 'range_count',
                     Template.getSimpleEntryTemplate(this, 'level', DataType.UINT8),
                     Template.getSimpleEntryTemplate(this, 'range_size', DataType.BIT, 24),
                 )

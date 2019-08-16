@@ -17,7 +17,7 @@ export class DataReferenceBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 new EntityLogicBlockBuilder(this)
                     .setName('data_entry')
                     .build()

@@ -19,7 +19,7 @@ export class TrackRunBoxParser extends FullBoxParser {
             Template.getSimpleFlagsTemplate(this, 'data_offset', 0x000001, DataType.INT32),
             Template.getSimpleFlagsTemplate(this, 'first_sample_flags', 0x000004, DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'sample_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'sample_count',
                 Template.getSimpleFlagsTemplate(this, 'sample_duration', 0x000100, DataType.UINT32),
                 Template.getSimpleFlagsTemplate(this, 'sample_size', 0x000200, DataType.UINT32),
                 Template.getSimpleFlagsTemplate(this, 'sample_flags', 0x000400, DataType.UINT32),

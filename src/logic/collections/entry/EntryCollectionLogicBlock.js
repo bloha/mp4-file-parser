@@ -2,7 +2,7 @@
 
 import { CollectionLogicBlock } from '../CollectionLogicBlock.js';
 
-export class EntryLogicBlock extends CollectionLogicBlock {
+export class EntryCollectionLogicBlock extends CollectionLogicBlock {
 
     constructor(obj) {
         super(obj);

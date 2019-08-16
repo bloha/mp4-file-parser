@@ -24,7 +24,7 @@ export class SegmentIndexBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'reference_count', DataType.UINT16),
 
-            Template.getEntryTemplate(this, 'entries', 'reference_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'reference_count',
                 Template.getSimpleEntryTemplate(this, 'reference_type', DataType.BIT, 1),
                 Template.getSimpleEntryTemplate(this, 'referenced_size', DataType.BIT, 31),
 

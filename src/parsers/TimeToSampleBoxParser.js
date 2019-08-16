@@ -16,7 +16,7 @@ export class TimeToSampleBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
                 Template.getSimpleEntryTemplate(this, 'sample_delta', DataType.UINT32)
             )

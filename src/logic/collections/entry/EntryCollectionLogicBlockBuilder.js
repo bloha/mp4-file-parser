@@ -1,12 +1,12 @@
 'use strict';
 
-import { EntryLogicBlock } from './EntryLogicBlock.js';
+import { EntryCollectionLogicBlock } from './EntryCollectionLogicBlock.js';
 import { CollectionLogicBlockBuilder } from '../CollectionLogicBlockBuilder.js';
 
-export class EntryLogicBlockBuilder extends CollectionLogicBlockBuilder {
+export class EntryCollectionLogicBlockBuilder extends CollectionLogicBlockBuilder {
 
     build() {
-        return new EntryLogicBlock({
+        return new EntryCollectionLogicBlock({
             entityParser: this.entityParser,
             name: this.name,
             type: this.type,

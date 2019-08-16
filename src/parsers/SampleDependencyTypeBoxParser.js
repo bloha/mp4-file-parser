@@ -20,7 +20,7 @@ export class SampleDependencyTypeBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
 
-            Template.getEntryTemplate(this, 'entries', 'sample_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'sample_count',
                 Template.getSimpleEntryTemplate(this, 'is_leading', DataType.BIT, 2),
                 Template.getSimpleEntryTemplate(this, 'sample_depends_on', DataType.BIT, 2),
                 Template.getSimpleEntryTemplate(this, 'sample_is_depended_on', DataType.BIT, 2),

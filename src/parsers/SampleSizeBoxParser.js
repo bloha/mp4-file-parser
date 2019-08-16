@@ -3,7 +3,7 @@
 import { FullBoxParser } from './FullBoxParser.js';
 import { Template } from '../logic/Template.js';
 import { DataType } from '../logic/data/DataType.js';
-import { EntryLogicBlockBuilder } from '../logic/collections/entry/EntryLogicBlockBuilder.js';
+import { EntryCollectionLogicBlockBuilder } from '../logic/collections/entry/EntryCollectionLogicBlockBuilder.js';
 import { ConditionBlockBuilder } from '../logic/condition/ConditionBlockBuilder.js';
 
 export class SampleSizeBoxParser extends FullBoxParser {
@@ -19,7 +19,7 @@ export class SampleSizeBoxParser extends FullBoxParser {
             Template.getSimpleEntryTemplate(this, 'sample_size', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
 
-            new EntryLogicBlockBuilder(this)
+            new EntryCollectionLogicBlockBuilder(this)
                 .setName('entries')
                 .setSize('sample_count')
                 .setConditions(

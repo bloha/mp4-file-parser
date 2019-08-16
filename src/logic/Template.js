@@ -3,7 +3,7 @@
 import { DataType } from './data/DataType.js';
 import { DataLogicBlockBuilder } from './data/DataLogicBlockBuilder.js';
 import { ArrayLogicBlockBuilder } from './collections/array/ArrayLogicBlockBuilder.js';
-import { EntryLogicBlockBuilder } from './collections/entry/EntryLogicBlockBuilder.js';
+import { EntryCollectionLogicBlockBuilder } from './collections/entry/EntryCollectionLogicBlockBuilder.js';
 import { StringLogicBlockBuilder } from './string/StringLogicBlockBuilder.js';
 import { EntityCollectionLogicBlockBuilder } from './entity/collection/EntityCollectionLogicBlockBuilder.js';
 import { ByteOrderMarkStringLogicBlockBuilder } from './string/ByteOrderMarkStringLogicBlockBuilder.js';
@@ -28,8 +28,8 @@ export class Template {
             .build();
     }
 
-    static getEntryTemplate(entityParser, name, size, ...entries) {
-        return new EntryLogicBlockBuilder(entityParser)
+    static getEntryCollectionTemplate(entityParser, name, size, ...entries) {
+        return new EntryCollectionLogicBlockBuilder(entityParser)
             .setName(name)
             .setSize(size)
             .setEntries(...entries)

@@ -30,7 +30,7 @@ export class FilePartitionBoxParser extends FullBoxParser {
 
             Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'block_count', DataType.UINT16),
                 Template.getSimpleEntryTemplate(this, 'block_size', DataType.UINT32)
             )

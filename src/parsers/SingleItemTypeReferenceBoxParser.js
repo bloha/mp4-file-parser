@@ -13,7 +13,7 @@ export class SingleItemTypeReferenceBoxParser extends BoxParser {
             Template.getSimpleEntryTemplate(this, 'from_item_ID', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'reference_count', DataType.UINT16),
 
-            Template.getEntryTemplate(this, 'entries', 'reference_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'reference_count',
                 Template.getSimpleEntryTemplate(this, 'to_item_ID', DataType.UINT16)
             )
         ];

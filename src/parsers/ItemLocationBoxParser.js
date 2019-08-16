@@ -23,7 +23,7 @@ export class ItemLocationBoxParser extends FullBoxParser {
             this._getVersionTemplate('index_size', [1, 2], DataType.BIT, 4, [0], DataType.BIT_SKIP, 4),
             this._getVersionTemplate('item_count', [0, 1], DataType.UINT16, undefined, [2], DataType.UINT32, undefined),
 
-            Template.getEntryTemplate(this, 'entries', 'item_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'item_count',
                 this._getVersionTemplate('item_ID', [0, 1], DataType.UINT16, undefined, [2], DataType.UINT32, undefined),
                 this._getVersionTemplate(undefined, [1, 2], DataType.BIT_SKIP, 12),
                 this._getVersionTemplate('construction_method', [1, 2], DataType.BIT, 4),
@@ -34,7 +34,7 @@ export class ItemLocationBoxParser extends FullBoxParser {
 
                 Template.getSimpleEntryTemplate(this, 'extent_count', DataType.UINT16),
 
-                Template.getEntryTemplate(this, 'entries', 'extent_count',
+                Template.getEntryCollectionTemplate(this, 'entries', 'extent_count',
                     this._getTemplate('extent_index', 'index_size', [1, 2], true),
                     this._getTemplate('extent_offset', 'offset_size'),
                     this._getTemplate('extent_length', 'length_size')

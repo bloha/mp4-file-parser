@@ -14,7 +14,7 @@ export class EditListBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleVersionTemplate(this, 'segment_duration', DataType.UINT32, DataType.UINT64),
                 Template.getSimpleVersionTemplate(this, 'media_time', DataType.UINT32, DataType.UINT64),
                 Template.getSimpleEntryTemplate(this, 'media_rate_integer', DataType.INT16),

@@ -19,7 +19,7 @@ export class DegradationPriorityBoxParser extends FullBoxParser {
         return [
             ...super.getLogicBlocks(),
 
-            Template.getEntryTemplate(this, 'entries', 'sample_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'sample_count',
                 Template.getSimpleEntryTemplate(this, 'priority', DataType.UINT16)
             )
         ];

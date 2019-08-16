@@ -25,7 +25,7 @@ export class TrackFragmentRandomAccessBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'number_of_entry', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'number_of_entry',
+            Template.getEntryCollectionTemplate(this, 'entries', 'number_of_entry',
                 Template.getSimpleVersionTemplate(this, 'time', DataType.UINT32, DataType.UINT64),
                 Template.getSimpleVersionTemplate(this, 'moof_offset', DataType.UINT32, DataType.UINT64),
                 this._getTemplate('traf_number', 'length_size_of_traf_num'),

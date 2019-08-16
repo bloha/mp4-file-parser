@@ -16,7 +16,7 @@ export class GroupIdToNameBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT16),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'group_ID', DataType.UINT32),
                 Template.getStringTemplate(this, 'group_name')
             )

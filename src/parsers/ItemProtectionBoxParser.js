@@ -18,7 +18,7 @@ export class ItemProtectionBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'protection_count', DataType.UINT16),
 
-            Template.getEntryTemplate(this, 'entries', 'protection_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'protection_count',
                 new EntityLogicBlockBuilder(this)
                     .setName('protection_information')
                     .setClass(ProtectionSchemeInfoBoxParser)

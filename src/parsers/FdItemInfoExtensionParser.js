@@ -21,7 +21,7 @@ export class FdItemInfoExtensionParser extends EntityParser {
             Template.getSimpleEntryTemplate(this, 'transfer_length', DataType.UINT64),
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT8),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'group_id', DataType.UINT32)
             )
         ];

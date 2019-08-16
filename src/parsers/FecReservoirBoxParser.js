@@ -16,7 +16,7 @@ export class FecReservoirBoxParser extends FullBoxParser {
 
             Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleVersionTemplate(this, 'item_ID', DataType.UINT16, DataType.UINT32),
                 Template.getSimpleEntryTemplate(this, 'symbol_count', DataType.UINT32)
             )

@@ -16,7 +16,7 @@ export class ChunkOffsetBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'chunk_offset', DataType.UINT32))
         ];
     }

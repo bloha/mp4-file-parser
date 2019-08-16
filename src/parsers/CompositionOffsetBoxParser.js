@@ -16,7 +16,7 @@ export class CompositionOffsetBoxParser extends FullBoxParser {
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 
-            Template.getEntryTemplate(this, 'entries', 'entry_count',
+            Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
                 Template.getSimpleVersionTemplate(this, 'sample_offset', DataType.UINT32, DataType.INT32)
             )
