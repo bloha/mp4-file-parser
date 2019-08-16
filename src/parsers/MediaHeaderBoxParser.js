@@ -24,7 +24,7 @@ export class MediaHeaderBoxParser extends FullBoxParser {
 
             ...Strategy.getLanguageParsingStrategy(this),
 
-            Template.getSimpleEntryTemplate(this, 'pre_defined', DataType.UINT16)
+            Template.getByteSkipTemplate(this, 16 / 8)
         ];
     }
 

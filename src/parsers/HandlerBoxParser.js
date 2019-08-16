@@ -14,7 +14,8 @@ export class HandlerBoxParser extends FullBoxParser {
         return [
             ...super._getLogicBlocks(),
 
-            Template.getSimpleEntryTemplate(this, 'pre_defined', DataType.UINT32),
+            Template.getByteSkipTemplate(this, 32 / 8),
+
             Template.getSimpleEntryTemplate(this, 'handler_type', DataType.TEXT, 4),
 
             Template.getByteSkipTemplate(this, 32 / 8 * 3),

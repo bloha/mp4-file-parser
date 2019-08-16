@@ -29,8 +29,7 @@ export class MovieHeaderBoxParser extends FullBoxParser {
             Template.getArrayTemplate(this, 'matrix', 9,
                 Template.getSimpleEntryTemplate(this, undefined, DataType.INT32)),
 
-            Template.getArrayTemplate(this, 'pre_defined', 6,
-                Template.getSimpleEntryTemplate(this, undefined, DataType.UINT32)),
+            Template.getByteSkipTemplate(this, 32 / 8 * 6),
 
             Template.getSimpleEntryTemplate(this, 'next_track_ID', DataType.UINT32)
         ];
