@@ -12,9 +12,9 @@ export class ItemProtectionBoxParser extends FullBoxParser {
         return ['ipro'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'protection_count', DataType.UINT16),
 

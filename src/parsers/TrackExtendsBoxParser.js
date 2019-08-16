@@ -10,9 +10,9 @@ export class TrackExtendsBoxParser extends FullBoxParser {
         return ['trex'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'track_ID', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'default_sample_description_index', DataType.UINT32),

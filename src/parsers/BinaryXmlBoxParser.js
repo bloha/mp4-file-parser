@@ -12,9 +12,9 @@ export class BinaryXmlBoxParser extends FullBoxParser {
         return ['bxml'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new ArrayLogicBlockBuilder(this)
                 .setName('data')

@@ -10,9 +10,9 @@ export class TimescaleEntryParser extends BoxParser {
         return ['tims'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'timescale', DataType.UINT32)
         ];

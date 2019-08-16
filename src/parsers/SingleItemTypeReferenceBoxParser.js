@@ -6,9 +6,9 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SingleItemTypeReferenceBoxParser extends BoxParser {
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'from_item_ID', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'reference_count', DataType.UINT16),

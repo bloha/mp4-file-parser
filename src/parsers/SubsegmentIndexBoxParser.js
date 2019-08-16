@@ -10,9 +10,9 @@ export class SubsegmentIndexBoxParser extends FullBoxParser {
         return ['ssix'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'subsegment_count', DataType.UINT32),
 

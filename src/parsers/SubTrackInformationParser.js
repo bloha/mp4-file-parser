@@ -12,9 +12,9 @@ export class SubTrackInformationParser extends FullBoxParser {
         return ['stri'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'switch_group', DataType.INT16),
             Template.getSimpleEntryTemplate(this, 'alternate_group', DataType.INT16),

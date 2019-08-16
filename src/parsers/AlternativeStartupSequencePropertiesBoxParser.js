@@ -12,9 +12,9 @@ export class AlternativeStartupSequencePropertiesBoxParser extends FullBoxParser
         return ['assp'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new DataLogicBlockBuilder(this)
                 .setName('min_initial_alt_startup_offset')

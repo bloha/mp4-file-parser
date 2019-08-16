@@ -10,9 +10,9 @@ export class CompositionOffsetBoxParser extends FullBoxParser {
         return ['ctts'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 

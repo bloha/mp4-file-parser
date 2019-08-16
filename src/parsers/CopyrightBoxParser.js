@@ -10,9 +10,9 @@ export class CopyrightBoxParser extends FullBoxParser {
         return ['cprt'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             ...Strategy.getLanguageParsingStrategy(),
 

@@ -10,9 +10,9 @@ export class EditListBoxParser extends FullBoxParser {
         return ['elst'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
             Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 Template.getSimpleVersionTemplate(this, 'segment_duration', DataType.UINT32, DataType.UINT64),

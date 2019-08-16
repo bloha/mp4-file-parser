@@ -13,9 +13,9 @@ export class PartitionEntryParser extends BoxParser {
         return ['paen'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new EntityLogicBlockBuilder(this)
                 .setName('blocks_and_symbols')

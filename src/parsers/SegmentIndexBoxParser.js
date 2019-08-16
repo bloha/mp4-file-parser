@@ -10,9 +10,9 @@ export class SegmentIndexBoxParser extends FullBoxParser {
         return ['sidx'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'reference_ID', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'timescale', DataType.UINT32),

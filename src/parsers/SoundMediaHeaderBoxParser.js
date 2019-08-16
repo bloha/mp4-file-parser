@@ -10,9 +10,9 @@ export class SoundMediaHeaderBoxParser extends FullBoxParser {
         return ['smhd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'balance', DataType.UINT16),
 

@@ -10,9 +10,9 @@ export class ChunkLargeOffsetBoxParser extends FullBoxParser {
         return ['co64'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 

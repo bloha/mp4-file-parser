@@ -10,7 +10,7 @@ export class VisualRollRecoveryEntryParser extends EntityParser {
         return ['roll', 'prol'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'roll_distance', DataType.INT16)
         ];

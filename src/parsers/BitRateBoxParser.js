@@ -10,9 +10,9 @@ export class BitRateBoxParser extends BoxParser {
         return ['btrt'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'bufferSizeDB', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'maxBitrate', DataType.UINT32),

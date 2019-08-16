@@ -16,9 +16,9 @@ export class SampleDependencyTypeBoxParser extends FullBoxParser {
         return [SampleSizeBoxParser, CompactSampleSizeBoxParser];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getEntryCollectionTemplate(this, 'entries', 'sample_count',
                 Template.getSimpleEntryTemplate(this, 'is_leading', DataType.BIT, 2),

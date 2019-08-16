@@ -12,9 +12,9 @@ export class ItemInfoBoxParser extends FullBoxParser {
         return ['iinf'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleVersionTemplate(this, 'entry_count', DataType.UINT16, DataType.UINT32),
 

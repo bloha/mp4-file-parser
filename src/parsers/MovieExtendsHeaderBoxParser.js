@@ -10,9 +10,9 @@ export class MovieExtendsHeaderBoxParser extends FullBoxParser {
         return ['mehd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleVersionTemplate(this, 'fragment_duration', DataType.UINT32, DataType.UINT64)
         ];

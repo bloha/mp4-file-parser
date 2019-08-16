@@ -9,9 +9,9 @@ export class KindBoxParser extends FullBoxParser {
         return ['kind'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getStringTemplate(this, 'schemeURI'),
             Template.getStringTemplate(this, 'value')

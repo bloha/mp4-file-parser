@@ -10,9 +10,9 @@ export class ShadowSyncSampleBoxParser extends FullBoxParser {
         return ['stsh'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 

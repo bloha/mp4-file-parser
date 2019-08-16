@@ -26,9 +26,9 @@ export class ContainerBoxParser extends BoxParser {
         ];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getEntityCollectionTemplate(this, 'children')
         ];

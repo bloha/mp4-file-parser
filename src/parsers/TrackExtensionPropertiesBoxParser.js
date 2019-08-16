@@ -10,9 +10,9 @@ export class TrackExtensionPropertiesBoxParser extends FullBoxParser {
         return ['trep'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'track_id', DataType.UINT32),
 

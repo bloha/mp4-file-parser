@@ -12,9 +12,9 @@ export class TrackSelectionBoxParser extends FullBoxParser {
         return ['tsel'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'switch_group', DataType.INT32),
 

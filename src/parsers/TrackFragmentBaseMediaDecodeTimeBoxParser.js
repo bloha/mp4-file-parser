@@ -10,9 +10,9 @@ export class TrackFragmentBaseMediaDecodeTimeBoxParser extends FullBoxParser {
         return ['tfdt'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleVersionTemplate(this, 'baseMediaDecodeTime', DataType.UINT32, DataType.UINT64)
         ];

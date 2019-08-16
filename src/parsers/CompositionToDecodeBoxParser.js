@@ -10,9 +10,9 @@ export class CompositionToDecodeBoxParser extends FullBoxParser {
         return ['cslg'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
             this._getTemplate('compositionToDTSShift'),
             this._getTemplate('leastDecodeToDisplayDelta'),
             this._getTemplate('greatestDecodeToDisplayDelta'),

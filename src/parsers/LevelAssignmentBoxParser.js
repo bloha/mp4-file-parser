@@ -12,9 +12,9 @@ export class LevelAssignmentBoxParser extends FullBoxParser {
         return ['leva'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'level_count', DataType.UINT8),
 

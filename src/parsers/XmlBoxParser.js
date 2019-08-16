@@ -9,9 +9,9 @@ export class XmlBoxParser extends FullBoxParser {
         return ['xml '];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getByteOrderMarkStringTemplate(this, 'xml')
         ];

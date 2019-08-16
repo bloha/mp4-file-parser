@@ -11,9 +11,9 @@ export class MediaHeaderBoxParser extends FullBoxParser {
         return ['mdhd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleVersionTemplate(this, 'creation_time', DataType.UINT32, DataType.UINT64),
             Template.getSimpleVersionTemplate(this, 'modification_time', DataType.UINT32, DataType.UINT64),

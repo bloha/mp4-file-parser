@@ -14,9 +14,9 @@ export class ItemInfoEntryParser extends FullBoxParser {
         return ['infe'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new DataLogicBlockBuilder(this)
                 .setName('item_ID')

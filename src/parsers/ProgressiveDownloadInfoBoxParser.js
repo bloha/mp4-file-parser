@@ -12,9 +12,9 @@ export class ProgressiveDownloadInfoBoxParser extends FullBoxParser {
         return ['pdin'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new EntryCollectionLogicBlockBuilder(this)
                 .setName('entries')

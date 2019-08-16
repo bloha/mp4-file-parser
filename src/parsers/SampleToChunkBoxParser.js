@@ -10,9 +10,9 @@ export class SampleToChunkBoxParser extends FullBoxParser {
         return ['stsc'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'entry_count', DataType.UINT32),
 

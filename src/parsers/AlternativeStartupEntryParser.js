@@ -12,7 +12,7 @@ export class AlternativeStartupEntryParser extends EntityParser {
         return ['alst'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'roll_count', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'first_output_sample', DataType.UINT16),

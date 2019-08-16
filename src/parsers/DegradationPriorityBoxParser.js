@@ -15,9 +15,9 @@ export class DegradationPriorityBoxParser extends FullBoxParser {
         return [SampleSizeBoxParser];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getEntryCollectionTemplate(this, 'entries', 'sample_count',
                 Template.getSimpleEntryTemplate(this, 'priority', DataType.UINT16)

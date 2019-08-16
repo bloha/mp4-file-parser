@@ -9,9 +9,9 @@ export class DataEntryUrlBoxParser extends FullBoxParser {
         return ['url '];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getStringTemplate(this, 'location')
         ];

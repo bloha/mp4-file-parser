@@ -10,9 +10,9 @@ export class MetaboxRelationBoxParser extends FullBoxParser {
         return ['mere'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            super.getLogicBlocks(),
+            super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'first_metabox_handler_type', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'second_metabox_handler_type', DataType.UINT32),

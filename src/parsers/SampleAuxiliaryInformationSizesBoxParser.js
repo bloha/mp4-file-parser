@@ -12,9 +12,9 @@ export class SampleAuxiliaryInformationSizesBoxParser extends FullBoxParser {
         return ['saiz'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleFlagsTemplate(this, 'aux_info_type', 1, DataType.UINT32),
             Template.getSimpleFlagsTemplate(this, 'aux_info_type_parameter', 1, DataType.UINT32),

@@ -11,9 +11,9 @@ export class SchemeTypeBoxParser extends FullBoxParser {
         return ['schm'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'scheme_type', DataType.TEXT, 4),
             Template.getSimpleEntryTemplate(this, 'scheme_version', DataType.UINT32),

@@ -9,7 +9,7 @@ import { Template } from '../logic/Template.js';
 
 export class BoxParser extends EntityParser {
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'size', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'type', DataType.TEXT, 4),

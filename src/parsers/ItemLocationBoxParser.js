@@ -12,9 +12,9 @@ export class ItemLocationBoxParser extends FullBoxParser {
         return ['iloc'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'offset_size', DataType.BIT, 4),
             Template.getSimpleEntryTemplate(this, 'length_size', DataType.BIT, 4),

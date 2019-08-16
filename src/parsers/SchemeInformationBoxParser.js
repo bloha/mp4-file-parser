@@ -9,9 +9,9 @@ export class SchemeInformationBoxParser extends BoxParser {
         return ['schi'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getEntityCollectionTemplate(this, 'scheme_specific_data')
         ];

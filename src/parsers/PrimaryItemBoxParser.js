@@ -10,9 +10,9 @@ export class PrimaryItemBoxParser extends FullBoxParser {
         return ['pitm'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleVersionTemplate(this, 'item_ID', DataType.UINT16, DataType.UINT32)
         ];

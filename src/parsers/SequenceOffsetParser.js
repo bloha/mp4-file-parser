@@ -10,9 +10,9 @@ export class SequenceOffsetParser extends BoxParser {
         return ['snro'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'offset', DataType.INT32)
         ];

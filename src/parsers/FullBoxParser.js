@@ -7,9 +7,9 @@ import { Template } from '../logic/Template.js';
 
 export class FullBoxParser extends BoxParser {
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'version', DataType.UINT8),
 

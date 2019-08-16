@@ -10,7 +10,7 @@ export class TemporalLevelEntryParser extends EntityParser {
         return ['tele'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'level_independently_decodable', DataType.BIT, 1),
             Template.getBitSkipTemplate(7)

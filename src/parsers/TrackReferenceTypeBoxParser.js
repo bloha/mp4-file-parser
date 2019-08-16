@@ -20,9 +20,9 @@ export class TrackReferenceTypeBoxParser extends BoxParser {
         ];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new ArrayLogicBlockBuilder(this)
                 .setName('track_IDs')

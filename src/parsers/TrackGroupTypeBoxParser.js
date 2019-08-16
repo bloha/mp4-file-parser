@@ -10,9 +10,9 @@ export class TrackGroupTypeBoxParser extends FullBoxParser {
         return ['msrc'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'track_group_id', DataType.UINT32)
         ];

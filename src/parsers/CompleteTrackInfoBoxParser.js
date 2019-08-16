@@ -10,9 +10,9 @@ export class CompleteTrackInfoBoxParser extends BoxParser {
         return ['cinf'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new EntityLogicBlockBuilder(this)
                 .setName('original_format')

@@ -10,9 +10,9 @@ export class CompactSampleSizeBoxParser extends FullBoxParser {
         return ['stz2'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getByteSkipTemplate(this, 24 / 8),
 

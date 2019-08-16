@@ -10,9 +10,9 @@ export class HintMediaHeaderBoxParser extends FullBoxParser {
         return ['hmhd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            super.getLogicBlocks(),
+            super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'maxPDUsize', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'avgPDUsize', DataType.UINT16),

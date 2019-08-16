@@ -10,9 +10,9 @@ export class OriginalFormatBoxParser extends BoxParser {
         return ['frma'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'data_format', DataType.TEXT, 4)
         ];

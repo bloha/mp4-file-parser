@@ -10,9 +10,9 @@ export class FdHintSampleEntryParser extends SampleEntryParser {
         return ['fdp '];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'hinttrackversion', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'highestcompatibleversion', DataType.UINT16),

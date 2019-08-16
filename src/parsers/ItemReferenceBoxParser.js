@@ -13,9 +13,9 @@ export class ItemReferenceBoxParser extends FullBoxParser {
         return ['iref'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new ArrayLogicBlockBuilder(this)
                 .setName('references')

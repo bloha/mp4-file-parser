@@ -13,9 +13,9 @@ export class SampleGroupDescriptionBoxParser extends FullBoxParser {
         return ['sgpd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'grouping_type', DataType.TEXT, 4),
 

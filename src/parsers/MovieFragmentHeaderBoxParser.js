@@ -10,9 +10,9 @@ export class MovieFragmentHeaderBoxParser extends FullBoxParser {
         return ['mfhd'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'sequence_number', DataType.UINT32)
         ];

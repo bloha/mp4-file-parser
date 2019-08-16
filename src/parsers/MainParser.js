@@ -6,7 +6,7 @@ import { Template } from '../logic/Template.js';
 
 export class MainParser extends EntityParser {
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             new CustomLogicBlockBuilder(this)
                 .setCustomMethod(

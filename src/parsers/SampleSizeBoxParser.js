@@ -12,9 +12,9 @@ export class SampleSizeBoxParser extends FullBoxParser {
         return ['stsz'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'sample_size', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),

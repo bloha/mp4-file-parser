@@ -6,9 +6,9 @@ import { DataType } from '../logic/data/DataType.js';
 
 export class SampleEntryParser extends BoxParser {
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getByteSkipTemplate(this, 6),
 

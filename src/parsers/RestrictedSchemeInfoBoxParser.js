@@ -13,9 +13,9 @@ export class RestrictedSchemeInfoBoxParser extends BoxParser {
         return ['rinf'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new EntityLogicBlockBuilder(this)
                 .setName('original_format')

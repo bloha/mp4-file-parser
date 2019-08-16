@@ -11,9 +11,9 @@ export class SampleToGroupBoxParser extends FullBoxParser {
         return ['sbgp'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'grouping_type', DataType.UINT32),
 

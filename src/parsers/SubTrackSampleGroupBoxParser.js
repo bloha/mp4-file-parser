@@ -10,9 +10,9 @@ export class SubTrackSampleGroupBoxParser extends FullBoxParser {
         return ['stsg'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'grouping_type', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'item_count', DataType.UINT16),

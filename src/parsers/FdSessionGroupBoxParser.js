@@ -10,9 +10,9 @@ export class FdSessionGroupBoxParser extends BoxParser {
         return ['segr'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'num_session_groups', DataType.UINT16),
 

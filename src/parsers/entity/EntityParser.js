@@ -21,7 +21,7 @@ export class EntityParser extends FieldContainer {
     async parse() {
         this.openNewEntry();
         try {
-            for (const block of this.getLogicBlocks()) {
+            for (const block of this._getLogicBlocks()) {
                 await block.execute();
             }
         } finally {
@@ -29,7 +29,7 @@ export class EntityParser extends FieldContainer {
         }
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         Abstraction.needsImplementation();
     }
 

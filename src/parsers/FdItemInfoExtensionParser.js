@@ -10,9 +10,9 @@ export class FdItemInfoExtensionParser extends EntityParser {
         return ['fdel'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getStringTemplate(this, 'content_location'),
             Template.getStringTemplate(this, 'content_MD5'),

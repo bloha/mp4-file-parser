@@ -10,9 +10,9 @@ export class StereoVideoBoxParser extends FullBoxParser {
         return ['stvi'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getBitSkipTemplate(this, 30),
 

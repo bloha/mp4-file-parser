@@ -9,9 +9,9 @@ export class ExtendedLanguageBoxParser extends FullBoxParser {
         return ['elng'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getStringTemplate(this, 'extended_language')
         ];

@@ -10,9 +10,9 @@ export class MovieFragmentRandomAccessOffsetBoxParser extends FullBoxParser {
         return ['mfro'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'size', DataType.UINT32)
         ];

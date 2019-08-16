@@ -10,7 +10,7 @@ export class VisualRandomAccessEntryParser extends EntityParser {
         return ['rap '];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
             Template.getSimpleEntryTemplate(this, 'num_leading_samples_known', DataType.BIT, 1),
             Template.getSimpleEntryTemplate(this, 'num_leading_samples', DataType.BIT, 7)

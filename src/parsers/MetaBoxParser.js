@@ -19,9 +19,9 @@ export class MetaBoxParser extends FullBoxParser {
         return ['meta'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             new EntityLogicBlockBuilder(this)
                 .setName('theHandler')

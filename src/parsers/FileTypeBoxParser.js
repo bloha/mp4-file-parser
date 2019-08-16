@@ -12,9 +12,9 @@ export class FileTypeBoxParser extends BoxParser {
         return ['ftyp', 'styp'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'major_brand', DataType.TEXT, 4),
             Template.getSimpleEntryTemplate(this, 'minor_version', DataType.UINT32),

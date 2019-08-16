@@ -10,9 +10,9 @@ export class TrackRunBoxParser extends FullBoxParser {
         return ['trun'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'sample_count', DataType.UINT32),
 

@@ -13,9 +13,9 @@ export class SrtpProcessBoxParser extends FullBoxParser {
         return ['srpp'];
     }
 
-    getLogicBlocks() {
+    _getLogicBlocks() {
         return [
-            ...super.getLogicBlocks(),
+            ...super._getLogicBlocks(),
 
             Template.getSimpleEntryTemplate(this, 'encryption_algorithm_rtp', DataType.UINT32),
             Template.getSimpleEntryTemplate(this, 'encryption_algorithm_rtcp', DataType.UINT32),
