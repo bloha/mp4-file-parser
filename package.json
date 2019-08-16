@@ -2,6 +2,11 @@
 	"name": "mp4-file-parser",
 	"version": "1.0.0",
 	"license": "MIT",
+	"description": "Client-side MP4 file parser for JavaScript based on ISO/IEC 14496-12",
+	"keywords": [
+		"MP4",
+		"Parser"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/bloha/mp4-file-parser.git"
