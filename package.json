@@ -1,6 +1,6 @@
 {
 	"name": "mp4-file-parser",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
 	"description": "Client-side MP4 (MPEG-4) file parser for JavaScript based on ISO/IEC 14496-12",
 	"keywords": [
