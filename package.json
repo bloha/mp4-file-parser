@@ -2,9 +2,11 @@
 	"name": "mp4-file-parser",
 	"version": "1.0.0",
 	"license": "MIT",
-	"description": "Client-side MP4 file parser for JavaScript based on ISO/IEC 14496-12",
+	"description": "Client-side MP4 (MPEG-4) file parser for JavaScript based on ISO/IEC 14496-12",
 	"keywords": [
 		"MP4",
+		"MPEG-4",
+		"MPEG4",
 		"Parser"
 	],
 	"repository": {
@@ -13,11 +15,11 @@
 	},
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "webpack --mode development",
+		"build": "webpack --mode production",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"devDependencies": {
-		"webpack": "^4.39.0",
+		"webpack": "^4.39.2",
 		"webpack-cli": "^3.3.6"
 	},
 	"dependencies": {
