@@ -16,7 +16,7 @@ export class RtpHintSampleEntryParser extends SampleEntryParser {
 
             Template.getSimpleEntryTemplate(this, 'hinttrackversion', DataType.UINT16),
             Template.getSimpleEntryTemplate(this, 'highestcompatibleversion', DataType.UINT16),
-            Template.getSimpleEntryTemplate(this, 'maxpacketsize;', DataType.UINT32),
+            Template.getSimpleEntryTemplate(this, 'maxpacketsize', DataType.UINT32),
 
             Template.getEntityCollectionTemplate(this, 'additionaldata')
         ];

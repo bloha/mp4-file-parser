@@ -35,7 +35,7 @@ export class SampleGroupDescriptionBoxParser extends FullBoxParser {
 
             Template.getEntryCollectionTemplate(this, 'entries', 'entry_count',
                 new DataLogicBlockBuilder(this)
-                    .setName('description_length;')
+                    .setName('description_length')
                     .setDataType(DataType.UINT32)
                     .setVersions(1)
                     .setConditions(
